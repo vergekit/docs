@@ -2,7 +2,27 @@
 
 VK deploys as an Astro server app on Cloudflare Workers.
 
-## 1. Create D1
+Keep committed runtime config in Workers bindings and `wrangler.jsonc` vars.
+Keep local secret values in `.dev.vars`, and set deployed secret values with
+Wrangler secrets.
+
+## 1. Preflight
+
+Run the same verification command locally and in CI:
+
+```bash
+npm run verify
+```
+
+This runs type checking, linting, tests, and the production build.
+
+Build directly when investigating adapter or bundling issues:
+
+```bash
+npm run build
+```
+
+## 2. Create D1
 
 Create the remote database:
 
@@ -25,7 +45,28 @@ Copy the returned `database_id` into `wrangler.jsonc`:
 }
 ```
 
-## 2. Set Secrets
+## 3. Configure Runtime Variables
+
+Use `wrangler.jsonc` as the committed source of truth for non-secret app-level
+Worker variables:
+
+```jsonc
+{
+  "vars": {
+    "APP_NAME": "VK",
+    "DATABASE_TARGET": "d1",
+    "EMAIL_PROVIDER": "console",
+    "BETTER_AUTH_URL": "https://example.com",
+    "EMAIL_FROM": "VK <noreply@example.com>",
+    "MAILGUN_DOMAIN": "mg.example.com",
+  },
+}
+```
+
+If you use named Wrangler environments, define the `vars` block inside each
+environment because Wrangler does not inherit `vars` from the top level.
+
+## 4. Set Secrets
 
 Generate a stable Better Auth secret:
 
@@ -39,13 +80,20 @@ Set it in Cloudflare:
 npx wrangler secret put BETTER_AUTH_SECRET
 ```
 
-Set the public auth URL for the deployed app. Use your production origin:
+If you deploy with a named Wrangler environment, pass the environment name:
 
 ```bash
-npx wrangler secret put BETTER_AUTH_URL
+npx wrangler secret put BETTER_AUTH_SECRET --env production
 ```
 
-## 3. Configure Email
+List configured secret names when auditing an environment:
+
+```bash
+npx wrangler secret list
+npx wrangler secret list --env production
+```
+
+## 5. Configure Email
 
 Set `EMAIL_PROVIDER` in `wrangler.jsonc`:
 
@@ -67,13 +115,15 @@ For Mailgun:
 
 ```bash
 npx wrangler secret put MAILGUN_API_KEY
-npx wrangler secret put MAILGUN_DOMAIN
 ```
+
+Set `MAILGUN_DOMAIN` in `wrangler.jsonc` unless an environment needs a
+local-only override.
 
 For Cloudflare Email, configure the `EMAIL` binding and verified sending domain
 in Cloudflare.
 
-## 4. Migrate
+## 6. Migrate
 
 Apply remote D1 migrations:
 
@@ -81,15 +131,24 @@ Apply remote D1 migrations:
 npm run db:migrate:remote
 ```
 
-## 5. Verify
+Optionally create a verified remote admin user after migrations:
 
-Run the full local verification suite:
+```bash
+npm run init:admin -- --remote
+```
+
+This writes directly to the remote D1 database with Wrangler and does not require
+the app server to be running.
+
+## 7. Verify
+
+Run the full verification suite again before deployment:
 
 ```bash
 npm run verify
 ```
 
-## 6. Deploy
+## 8. Deploy
 
 Build and deploy with Wrangler:
 
@@ -99,3 +158,16 @@ npx wrangler deploy
 ```
 
 Use your normal Cloudflare project workflow if deployment is handled by CI.
+
+## Checklist
+
+1. Create the D1 database with `wrangler d1 create vk`.
+2. Update the D1 `database_id` in `wrangler.jsonc`.
+3. Configure non-secret app values in `wrangler.jsonc`.
+4. Configure `BETTER_AUTH_SECRET` and provider credentials with
+   `wrangler secret put`.
+5. Run `npm run db:migrate:remote`.
+6. Optionally create a verified admin user with
+   `npm run init:admin -- --remote`.
+7. Run `npm run verify`.
+8. Deploy with Wrangler or CI.

@@ -1,24 +1,25 @@
 # Introduction
 
-VK is an Astro boilerplate for small full-stack applications on Cloudflare
-Workers.
+Verge Kit is a foundation for building full-stack applications with Astro and
+Cloudflare Workers.
 
-It gives you a deployable base with authentication, database access, email,
-forms, validation, and tests already connected. It stays close to Astro,
-Cloudflare, Drizzle, Better Auth, and Tailwind instead of adding a large custom
-framework layer.
+It starts with the pieces most full-stack apps need: server-rendered Astro, D1,
+Drizzle, Better Auth, email, middleware, Zod validation, Astro Actions, and a
+plain Tailwind UI base. The project stays close to Astro, Cloudflare, Drizzle,
+Better Auth, and Tailwind instead of adding a large custom framework layer.
 
 ## Included
 
 - Astro server app with strict TypeScript.
 - Cloudflare Workers adapter.
-- D1 database binding named `DB`.
+- Cloudflare D1 as the supported runtime database.
 - Drizzle schema and migrations.
-- Better Auth using D1 through the Drizzle adapter.
+- Better Auth with email/password, email verification, reset password, and D1
+  storage.
 - Register, login, logout, email verification, forgot password, and reset
   password flows.
-- Middleware-authenticated `Astro.locals`.
-- Protected dashboard route.
+- Middleware that loads auth state into typed `Astro.locals`.
+- Public-by-default route auth with opt-in protected pages and APIs.
 - API response helpers.
 - Zod request parsing.
 - Astro Actions example.
@@ -29,23 +30,22 @@ framework layer.
 - Lucide Astro icons.
 - Vitest, happy-dom, oxlint, Prettier, and verification scripts.
 
-## Not Included Yet
+## Setup Flow
 
-- Admin UI.
-- RBAC.
-- Uploads and storage adapters.
-- Media processing.
-- CLI installer.
-- Production PostgreSQL or MySQL runtime support.
+New projects start with:
 
-## Database Status
+```bash
+npm create vergekit@latest my-app
+cd my-app
+npm install
+```
 
-D1 is the only supported runtime database.
+Local development uses `.dev.vars` for local secrets, `wrangler.jsonc` for
+committed non-secret Worker configuration, and Wrangler secrets for deployed
+secret values. Apply D1 migrations before running auth flows, then optionally
+create a verified admin user with `npm run init:admin`.
 
-The project has proof tests for future Hyperdrive PostgreSQL and MySQL support.
-Those targets are not enabled at runtime.
-
-## Project Shape
+## Runtime Shape
 
 ```text
 src/
@@ -58,3 +58,20 @@ src/
   pages/         Astro pages and API routes
   middleware.ts  auth locals and route protection
 ```
+
+## Not Included Yet
+
+- Admin UI.
+- RBAC.
+- Uploads and storage adapters.
+- Media processing.
+- Production PostgreSQL or MySQL runtime support.
+
+## Database Status
+
+D1 is the only supported runtime database. Runtime code should use the local
+`src/db` modules rather than importing `drizzle-orm/d1` directly from routes,
+actions, middleware, or UI code.
+
+The project has proof tests for future Hyperdrive PostgreSQL and MySQL support.
+Those targets are not enabled at runtime.

@@ -15,23 +15,65 @@
           "label": "Installation",
           "icon": "download",
           "attrs": { "data-astro-prefetch": true }
-        }
-      ]
-    },
-    {
-      "type": "group",
-      "label": "Workflow",
-      "items": [
+        },
         {
           "slug": "core-concepts",
           "label": "Core Concepts",
           "icon": "route",
           "attrs": { "data-astro-prefetch": true }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": "Setup",
+      "items": [
+        {
+          "slug": "setup/runtime-configuration",
+          "label": "Runtime Configuration",
+          "icon": "settings",
+          "attrs": { "data-astro-prefetch": true }
         },
+        {
+          "slug": "setup/d1",
+          "label": "D1 Database",
+          "icon": "database",
+          "attrs": { "data-astro-prefetch": true }
+        },
+        {
+          "slug": "setup/auth-routes",
+          "label": "Route Authentication",
+          "icon": "shield-check",
+          "attrs": { "data-astro-prefetch": true }
+        },
+        {
+          "slug": "setup/email",
+          "label": "Email Sending",
+          "icon": "mail",
+          "attrs": { "data-astro-prefetch": true }
+        },
+        {
+          "slug": "setup/initial-admin",
+          "label": "Initial Admin User",
+          "icon": "user-plus",
+          "attrs": { "data-astro-prefetch": true }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": "Operations",
+      "items": [
         {
           "slug": "deployment",
           "label": "Deployment",
           "icon": "rocket",
+          "attrs": { "data-astro-prefetch": true }
+        },
+        {
+          "slug": "workflow/index",
+          "label": "Workflow",
+          "icon": "map",
           "attrs": { "data-astro-prefetch": true }
         },
         {
@@ -40,12 +82,6 @@
           "icon": "blocks",
           "open": true,
           "items": [
-            {
-              "slug": "workflow/index",
-              "label": "Overview",
-              "icon": "map",
-              "attrs": { "data-astro-prefetch": true }
-            },
             {
               "slug": "workflow/customization",
               "label": "Customization",

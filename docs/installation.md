@@ -8,15 +8,31 @@
 - Wrangler through the project dependency.
 - A Cloudflare account for remote D1 and deployment.
 
-## Install
+## Create A Project
+
+Create a new app:
+
+```bash
+npm create vergekit@latest my-app
+```
 
 Install dependencies:
 
 ```bash
+cd my-app
 npm install
 ```
 
-Create local runtime variables:
+## Local Runtime Secrets
+
+Create local runtime secrets. The paste-free option copies the template and
+writes a fresh Better Auth secret:
+
+```bash
+cp .dev.vars.example .dev.vars && secret="$(openssl rand -base64 32)" && awk -v secret="$secret" 'BEGIN { done = 0 } /^BETTER_AUTH_SECRET=/ { print "BETTER_AUTH_SECRET=" secret; done = 1; next } { print } END { if (!done) print "BETTER_AUTH_SECRET=" secret }' .dev.vars > .dev.vars.tmp && mv .dev.vars.tmp .dev.vars
+```
+
+Or copy the file and fill the secret manually:
 
 ```bash
 cp .dev.vars.example .dev.vars
@@ -34,17 +50,48 @@ Add it to `.dev.vars`:
 BETTER_AUTH_SECRET=your-generated-secret
 ```
 
-Paste-free option:
-
-```bash
-secret="$(openssl rand -base64 32)" && awk -v secret="$secret" 'BEGIN { done = 0 } /^BETTER_AUTH_SECRET=/ { print "BETTER_AUTH_SECRET=" secret; done = 1; next } { print } END { if (!done) print "BETTER_AUTH_SECRET=" secret }' .dev.vars > .dev.vars.tmp && mv .dev.vars.tmp .dev.vars
-```
-
-Check the base URL:
+Local callback URLs usually stay in `.dev.vars`:
 
 ```bash
 BETTER_AUTH_URL=http://localhost:4321
 ```
+
+Committed, non-secret app defaults live in `wrangler.jsonc` under `vars`. Use
+`.dev.vars` only for local secrets or local-only overrides.
+
+## Database
+
+Apply local D1 migrations:
+
+```bash
+npm run db:migrate:local
+```
+
+Regenerate migrations after schema changes:
+
+```bash
+npm run db:generate
+```
+
+Optionally create a verified local admin user after migrations:
+
+```bash
+npm run init:admin
+```
+
+This writes directly to D1 with Wrangler and does not require `npm run dev`.
+
+See [D1 Setup](/docs/setup/d1) for production database setup, Drizzle Studio
+notes, and alternate local or Cloudflare-hosted development database options.
+
+## Auth Routes
+
+All routes are public until they opt into auth. Add protected exact paths or URL
+prefixes in `src/auth/routes.ts`, or check `Astro.locals.isAuthenticated` inside
+a specific page or route handler.
+
+See [Route Authentication](/docs/setup/auth-routes) for middleware-protected and
+route-local examples.
 
 ## Email
 
@@ -76,19 +123,8 @@ MAILGUN_DOMAIN=mg.example.com
 
 Cloudflare Email uses the `EMAIL` binding from `wrangler.jsonc`.
 
-## Database
-
-Apply local D1 migrations:
-
-```bash
-npm run db:migrate:local
-```
-
-Regenerate migrations after schema changes:
-
-```bash
-npm run db:generate
-```
+See [Email Sending](/docs/setup/email) for direct send examples, provider
+requirements, auth-email helpers, and testing notes.
 
 ## Run
 
@@ -104,5 +140,4 @@ Run the full local check:
 npm run verify
 ```
 
-`npm run verify` runs type checks, linting, format checks, tests, and the
-production build.
+`npm run verify` runs type checks, linting, tests, and the production build.
