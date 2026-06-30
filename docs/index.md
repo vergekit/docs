@@ -10,29 +10,29 @@ Better Auth, and Tailwind instead of adding a large custom framework layer.
 
 ## Included
 
-- Astro server app with strict TypeScript.
-- Cloudflare Workers adapter.
-- Cloudflare D1 as the supported runtime database.
-- Drizzle schema and migrations.
+- Astro server app with strict TypeScript
+- Cloudflare Workers adapter
+- Cloudflare D1 as the supported runtime database
+- Drizzle schema and migrations
 - Better Auth with email/password, email verification, reset password, and D1
-  storage.
+  storage
 - Better Auth admin plugin roles for `admin`, `moderator`, `user`, and
-  `banned`.
+  `banned`
 - Register, login, logout, email verification, forgot password, and reset
-  password flows.
-- Middleware that loads auth state into typed `Astro.locals`.
-- Public-by-default route auth with opt-in protected pages and APIs.
-- Custom 404 and 500 error pages.
-- API response helpers.
-- Zod request parsing.
-- Astro Actions example.
-- CSRF origin checks through Astro config.
+  password flows
+- Middleware that loads auth state into typed `Astro.locals`
+- Public-by-default route auth with opt-in protected pages and APIs
+- Custom 404 and 500 error pages
+- API response helpers
+- Zod request parsing
+- Astro Actions example
+- CSRF origin checks through Astro config
 - Email providers for console, Cloudflare Email, Resend, Mailgun, and explicit
-  Node SMTP usage.
-- Auth email templates with `@backstro/email`.
-- Tailwind CSS v4 and local Astro UI components.
-- Lucide Astro icons.
-- Vitest, happy-dom, oxlint, Prettier, and verification scripts.
+  Node SMTP usage
+- Auth email templates with `@backstro/email`
+- Tailwind CSS v4 and local Astro UI components
+- Lucide Astro icons
+- Vitest, happy-dom, oxlint, Prettier, and verification scripts
 
 ## Setup Flow
 

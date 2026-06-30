@@ -35,8 +35,8 @@
           "attrs": { "data-astro-prefetch": true }
         },
         {
-          "slug": "setup/d1",
-          "label": "D1 Database",
+          "slug": "setup/database",
+          "label": "Database",
           "icon": "database",
           "attrs": { "data-astro-prefetch": true }
         },

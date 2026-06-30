@@ -2,11 +2,11 @@
 
 ## Requirements
 
-- Node.js.
-- npm.
-- OpenSSL for local secret generation.
-- Wrangler through the project dependency.
-- A Cloudflare account for remote D1 and deployment.
+- Node.js
+- npm
+- OpenSSL for local secret generation
+- Wrangler through the project dependency
+- A Cloudflare account for remote D1 and deployment
 
 ## Create A Project
 
