@@ -38,8 +38,7 @@ described below.
 
 ## Provider Configuration
 
-The provider is selected by `EMAIL_PROVIDER`. When it is missing, the
-abstraction uses `console`.
+The provider is selected by `EMAIL_PROVIDER`. The default local provider is `console`, which logs auth emails instead of sending them.
 
 - `console`: Requires no config. Logs the email payload and returns
   `{ provider: 'console', id: 'console' }`. This is the local default.

@@ -87,3 +87,23 @@ npm run build
 For production, create the remote D1 database, set deployed secrets, apply remote
 migrations, optionally create a remote user with the `admin` role, then deploy
 through the project Cloudflare workflow.
+
+
+
+
+
+# Common Commands
+
+```bash
+npm run dev                 # local Astro dev server
+npm run build               # production build
+npm run check               # Astro and TypeScript checks
+npm run lint                # oxlint
+npm run test                # Vitest
+npm run verify              # check, lint, tests, build
+npm run db:generate         # generate Drizzle migrations
+npm run db:studio           # open Drizzle Studio for D1 HTTP
+npm run db:migrate:local    # apply D1 migrations locally
+npm run db:migrate:remote   # apply D1 migrations remotely
+npm run init:admin          # create a verified D1 user with the admin role
+```

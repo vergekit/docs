@@ -81,6 +81,10 @@ npm run init:admin
 
 This writes directly to D1 with Wrangler and does not require `npm run dev`.
 
+Local dev uses Wrangler/Miniflare-backed D1 state through the
+Astro Cloudflare adapter; no separate Miniflare config is required after
+`npm install`.
+
 See [D1 Setup](/docs/setup/d1) for production database setup, Drizzle Studio
 notes, and alternate local or Cloudflare-hosted development database options.
 

@@ -4,6 +4,13 @@
 @import "reallysimpledocs/css";
 @import "reallysimpledocs/css/styles/vega";
 
+@layer base {
+  ::selection {
+    background-color: var(--color-foreground);
+    color: var(--color-background);
+  }
+}
+
 @source "../**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}";
 @source "../../docs/**/*.{md,mdx}";
 @source "../../node_modules/reallysimpledocs/src/runtime/**/*.{astro,js,ts}";

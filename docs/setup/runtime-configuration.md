@@ -51,6 +51,8 @@ Use `.dev.vars` for local development secrets:
 BETTER_AUTH_SECRET=replace-with-at-least-32-random-characters
 BETTER_AUTH_URL=http://localhost:4321
 RESEND_API_KEY=your-local-resend-key
+MAILGUN_API_KEY=your-local-mailgun-key
+MAILGUN_DOMAIN=mg.example.com
 ```
 
 Use Wrangler secrets for deployed secrets:
@@ -59,6 +61,13 @@ Use Wrangler secrets for deployed secrets:
 npx wrangler secret put BETTER_AUTH_SECRET
 npx wrangler secret put RESEND_API_KEY
 npx wrangler secret put MAILGUN_API_KEY
+```
+
+Wrangler prompts for each value without storing it in the repo. If you deploy a
+named environment, pass the environment name:
+
+```bash
+npx wrangler secret put BETTER_AUTH_SECRET --env production
 ```
 
 Only configure provider-specific secrets for the email provider the environment

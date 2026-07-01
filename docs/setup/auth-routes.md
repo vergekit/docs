@@ -1,5 +1,9 @@
 # Route Authentication
 
+All routes are public until they opt into auth. Add protected exact paths or URL
+prefixes in `src/config/auth.ts`, or check `Astro.locals.isAuthenticated`
+inside a specific page or route handler.
+
 VK loads auth state for every request, but routes are public by default. The
 middleware in `src/middleware.ts` reads the Better Auth session, writes
 `Astro.locals.user`, `Astro.locals.session`, and
@@ -14,6 +18,9 @@ handler.
 The boilerplate also ships with app roles powered by the Better Auth admin
 plugin: `admin`, `moderator`, `user`, and `banned`. Admin URL routes are
 reserved for users with the `app:administer` permission.
+
+Better Auth plugins are configured in `src/auth/server.ts` and
+`src/auth/client.ts`. 
 
 ## Better Auth Plugins
 

@@ -2,6 +2,13 @@
 @import "basecoat-css/base";
 @import "basecoat-css/styles/vega";
 
+@layer base {
+  ::selection {
+    background-color: var(--color-neutral-800);
+    color: var(--color-neutral-300);
+  }
+}
+
 .landing-actions .btn {
   gap: 0.5rem;
   padding-inline: 0.8rem;

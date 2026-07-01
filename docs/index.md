@@ -10,29 +10,36 @@ Better Auth, and Tailwind instead of adding a large custom framework layer.
 
 ## Included
 
-- Astro server app with strict TypeScript
-- Cloudflare Workers adapter
-- Cloudflare D1 as the supported runtime database
-- Drizzle schema and migrations
-- Better Auth with email/password, email verification, reset password, and D1
-  storage
-- Better Auth admin plugin roles for `admin`, `moderator`, `user`, and
-  `banned`
+- [Astro](https://astro.build) server app with strict
+  [TypeScript](https://www.typescriptlang.org)
+- [Cloudflare Workers](https://workers.dev) adapter
+- [Cloudflare D1](https://developers.cloudflare.com/d1/) as the supported
+  runtime database
+- [Drizzle](https://orm.drizzle.team) schema and migrations
+- [Better Auth](https://www.better-auth.com) with email/password, email
+  verification, reset password, and D1 storage
+- Better Auth [admin plugin](https://www.better-auth.com/docs/plugins/admin)
+  roles for `admin`, `moderator`, `user`, and `banned`
 - Register, login, logout, email verification, forgot password, and reset
   password flows
 - Middleware that loads auth state into typed `Astro.locals`
 - Public-by-default route auth with opt-in protected pages and APIs
 - Custom 404 and 500 error pages
 - API response helpers
-- Zod request parsing
-- Astro Actions example
-- CSRF origin checks through Astro config
-- Email providers for console, Cloudflare Email, Resend, Mailgun, and explicit
-  Node SMTP usage
-- Auth email templates with `@backstro/email`
-- Tailwind CSS v4 and local Astro UI components
-- Lucide Astro icons
-- Vitest, happy-dom, oxlint, Prettier, and verification scripts
+- [Zod](https://zod.dev) request parsing
+- [Astro Actions](https://docs.astro.build/en/guides/actions/) example
+- CSRF origin checks through [Astro config](https://docs.astro.build/en/guides/security/)
+- Email providers for console,
+  [Cloudflare Email](https://developers.cloudflare.com/email-service/),
+  [Resend](https://resend.com), [Mailgun](https://www.mailgun.com), and explicit
+  [Node](https://nodejs.org) SMTP usage
+- Auth email templates with
+  [`@backstro/email`](https://github.com/backstrojs/email)
+- [Tailwind CSS v4](https://tailwindcss.com) and local Astro UI components
+- [Lucide Astro](https://lucide.dev/guide/astro) icons
+- [Vitest](https://vitest.dev), [happy-dom](https://github.com/capricorn86/happy-dom),
+  [oxlint](https://oxc.rs/docs/guide/usage/linter.html), 
+  and verification scripts
 
 ## Setup Flow
 
@@ -49,7 +56,7 @@ committed non-secret Worker configuration, and Wrangler secrets for deployed
 secret values. Apply D1 migrations before running auth flows, then optionally
 create a verified user with the `admin` role with `npm run init:admin`.
 
-## Runtime Shape
+## App structure
 
 ```text
 src/
