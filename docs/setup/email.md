@@ -47,8 +47,6 @@ The provider is selected by `EMAIL_PROVIDER`. The default local provider is `con
 - `resend`: Requires `RESEND_API_KEY`. Sends with the Resend HTTP API.
 - `mailgun`: Requires `MAILGUN_API_KEY` and `MAILGUN_DOMAIN`. Sends with the
   Mailgun HTTP API.
-- `smtp-node`: Requires importing `src/email/providers/smtp-node` directly from
-  Node-only tooling. `sendEmail` intentionally throws for this provider.
 
 Put shared, non-secret configuration in `wrangler.jsonc`:
 
