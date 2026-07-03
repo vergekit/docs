@@ -12,36 +12,31 @@
 .tool-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.125em;
+  gap: 0.2em;
   line-height: 1;
-  vertical-align: -0.09em;
-  margin-left: 0.125em;
-  font-weight: 500;
+  vertical-align: baseline;
+  margin-left: 0.2em;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration-line: none;
+  position: relative;
 }
-.tool-link:hover {
-  text-decoration: underline;
-  text-decoration-thickness: 0.09em;
-  text-underline-offset: 0.15em;
+
+@media (hover: hover) {
+  .tool-link:hover::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: -4px;
+    border-bottom: 1px solid currentColor;
+  }
 }
 
 .tool-link-logo {
-  display: inline-block;
-  width: 0.95em;
-  height: 0.95em;
-  object-fit: contain;
+  height: 0.65em;
+  width: auto;
   flex-shrink: 0;
-}
-
-.tool-link-logo[data-logo="bejamas-ui"] {
-  width: 1.35em;
-}
-
-.tool-link-logo[data-logo="cloudflare"] {
-  width: 1.45em;
-}
-.tool-link-logo[data-logo="astro"] {
-  position: relative;
-  top: 0.125em;
+  display: block;
 }
 
 .landing-actions .btn {

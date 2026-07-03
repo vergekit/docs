@@ -12,32 +12,32 @@ const tools = [
   {
     label: "Astro",
     href: "https://astro.build",
-    logo: "/tool-logos/astro.svg",
+    logo: "/tool-logos/astro-light-gradient.svg",
   },
   {
     label: "Cloudflare Workers",
     href: "https://workers.dev",
-    logo: "/tool-logos/cloudflare-black.svg",
+    logo: "/tool-logos/cloudflare.svg",
   },
   {
     label: "Drizzle",
     href: "https://orm.drizzle.team",
-    logo: "/tool-logos/drizzle.svg",
+    logo: "/tool-logos/drizzle-color.svg",
   },
   {
     label: "Better Auth",
     href: "https://www.better-auth.com",
-    logo: "/tool-logos/better-auth.svg",
+    logo: "/tool-logos/better-auth-color.svg",
   },
   {
     label: "Tailwind",
     href: "https://tailwindcss.com",
-    logo: "/tool-logos/tailwind-css.svg",
+    logo: "/tool-logos/tailwind-css-color.svg",
   },
   {
     label: "bejamas/ui",
     href: "https://ui.bejamas.com",
-    logo: "/tool-logos/bejamas-ui.svg",
+    logo: "/tool-logos/bejamas-ui-color.svg",
   },
 ];
 
@@ -78,31 +78,41 @@ test("tool logos are stored as local SVG assets", () => {
   for (const tool of tools) {
     const assetPath = path.join(rootDir, "public", tool.logo);
     const svg = readFileSync(assetPath, "utf8");
-    const colors = svg.match(/#[0-9A-Fa-f]{6}\b/g) ?? [];
 
     assert.ok(existsSync(assetPath), `${tool.logo} exists`);
     assert.ok(svg.trimStart().startsWith("<svg"), `${tool.logo} is an SVG file`);
-    assert.deepEqual(
-      [...new Set(colors.map((color) => color.toUpperCase()))],
-      [iconColor.toUpperCase()],
-      `${tool.logo} only uses the black icon color`,
-    );
   }
 });
 
-test("Cloudflare logo variants are available without removing Workers logo", () => {
+test("black logo alternates are still available", () => {
   const variants = [
     {
-      file: "cloudflare.svg",
-      colors: ["#FAAE40", "#F38020"],
+      file: "astro.svg",
+      label: "Astro",
     },
     {
       file: "cloudflare-black.svg",
-      colors: [iconColor],
+      label: "Cloudflare",
     },
     {
       file: "cloudflare-workers.svg",
-      colors: [iconColor],
+      label: "Cloudflare Workers",
+    },
+    {
+      file: "drizzle.svg",
+      label: "Drizzle",
+    },
+    {
+      file: "better-auth.svg",
+      label: "Better Auth",
+    },
+    {
+      file: "tailwind-css.svg",
+      label: "Tailwind CSS",
+    },
+    {
+      file: "bejamas-ui.svg",
+      label: null,
     },
   ];
 
@@ -112,36 +122,53 @@ test("Cloudflare logo variants are available without removing Workers logo", () 
     const colors = [...new Set(svg.match(/#[0-9A-Fa-f]{6}\b/g) ?? [])];
 
     assert.ok(existsSync(assetPath), `${variant.file} exists`);
-    assert.ok(svg.includes("Cloudflare"), `${variant.file} identifies Cloudflare`);
+    if (variant.label) {
+      assert.ok(svg.includes(variant.label), `${variant.file} identifies ${variant.label}`);
+    }
     assert.deepEqual(
       colors.map((color) => color.toUpperCase()),
-      variant.colors.map((color) => color.toUpperCase()),
-      `${variant.file} has the expected colors`,
+      [iconColor.toUpperCase()],
+      `${variant.file} remains the black alternate`,
     );
   }
 });
 
-test("Astro logo variants are available", () => {
-  const blackLogo = readFileSync(
-    path.join(rootDir, "public/tool-logos/astro.svg"),
-    "utf8",
-  );
-  const colorLogo = readFileSync(
-    path.join(rootDir, "public/tool-logos/astro-light-gradient.svg"),
-    "utf8",
-  );
+test("color logo alternates are available for every primary tool", () => {
+  const variants = [
+    {
+      file: "astro-light-gradient.svg",
+      expected: ["<linearGradient", "#D83333", "#F041FF"],
+    },
+    {
+      file: "cloudflare.svg",
+      expected: ["#FAAE40", "#F38020"],
+    },
+    {
+      file: "drizzle-color.svg",
+      expected: ["#C5F74F"],
+    },
+    {
+      file: "better-auth-color.svg",
+      expected: ["#FFFFFF"],
+    },
+    {
+      file: "tailwind-css-color.svg",
+      expected: ["#06B6D4"],
+    },
+    {
+      file: "bejamas-ui-color.svg",
+      expected: ['fill="#fff"'],
+    },
+  ];
 
-  assert.ok(blackLogo.includes("Astro"), "black Astro logo identifies Astro");
-  assert.ok(
-    blackLogo.includes(`fill="${iconColor}"`),
-    "black Astro logo keeps the page icon color",
-  );
-  assert.ok(
-    colorLogo.includes("<linearGradient"),
-    "color Astro alternate keeps the gradient artwork",
-  );
-  assert.ok(
-    colorLogo.includes("Astro"),
-    "color Astro alternate identifies Astro",
-  );
+  for (const variant of variants) {
+    const assetPath = path.join(rootDir, "public/tool-logos", variant.file);
+    const svg = readFileSync(assetPath, "utf8");
+
+    assert.ok(existsSync(assetPath), `${variant.file} exists`);
+    assert.ok(svg.trimStart().startsWith("<svg"), `${variant.file} is an SVG file`);
+    for (const expected of variant.expected) {
+      assert.ok(svg.includes(expected), `${variant.file} includes ${expected}`);
+    }
+  }
 });
