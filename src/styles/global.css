@@ -28,7 +28,7 @@
     position: absolute;
     inset-inline: 0;
     bottom: -4px;
-    border-bottom: 1px solid currentColor;
+    border-bottom: 2px solid currentColor;
   }
 }
 
