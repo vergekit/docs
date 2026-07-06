@@ -65,8 +65,8 @@ JSON `401` from an API instead of redirecting to `/login`.
 ## Auth Email Templates
 
 Auth verification and password reset email templates live under
-`src/email/templates/auth`. The auth email helper renders those templates and
-sends through the configured provider.
+`src/email/auth`. The auth email helper in `src/auth/email.ts` renders those
+React Email templates and sends through the configured provider.
 
 Keep direct provider calls out of auth flows. Use
 `createAuthEmailSenderFromEnv` for Better Auth email and `sendEmail` for custom

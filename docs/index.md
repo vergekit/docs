@@ -31,10 +31,8 @@ Better Auth, and Tailwind instead of adding a large custom framework layer.
 - CSRF origin checks through [Astro config](https://docs.astro.build/en/guides/security/)
 - Email providers for console,
   [Cloudflare Email](https://developers.cloudflare.com/email-service/),
-  [Resend](https://resend.com), [Mailgun](https://www.mailgun.com), and explicit
-  [Node](https://nodejs.org) SMTP usage
-- Auth email templates with
-  [`@backstro/email`](https://github.com/backstrojs/email)
+  [Resend](https://resend.com), and [Mailgun](https://www.mailgun.com)
+- [React Email](https://react.email/) auth email templates
 - [Tailwind CSS v4](https://tailwindcss.com) and local Astro UI components
 - [Lucide Astro](https://lucide.dev/guide/astro) icons
 - [Vitest](https://vitest.dev), [happy-dom](https://github.com/capricorn86/happy-dom),
@@ -65,9 +63,7 @@ src/
   components/    local Astro UI components
   config/        source-level app and auth policy
   db/            Drizzle schema, clients, and query seams
-  email/         providers and auth email templates
-  lib/http/      JSON and Zod parsing helpers
+  email/         React Email templates
   pages/         Astro pages and API routes
   middleware.ts  auth locals and route protection
 ```
-

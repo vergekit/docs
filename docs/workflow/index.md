@@ -62,8 +62,9 @@ npm run dev
 ```
 
 Keep writes, auth, email, and validation on the server. Use Astro pages, API
-routes, Actions, middleware, and the local `src/db` and `src/email` modules
-before adding new app-specific abstractions.
+routes, Actions, middleware, local `src/db` modules, `@vergekit/core/email`,
+and React Email templates in `src/email` before adding new app-specific
+abstractions.
 
 ## 5. Verify
 

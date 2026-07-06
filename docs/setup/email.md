@@ -1,9 +1,9 @@
 # Email Sending
 
-VK sends mail through the provider abstraction in `src/email/send.ts`. The main
+VK sends mail through the provider abstraction in `@vergekit/core/email`. The main
 entry point is `sendEmail(runtimeEnv, input)`, which resolves the configured
 provider from `runtimeEnv.EMAIL_PROVIDER` and sends one message with the common
-`SendEmailInput` shape.
+`SendEmailInput` shape. App-specific React Email templates live in `src/email`.
 
 ## Direct Sends
 
@@ -12,7 +12,7 @@ custom transactional email.
 
 ```ts
 import { env } from 'cloudflare:workers';
-import { sendEmail } from '@/email/send';
+import { sendEmail } from '@vergekit/core/email';
 
 const result = await sendEmail(env, {
   to: { email: 'customer@example.com', name: 'Customer Name' },
@@ -38,7 +38,8 @@ described below.
 
 ## Provider Configuration
 
-The provider is selected by `EMAIL_PROVIDER`. The default local provider is `console`, which logs auth emails instead of sending them.
+The provider is selected by `EMAIL_PROVIDER`. When it is missing, the
+abstraction uses `console`.
 
 - `console`: Requires no config. Logs the email payload and returns
   `{ provider: 'console', id: 'console' }`. This is the local default.
@@ -47,6 +48,10 @@ The provider is selected by `EMAIL_PROVIDER`. The default local provider is `con
 - `resend`: Requires `RESEND_API_KEY`. Sends with the Resend HTTP API.
 - `mailgun`: Requires `MAILGUN_API_KEY` and `MAILGUN_DOMAIN`. Sends with the
   Mailgun HTTP API.
+
+SMTP/Nodemailer adapters are intentionally not part of this Worker runtime
+surface. Prefer the Cloudflare Email binding for deployed Workers, or a
+fetch-based provider when an external email service is required.
 
 Put shared, non-secret configuration in `wrangler.jsonc`:
 
@@ -83,9 +88,13 @@ Verification and password-reset emails use the higher-level auth helper:
 
 ```ts
 import { env } from 'cloudflare:workers';
-import { createAuthEmailSenderFromEnv } from '@/email/send';
+import { createAuthEmailSenderFromEnv } from '@vergekit/core/email';
+import { createAuthEmailSenderOptions } from '@/auth/email';
 
-const authEmail = createAuthEmailSenderFromEnv(env);
+const authEmail = createAuthEmailSenderFromEnv(
+  env,
+  createAuthEmailSenderOptions(),
+);
 
 await authEmail.sendVerificationEmail({
   to: 'customer@example.com',
@@ -94,9 +103,21 @@ await authEmail.sendVerificationEmail({
 });
 ```
 
-`createAuthEmailSenderFromEnv` renders the Backstro auth templates and resolves
-the sender from `EMAIL_FROM`. With `EMAIL_PROVIDER=console`, it falls back to
-`noreply@example.test` and the app name from `src/config/app.ts`.
+`createAuthEmailSenderFromEnv` resolves the mailer and sender from runtime env.
+`createAuthEmailSenderOptions` lives in `src/auth/email.ts` and supplies the
+app's React Email auth template renderers. With `EMAIL_PROVIDER=console`, it
+falls back to `noreply@example.test` and the app name from `src/config/app.ts`.
+
+The default auth templates are `src/email/auth/verify-email.tsx` and
+`src/email/auth/reset-password.tsx`. Preview them with the React Email CLI:
+
+```bash
+npm run email
+```
+
+The debug email route at `src/pages/api/debug/email.ts` renders
+`src/email/demo.tsx`, which is a diagnostic React Email template for verifying
+template rendering and provider delivery together.
 
 Use this helper for Better Auth verification and reset flows. Use `sendEmail`
 directly for other transactional messages.
