@@ -3,13 +3,14 @@
 The first Verge Kit milestone is complete: it is an empty but deployable
 Cloudflare Workers Astro app with a D1 database layer, Better Auth mounted,
 middleware locals wired, email delivery seams, and a small database portability
-contract for future Hyperdrive work.
+plan for future Hyperdrive work.
 
 ## Architecture Principle
 
 VK is D1-first and adapter-ready. The first implementation supports Cloudflare
 D1 only, while app code imports database behavior through stable local modules
-that can later route to Hyperdrive-backed PostgreSQL or MySQL implementations.
+that can later route to real Hyperdrive-backed PostgreSQL or MySQL
+implementations.
 
 App query code should stay inside a conservative Drizzle query-builder subset
 unless a dialect-specific helper is explicitly introduced.
@@ -19,13 +20,13 @@ unless a dialect-specific helper is explicitly introduced.
 | Slice | Status | Goal |
 | --- | --- | --- |
 | Foundation | Done | Scaffold Astro on Cloudflare Workers with strict TypeScript, Tailwind 4, baseline tooling, and deployment config. |
-| D1 Database Contract | Done | Add Drizzle D1 schema, adapter-ready `src/db` surface, and portability proof tests. |
+| D1 Database Contract | Done | Add Drizzle D1 schema and a small local `src/db` D1 client surface. |
 | Auth Spine | Done | Add Better Auth config, D1-backed schema, auth route, typed locals, and middleware route guards. |
 | Email Layer | Done | Add provider-based mailer with console, Cloudflare Email, Resend, Mailgun, and Node SMTP seams; render auth emails with Backstro. |
-| Form And API Conventions | Done | Add Zod parsing helpers, standard JSON responses, Astro Actions patterns, and one sample mutation. |
+| Form And API Conventions | Done | Add Zod parsing helpers, standard JSON responses, and Astro Actions registration patterns. |
 | Minimal Auth UI | Done | Add form components, Lucide Astro icons, login/register/reset/verify pages, custom 404/500 error pages, and a dashboard shell. |
 | Operational Polish | Done | Add docs, example env files, D1 setup notes, ADRs, and CI-ready scripts. |
-| Hyperdrive Proof | Done | Add non-runtime PostgreSQL/MySQL proof tests for the adapter seam without making Hyperdrive a supported production target. |
+| Future Hyperdrive Notes | Done | Document the future D1-or-Hyperdrive implementation checklist without shipping PostgreSQL/MySQL placeholder code. |
 
 ## Dependency Policy
 

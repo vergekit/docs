@@ -2,16 +2,17 @@
 
 The application expects a Cloudflare D1 binding named `DB`, and
 Drizzle writes migrations to `drizzle/d1`. The database schema lives in
-`src/db/schema`, with `src/db/schema/index.ts` as the Drizzle Kit entrypoint.
+`src/config/schema.ts`, which is also the Drizzle Kit entrypoint.
 
 D1 is currently the only supported runtime database. Runtime code should use the local
 `src/db` modules rather than importing `drizzle-orm/d1` directly from routes,
 actions, middleware, or UI code.
 
 
-Hyperdrive support is planned for future releases. The project has proof tests for future Hyperdrive PostgreSQL and MySQL support, but these targets are not enabled at runtime. See
-[Hyperdrive Proof](/docs/setup/hyperdrive-proof) for the current adapter
-proof-of-concept work on the database boundary.
+Hyperdrive support is planned for future releases, but PostgreSQL and MySQL
+targets are not enabled at runtime and no proof adapters ship in the
+boilerplate. See [Future Hyperdrive Support](/docs/setup/hyperdrive-proof) for
+the checklist to follow when adding a real Hyperdrive adapter slice.
 
 
 
@@ -187,7 +188,7 @@ function getLocalD1SqliteUrl() {
 
 export default defineConfig({
   dialect: 'sqlite',
-  schema: './src/db/schema/index.ts',
+  schema: './src/config/schema.ts',
   dbCredentials: {
     url: getLocalD1SqliteUrl(),
   },
@@ -400,7 +401,6 @@ Runtime code should continue to use the local `src/db` modules. Do not import
 a planned adapter target, but D1 is the only supported runtime database in this
 milestone.
 
-The `app_settings` table is part of this app-owned D1 schema. It stores small
-key/value settings such as `site.title` through the local app settings action
-surface. It is not a database administration table and should not be used for
-migrations, connection management, or database target selection.
+Future Hyperdrive work should add real adapters, schemas, migrations, and tests
+in one feature slice. Do not keep database target parsing or placeholder
+PostgreSQL/MySQL utilities in application code before those adapters exist.

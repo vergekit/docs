@@ -16,8 +16,9 @@ Use the local `src/db` modules from app code. Do not import `drizzle-orm/d1`
 directly in routes, pages, actions, or components.
 
 This keeps future Hyperdrive PostgreSQL or MySQL work isolated to the database
-adapter layer. The proof modules for those targets are test-only; runtime code
-still rejects PostgreSQL and MySQL target names.
+adapter layer. The boilerplate does not ship PostgreSQL or MySQL placeholders;
+those targets should be added only when real Hyperdrive adapters are
+implemented.
 
 ## Config Has A Boundary
 
