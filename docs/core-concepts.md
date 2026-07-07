@@ -73,7 +73,7 @@ Auth before a user has a session.
 The Better Auth admin plugin is installed and configured with `admin`,
 `moderator`, `user`, and `banned` roles. App permissions live in
 `src/config/auth.ts`, and local checks should use the helpers in
-`src/auth/permissions.ts`.
+`@vergekit/core/auth` with the app's `authConfig`.
 
 ## Email Is A Provider
 

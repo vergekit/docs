@@ -40,23 +40,29 @@ Add globally protected pages and API namespaces in `src/config/auth.ts`.
 Use exact paths for individual pages:
 
 ```ts
-export const authRouteConfig = {
-  protectedExactPaths: ['/dashboard', '/account'],
-  protectedPrefixes: [],
+export const authConfig = defineAuthConfig({
+  routes: {
+    protectedExactPaths: ['/dashboard', '/account'],
+    protectedPrefixes: [],
+    // ...
+  },
   // ...
-} as const;
+});
 ```
 
 Use slash-terminated prefixes for route groups:
 
 ```ts
-export const authRouteConfig = {
-  protectedExactPaths: ['/dashboard'],
-  protectedPrefixes: ['/settings/'],
-  adminExactPaths: ['/admin'],
-  adminPrefixes: ['/admin/'],
+export const authConfig = defineAuthConfig({
+  routes: {
+    protectedExactPaths: ['/dashboard'],
+    protectedPrefixes: ['/settings/'],
+    adminExactPaths: ['/admin'],
+    adminPrefixes: ['/admin/'],
+    // ...
+  },
   // ...
-} as const;
+});
 ```
 
 Use route-local checks when the route needs custom behavior, such as returning
@@ -65,9 +71,8 @@ JSON `401` from an API instead of redirecting to `/login`.
 ## Auth Email Templates
 
 Auth verification and password reset email templates live under
-`src/email/auth`. The render helpers in `src/auth/email.ts` render those React
-Email templates, and auth email sender defaults are configured in
-`src/config/auth.ts`.
+`src/email/auth`. Transactional auth email rendering and sender defaults are
+configured in `src/config/auth-email.ts`.
 
 Keep direct provider calls out of auth flows. Use
 `createAuthEmailSenderFromEnv` for Better Auth email and `sendEmail` for custom
