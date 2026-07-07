@@ -62,7 +62,7 @@ src/
   auth/          Better Auth setup and route rules
   components/    local Astro UI components
   config/        source-level app and auth policy
-  db/            Drizzle schema, clients, and query seams
+  db.ts          Drizzle D1 client and database boundary
   email/         React Email templates
   pages/         Astro pages and API routes
   middleware.ts  auth locals and route protection

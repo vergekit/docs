@@ -12,7 +12,7 @@ real boundary.
 
 D1 is the supported runtime database.
 
-Use the local `src/db` modules from app code. Do not import `drizzle-orm/d1`
+Use the local `src/db.ts` module from app code. Do not import `drizzle-orm/d1`
 directly in routes, pages, actions, or components.
 
 This keeps future Hyperdrive PostgreSQL or MySQL work isolated to the database

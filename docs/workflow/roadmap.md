@@ -20,7 +20,7 @@ unless a dialect-specific helper is explicitly introduced.
 | Slice | Status | Goal |
 | --- | --- | --- |
 | Foundation | Done | Scaffold Astro on Cloudflare Workers with strict TypeScript, Tailwind 4, baseline tooling, and deployment config. |
-| D1 Database Contract | Done | Add Drizzle D1 schema and a small local `src/db` D1 client surface. |
+| D1 Database Contract | Done | Add Drizzle D1 schema and a small local `src/db.ts` D1 client surface. |
 | Auth Spine | Done | Add Better Auth config, D1-backed schema, auth route, typed locals, and middleware route guards. |
 | Email Layer | Done | Add provider-based mailer with console, Cloudflare Email, Resend, and Mailgun; render auth emails with React Email. |
 | Form And API Conventions | Done | Add Zod parsing helpers, standard JSON responses, and Astro Actions registration patterns. |

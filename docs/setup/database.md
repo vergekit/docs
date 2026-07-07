@@ -5,7 +5,7 @@ Drizzle writes migrations to `drizzle/d1`. The database schema lives in
 `src/config/schema.ts`, which is also the Drizzle Kit entrypoint.
 
 D1 is currently the only supported runtime database. Runtime code should use the local
-`src/db` modules rather than importing `drizzle-orm/d1` directly from routes,
+`src/db.ts` module rather than importing `drizzle-orm/d1` directly from routes,
 actions, middleware, or UI code.
 
 
@@ -35,7 +35,18 @@ The committed default is a single D1 binding in `wrangler.jsonc`:
 ```
 
 Runtime code always reads `env.DB`; keep that binding name unless you also update
-`src/env.d.ts` and every `env.DB` call site.
+`src/env.d.ts` and `src/db.ts`.
+
+For queries in pages, API routes, and server modules, import the initialized
+client:
+
+```ts
+import { db } from '@/db';
+
+const rows = await db.select().from(user);
+```
+
+`createD1Database` remains available from `@/db` for tests or custom bindings.
 
 Local development uses the Astro Cloudflare adapter and Wrangler config. The
 `npm run dev` script runs `astro dev`, and the adapter reads `wrangler.jsonc` so
@@ -396,7 +407,7 @@ npx wrangler deploy --env production
 
 ## Runtime Boundary
 
-Runtime code should continue to use the local `src/db` modules. Do not import
+Runtime code should continue to use the local `src/db.ts` module. Do not import
 `drizzle-orm/d1` from app routes, actions, middleware, or UI code. Hyperdrive is
 a planned adapter target, but D1 is the only supported runtime database in this
 milestone.

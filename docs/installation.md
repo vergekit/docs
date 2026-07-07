@@ -97,11 +97,10 @@ a specific page or route handler.
 See [Route Authentication](/docs/setup/auth-routes) for middleware-protected and
 route-local examples.
 
-Better Auth plugins are configured in `src/auth/server.ts` and
-`src/auth/client.ts`. The admin plugin is already installed and configured for
-the app role model. See [Route Authentication](/docs/setup/auth-routes) for the
-plugin files that usually need to change when adding or modifying Better Auth
-plugins.
+Better Auth plugin options are configured in `src/config/auth.ts`. The admin
+plugin is already installed and configured for the app role model. See
+[Route Authentication](/docs/setup/auth-routes) for the files that usually need
+to change when adding or modifying Better Auth plugins.
 
 ## Email
 

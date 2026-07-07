@@ -65,8 +65,9 @@ JSON `401` from an API instead of redirecting to `/login`.
 ## Auth Email Templates
 
 Auth verification and password reset email templates live under
-`src/email/auth`. The auth email helper in `src/auth/email.ts` renders those
-React Email templates and sends through the configured provider.
+`src/email/auth`. The render helpers in `src/auth/email.ts` render those React
+Email templates, and auth email sender defaults are configured in
+`src/config/auth.ts`.
 
 Keep direct provider calls out of auth flows. Use
 `createAuthEmailSenderFromEnv` for Better Auth email and `sendEmail` for custom
@@ -80,6 +81,6 @@ the page or a nearby component until it is clearly reused.
 
 ## Database Queries
 
-App code should call local query helpers under `src/db` instead of importing a
-Drizzle driver directly. This keeps the D1-first runtime boundary clear and
-preserves the path for future adapter work.
+App code should import the initialized `db` client from `@/db` instead of
+importing a Drizzle driver directly. This keeps the D1-first runtime boundary
+clear and preserves the path for future adapter work.
