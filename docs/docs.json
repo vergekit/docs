@@ -65,12 +65,6 @@
       "label": "Operations",
       "items": [
         {
-          "slug": "deployment",
-          "label": "Deployment",
-          "icon": "rocket",
-          "attrs": { "data-astro-prefetch": true }
-        },
-        {
           "slug": "workflow/index",
           "label": "Workflow",
           "icon": "map",
@@ -80,6 +74,12 @@
           "slug": "components",
           "label": "Components",
           "icon": "blocks",
+          "attrs": { "data-astro-prefetch": true }
+        },
+        {
+          "slug": "deployment",
+          "label": "Deployment",
+          "icon": "rocket",
           "attrs": { "data-astro-prefetch": true }
         },
         {
