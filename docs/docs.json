@@ -77,6 +77,12 @@
           "attrs": { "data-astro-prefetch": true }
         },
         {
+          "slug": "components",
+          "label": "Components",
+          "icon": "blocks",
+          "attrs": { "data-astro-prefetch": true }
+        },
+        {
           "type": "submenu",
           "label": "Guides",
           "icon": "blocks",
