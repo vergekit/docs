@@ -16,6 +16,10 @@ Create a new app:
 npm create vergekit@latest my-app
 ```
 
+Verge Kit is Cloudflare-first, so the no-flag command creates the default
+Workers + D1 application. Using the self-hosted Node.js + MySQL preset? See the
+[Node.js + MySQL guide](/docs/alternative-deployments/node-mysql).
+
 Install dependencies:
 
 ```bash

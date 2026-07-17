@@ -7,6 +7,10 @@ in `.dev.vars`, and set deployed secret values with Wrangler secrets. See
 concerns between `src/config`, `wrangler.jsonc`, `.dev.vars`, and Wrangler
 secrets.
 
+Using the self-hosted Node.js + MySQL preset? Follow the
+[Node.js + MySQL guide](/docs/alternative-deployments/node-mysql) instead.
+Workers and D1 remain the default and primary deployment path.
+
 ## Preflight
 
 Run the same verification command locally and in CI:

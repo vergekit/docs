@@ -1,0 +1,184 @@
+---
+title: Node.js + MySQL
+---
+
+Verge Kit is Cloudflare-first. Workers and D1 remain the default and primary
+deployment path. The `node-mysql` preset is an alternative for applications
+that need a self-hosted Node.js runtime and MySQL database.
+
+The generated project is a standalone Astro server. It contains the Node
+adapter, one MySQL schema and migration tree, and no Wrangler or D1 runtime
+configuration.
+
+## Requirements
+
+- Node.js 22.12 or newer
+- npm
+- MySQL 8
+- A process manager and TLS-terminating reverse proxy for production
+
+## Scaffold The Project
+
+Select the preset when creating the application:
+
+```bash
+npm create vergekit@latest my-app -- --preset node-mysql
+cd my-app
+npm install
+```
+
+Preset selection happens only during scaffolding. The generated application is
+a normal Node.js Astro project and does not switch runtimes at startup.
+
+## Create The MySQL Database
+
+Create an empty MySQL 8 database and a dedicated application user through your
+database provider or administration tool. An authorized MySQL administrator
+can use SQL like this for a local deployment:
+
+```sql
+CREATE DATABASE vergekit CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+CREATE USER 'vergekit'@'127.0.0.1' IDENTIFIED BY 'replace-with-a-strong-password';
+GRANT ALL PRIVILEGES ON vergekit.* TO 'vergekit'@'127.0.0.1';
+```
+
+Change the allowed host to match where the application connects from. Keep the
+database off the public internet where possible, and follow your provider's
+network and transport-security requirements.
+
+## Configure The Environment
+
+Copy the committed template:
+
+```bash
+cp .env.example .env
+```
+
+Set the local values in `.env`:
+
+```dotenv
+MYSQL_HOST=127.0.0.1
+MYSQL_PORT=3306
+MYSQL_USER=vergekit
+MYSQL_PASSWORD=replace-with-a-strong-password
+MYSQL_DATABASE=vergekit
+BETTER_AUTH_SECRET=replace-with-a-long-random-secret
+BETTER_AUTH_URL=http://localhost:4321
+EMAIL_PROVIDER=console
+```
+
+Generate a Better Auth secret with a cryptographically secure tool, for
+example:
+
+```bash
+openssl rand -base64 32
+```
+
+Do not commit `.env`. `MYSQL_PASSWORD` may be empty only when the configured
+database account has no password. The application, Drizzle Kit, and
+administrator command all use these same five MySQL settings.
+
+For production, supply environment variables through the hosting platform,
+service manager, or secret store. Existing process variables take precedence
+over `.env`. Keep `BETTER_AUTH_SECRET` stable, and set `BETTER_AUTH_URL` to the
+exact public HTTPS origin.
+
+## Migrate And Initialize
+
+Apply the committed MySQL migrations:
+
+```bash
+npm run db:migrate
+```
+
+Create the first verified user with the `admin` role:
+
+```bash
+npm run init:admin
+```
+
+The administrator command prompts for a name, email, and password, uses the
+same MySQL settings, and closes its database pool before exiting.
+
+After an intentional change to `src/config/schema.ts`, generate and review a
+new migration before applying it:
+
+```bash
+npm run db:generate
+npm run db:migrate
+```
+
+Use `npm run db:studio` when you need to inspect the configured database.
+
+## Develop And Verify
+
+Start local development:
+
+```bash
+npm run dev
+```
+
+Before deployment, run the complete check, lint, test, and build pipeline:
+
+```bash
+npm run verify
+```
+
+## Email Options
+
+`EMAIL_PROVIDER=console` is the non-delivering development default. It prints
+auth email content and links to the server log, so treat those logs as
+sensitive.
+
+Use an HTTP API provider for delivered email from Node.js:
+
+- `EMAIL_PROVIDER=resend` requires `RESEND_API_KEY` and `EMAIL_FROM`.
+- `EMAIL_PROVIDER=mailgun` requires `MAILGUN_API_KEY`, `MAILGUN_DOMAIN`, and
+  `EMAIL_FROM`.
+- `EMAIL_REPLY_TO` is optional for Resend and Mailgun.
+
+The Node.js preset has no Cloudflare Email binding. Do not select the
+`cloudflare` email provider for this deployment target. Store provider API keys
+and the Better Auth secret outside source control, and test verification and
+password-reset delivery before launch.
+
+## Build And Run
+
+Build and start the standalone server through the generated project scripts:
+
+```bash
+npm run build
+npm run start
+```
+
+`npm run start` runs `dist/server/entry.mjs`. In production, run that command
+under a service manager or hosting supervisor that starts it on boot, restarts
+it after failures, preserves logs, and stops it cleanly during deployments.
+
+Keep the application port private behind a reverse proxy. Terminate TLS at the
+proxy, forward the original host and protocol, configure appropriate body-size
+and timeout limits, and send health checks to `/api/health`. Keep
+`BETTER_AUTH_URL` aligned with the public HTTPS origin exposed by the proxy.
+
+## Backups And Recovery
+
+Back up the MySQL database on a schedule appropriate for the application's
+recovery requirements. Keep copies outside the database host, protect them like
+production data, and test restoration into a separate database. Take or confirm
+a current backup before applying production schema migrations.
+
+## Deployment Checklist
+
+1. Use Node.js 22.12 or newer and a reachable MySQL 8 database.
+2. Install the exact dependency tree with `npm ci` in the deployment artifact.
+3. Supply all five `MYSQL_*` settings, a stable `BETTER_AUTH_SECRET`, and the
+   public `BETTER_AUTH_URL` through production configuration or secret storage.
+4. Configure console, Resend, or Mailgun intentionally; use a delivering
+   provider for production auth email.
+5. Confirm a current database backup and a tested restore procedure.
+6. Run `npm run db:migrate` and `npm run verify`.
+7. Run `npm run build`, then supervise `npm run start` behind the reverse proxy.
+8. Check `/api/health`, registration, verification, sign-in, sign-out, password
+   reset, protected routes, and administrator access after deployment.
+9. Confirm process monitoring, application logs, database monitoring, and
+   backup alerts.

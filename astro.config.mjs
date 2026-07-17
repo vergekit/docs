@@ -19,7 +19,7 @@ export default defineConfig({
       },
       site: {
         title: 'Verge Kit Docs',
-        subtitle: 'v0.1.1',
+        subtitle: 'v0.1.3',
         description: 'Documentation for VergeKit.',
         logo: {
           url: '/vk-crane-a-white.svg',

@@ -1,0 +1,26 @@
+---
+import {
+  default as NodeMysqlGuide,
+  frontmatter,
+  getHeadings,
+} from '../../../../docs/alternative-deployments/node-mysql.mdx';
+import { DocsLayout } from 'reallysimpledocs/components';
+
+const page = {
+  slug: 'alternative-deployments/node-mysql',
+  file: 'alternative-deployments/node-mysql.mdx',
+  extension: '.mdx',
+  path: '/docs/alternative-deployments/node-mysql',
+  markdownPath: '/docs/alternative-deployments/node-mysql.md',
+  title: frontmatter.title,
+};
+const headings = (await getHeadings()).map(({ depth, slug, text }) => ({
+  depth,
+  id: slug,
+  text,
+}));
+---
+
+<DocsLayout page={page} headings={headings}>
+  <NodeMysqlGuide />
+</DocsLayout>
