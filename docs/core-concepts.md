@@ -46,23 +46,26 @@ Use Zod for request bodies, form input, and action input.
 
 Keep validation close to the route or action that receives external data.
 
-## Middleware Owns Auth State
+## Middleware Owns Lazy Auth State
 
-Middleware creates the Better Auth instance, reads the session, and writes:
+Every request starts with anonymous, typed auth state in:
 
 - `Astro.locals.user`
 - `Astro.locals.session`
 - `Astro.locals.isAuthenticated`
+- `Astro.locals.loadAuthSession()`
 
-Pages and routes should read from locals instead of reimplementing session
-lookup.
+Middleware loads the session only for protected, admin, or explicitly auth-aware
+routes. The memoized loader lets public route code opt in without reimplementing
+session lookup or causing duplicate work.
 
 ## Routes Are Public By Default
 
-Middleware loads auth state for every request, but route protection is opt-in.
-Use `src/config/auth.ts` when pages or API namespaces should be consistently
-protected by middleware. Use route-local checks when a page or API handler needs
-custom redirect or JSON `401` behavior.
+Middleware skips session loading for ordinary public requests, and route
+protection is opt-in. Use `src/config/auth.ts` when pages or API namespaces
+should be consistently protected by middleware. Use route-local checks when a
+page or API handler needs custom redirect or JSON `401` behavior, and call
+`loadAuthSession()` before checking auth on a public route.
 
 Keep Better Auth endpoints under `/api/auth` public so sign in, sign up,
 verification, reset, session, callback, and sign-out requests can reach Better

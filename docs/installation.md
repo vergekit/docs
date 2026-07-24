@@ -95,8 +95,9 @@ notes, and alternate local or Cloudflare-hosted development database options.
 ## Auth Routes
 
 All routes are public until they opt into auth. Add protected exact paths or URL
-prefixes in `src/config/auth.ts`, or check `Astro.locals.isAuthenticated` inside
-a specific page or route handler.
+prefixes in `src/config/auth.ts`, or call
+`await Astro.locals.loadAuthSession()` before checking auth inside a specific
+public page or route handler.
 
 See [Route Authentication](/docs/setup/auth-routes) for middleware-protected and
 route-local examples.

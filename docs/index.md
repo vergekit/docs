@@ -22,7 +22,7 @@ Better Auth, and Tailwind instead of adding a large custom framework layer.
   roles for `admin`, `moderator`, `user`, and `banned`
 - Register, login, logout, email verification, forgot password, and reset
   password flows
-- Middleware that loads auth state into typed `Astro.locals`
+- Lazy auth middleware with typed, request-scoped `Astro.locals`
 - Public-by-default route auth with opt-in protected pages and APIs
 - Custom 404 and 500 error pages
 - API response helpers

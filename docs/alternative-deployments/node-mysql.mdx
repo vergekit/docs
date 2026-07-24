@@ -85,6 +85,10 @@ exact public HTTPS origin.
 
 ## Migrate And Initialize
 
+Committed and generated SQL migrations live in `migrations/`. Drizzle Kit keeps
+its generation journal and schema snapshots in `migrations/meta`; commit that
+directory together with the SQL migrations.
+
 Apply the committed MySQL migrations:
 
 ```bash
