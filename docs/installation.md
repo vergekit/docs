@@ -2,50 +2,66 @@
 
 ## Requirements
 
-- Node.js
+- Node.js 22.12 or newer
 - npm
-- OpenSSL for local secret generation
 - Wrangler through the project dependency
 - A Cloudflare account for remote D1 and deployment
 
 ## Create A Project
 
-Create a new app:
+Run the interactive installer:
+
+```bash
+npm create vergekit@latest
+```
+
+It asks where to create the project and whether to use Cloudflare Workers + D1
+or Node.js + MySQL. You can also provide the destination directly:
 
 ```bash
 npm create vergekit@latest my-app
 ```
 
-Verge Kit is Cloudflare-first, so the no-flag command creates the default
-Workers + D1 application. Using the self-hosted Node.js + MySQL preset? See the
+Verge Kit is Cloudflare-first, so Workers + D1 is the default. The guided D1
+flow can install dependencies, create `.dev.vars` with a fresh Better Auth
+secret, apply local migrations, and launch administrator creation. The secret is
+generated with Node.js and is never printed.
+
+The Node.js + MySQL flow creates `.env` with a fresh Better Auth secret, installs
+dependencies, and presents one grouped connection step for the MySQL host,
+port, database, user, and masked password. It can then run the migration and
+administrator commands. See the
 [Node.js + MySQL guide](/docs/alternative-deployments/node-mysql).
 
-Install dependencies:
+For scripts and CI, non-interactive terminals never prompt. With no setup flags,
+the command only generates the project. Use `--yes` for dependency installation
+and local D1 migration, or choose stages explicitly:
 
 ```bash
-cd my-app
-npm install
+npm create vergekit@latest my-app -- --yes
+npm create vergekit@latest my-app -- --install --migrate --no-admin
+npm create vergekit@latest my-app -- --no-install
 ```
+
+Administrator creation remains manual under `--yes` because it securely prompts
+for credentials. Non-interactive Node.js + MySQL setup also leaves database
+migration and administrator creation manual because its connection prompt is
+unavailable. Run `npm create vergekit@latest -- --help` for every CLI option.
 
 ## Local Runtime Secrets
 
-Create local runtime secrets. The paste-free option copies the template and
-writes a fresh Better Auth secret:
-
-```bash
-cp .dev.vars.example .dev.vars && secret="$(openssl rand -base64 32)" && awk -v secret="$secret" 'BEGIN { done = 0 } /^BETTER_AUTH_SECRET=/ { print "BETTER_AUTH_SECRET=" secret; done = 1; next } { print } END { if (!done) print "BETTER_AUTH_SECRET=" secret }' .dev.vars > .dev.vars.tmp && mv .dev.vars.tmp .dev.vars
-```
-
-Or copy the file and fill the secret manually:
+The interactive installer creates `.dev.vars` with a fresh Better Auth secret.
+If you skipped setup or generated from a non-interactive terminal, copy the
+example file:
 
 ```bash
 cp .dev.vars.example .dev.vars
 ```
 
-Generate a Better Auth secret:
+Generate a secret with Node.js:
 
 ```bash
-openssl rand -base64 32
+node -e "console.log(require('node:crypto').randomBytes(32).toString('base64url'))"
 ```
 
 Add it to `.dev.vars`:

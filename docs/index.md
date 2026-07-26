@@ -44,9 +44,7 @@ Better Auth, and Tailwind instead of adding a large custom framework layer.
 New projects start with:
 
 ```bash
-npm create vergekit@latest my-app
-cd my-app
-npm install
+npm create vergekit@latest
 ```
 
 Local development uses `.dev.vars` for local secrets, `wrangler.jsonc` for

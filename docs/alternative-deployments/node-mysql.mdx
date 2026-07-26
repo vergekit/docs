@@ -22,10 +22,16 @@ configuration.
 Select the preset when creating the application:
 
 ```bash
-npm create vergekit@latest my-app -- --preset node-mysql
-cd my-app
-npm install
+npm create vergekit@latest
 ```
+
+In an interactive terminal, the installer creates `.env` with a fresh Better
+Auth secret and can run `npm install` for you. It then groups the MySQL host,
+port, database, user, and masked password questions into one connection step,
+using `.env.example` values as the defaults. After saving those five settings,
+it can run the migration and launch administrator creation. If `.env` already
+exists, its secrets and unrelated settings are preserved; only the five MySQL
+values you explicitly confirm are updated.
 
 Preset selection happens only during scaffolding. The generated application is
 a normal Node.js Astro project and does not switch runtimes at startup.
@@ -54,7 +60,8 @@ Copy the committed template:
 cp .env.example .env
 ```
 
-Set the local values in `.env`:
+If you skip the guided connection step or run non-interactively, set the local
+values in `.env`:
 
 ```dotenv
 MYSQL_HOST=127.0.0.1
@@ -67,11 +74,11 @@ BETTER_AUTH_URL=http://localhost:4321
 EMAIL_PROVIDER=console
 ```
 
-Generate a Better Auth secret with a cryptographically secure tool, for
-example:
+If the installer did not create `.env`, generate a Better Auth secret with
+Node.js:
 
 ```bash
-openssl rand -base64 32
+node -e "console.log(require('node:crypto').randomBytes(32).toString('base64url'))"
 ```
 
 Do not commit `.env`. `MYSQL_PASSWORD` may be empty only when the configured
