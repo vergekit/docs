@@ -1,3 +1,13 @@
 ---
 import "../styles/docs.css";
 ---
+
+<!-- Keep docs light-only for now. Remove this script and the matching docs.css rule to restore the switcher. -->
+<script is:inline>
+  (() => {
+    document.documentElement.classList.remove("dark");
+    try {
+      localStorage.setItem("themeMode", "light");
+    } catch (_) {}
+  })();
+</script>

@@ -7,16 +7,25 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   prefetch: true,
+  markdown: {
+    shikiConfig: {
+      theme: 'github-light-default',
+      wrap: true,
+    },
+  },
   integrations: [
     reallySimpleDocs({
       docsDir: './docs',
       routeBase: '/docs',
+      bodyAttrs: {
+        'data-pagefind-body': true,
+        'data-theme-mode': 'light-only',
+      },
       style: 'vega',
       css: false,
       components: {
         Head: './src/components/DocsHead.astro',
         ContentHeader: './src/components/ContentHeader.astro',
-        SidebarFooter: './src/components/SidebarFooter.astro',
       },
       site: {
         title: 'Verge Kit Docs',

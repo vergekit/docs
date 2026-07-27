@@ -1,0 +1,39 @@
+---
+import type { BlogEntry } from "../utils/content";
+import { blogHref, entrySlug, formatDate } from "../utils/content";
+import Tag from "./Tag.astro";
+
+interface Props {
+  entries: BlogEntry[];
+  emptyMessage?: string;
+}
+
+const { entries, emptyMessage = "No posts found." } = Astro.props;
+---
+
+<div class="space-y-8">
+  {entries.map((entry) => {
+    const slug = entrySlug(entry.id);
+    return (
+      <article class="border-b border-border pb-8 last:border-b-0">
+        <h2 class="text-pretty text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+          <a href={blogHref(slug)} class="no-underline hover:text-muted-foreground">{entry.data.title}</a>
+        </h2>
+        <p class="mt-2 text-pretty text-base text-muted-foreground">{entry.data.description}</p>
+        <div class="mt-4 flex items-center gap-4 text-base text-muted-foreground sm:text-sm">
+          <time datetime={entry.data.publishedAt.toISOString()} class="tabular-nums">
+            {formatDate(entry.data.publishedAt)}
+          </time>
+          {entry.data.tags.length > 0 && (
+            <div class="flex flex-wrap gap-2">
+              {entry.data.tags.map((tag) => <Tag tag={tag} />)}
+            </div>
+          )}
+        </div>
+      </article>
+    );
+  })}
+  {entries.length === 0 && (
+    <p class="py-12 text-center text-base text-muted-foreground sm:text-sm">{emptyMessage}</p>
+  )}
+</div>

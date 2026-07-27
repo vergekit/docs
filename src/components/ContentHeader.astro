@@ -1,6 +1,37 @@
 ---
 const githubUrl = "https://github.com/vergekit/vergekit";
+const currentPath = Astro.url.pathname;
+const navLinks = [
+  { href: "/docs/", label: "Docs" },
+  { href: "/fieldguide/", label: "Field Guide" },
+  { href: "/blog/", label: "Blog" },
+  { href: "/project/", label: "Project" },
+];
+
+const normalizePath = (path: string) =>
+  path !== "/" && path.endsWith("/") ? path.slice(0, -1) : path;
+const isActive = (href: string) =>
+  normalizePath(currentPath).startsWith(normalizePath(href));
 ---
+
+<nav
+  aria-label="Main navigation"
+  class="absolute left-[calc(50%-8.25rem)] flex -translate-x-1/2 items-center gap-6 whitespace-nowrap text-sm font-semibold max-xl:hidden"
+>
+  {navLinks.map((link) => (
+    <a
+      href={link.href}
+      aria-current={isActive(link.href) ? "page" : undefined}
+      class:list={[
+        isActive(link.href)
+          ? "text-foreground"
+          : "text-neutral-400 hover:text-foreground",
+      ]}
+    >
+      {link.label}
+    </a>
+  ))}
+</nav>
 
 <a
   href={githubUrl}

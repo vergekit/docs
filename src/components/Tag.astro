@@ -1,0 +1,16 @@
+---
+interface Props {
+  tag: string;
+  linked?: boolean;
+}
+
+const { tag, linked = true } = Astro.props;
+---
+
+{linked ? (
+  <a href={`/blog/tag/${encodeURIComponent(tag)}`} class="badge no-underline" data-variant="secondary">
+    {tag}
+  </a>
+) : (
+  <span class="badge" data-variant="secondary">{tag}</span>
+)}

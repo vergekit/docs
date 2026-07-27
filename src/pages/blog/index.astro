@@ -1,0 +1,11 @@
+---
+import BlogFeed from "../../components/BlogFeed.astro";
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import { getPublishedBlogPosts } from "../../utils/content";
+
+const posts = await getPublishedBlogPosts();
+---
+
+<BlogLayout>
+  <BlogFeed entries={posts} />
+</BlogLayout>

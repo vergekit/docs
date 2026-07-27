@@ -1,0 +1,336 @@
+---
+import Search from "lucide-static/icons/search.svg?raw";
+
+const currentPath = Astro.url.pathname;
+const githubUrl = "https://github.com/vergekit/vergekit";
+const navLinks = [
+  { href: "/docs/", label: "Docs" },
+  { href: "/fieldguide/", label: "Field Guide" },
+  { href: "/blog/", label: "Blog" },
+  { href: "/project/", label: "Project" },
+];
+
+const normalizePath = (path: string) =>
+  path !== "/" && path.endsWith("/") ? path.slice(0, -1) : path;
+const isActive = (href: string) =>
+  normalizePath(currentPath).startsWith(normalizePath(href));
+---
+
+<nav id="site-navigation" class="relative mb-12 border-b border-border py-3">
+  <div class="flex items-center gap-3 sm:hidden">
+    <a href="/" aria-label="Homepage" class="flex shrink-0 items-center gap-2">
+      <img src="/vk-crane-a.svg" alt="" class="size-7 shrink-0" />
+      <div class="text-base font-semibold">Verge Kit</div>
+    </a>
+
+    <div class="flex-1"></div>
+
+    <button
+      id="search-button-mobile"
+      class="btn relative"
+      data-variant="ghost"
+      data-size="icon-sm"
+      type="button"
+      aria-label="Open search"
+    >
+      <span class="absolute left-1/2 top-1/2 size-12 -translate-1/2 pointer-fine:hidden" aria-hidden="true"></span>
+      <Fragment set:html={Search} />
+    </button>
+
+    <button
+      id="mobile-menu-toggle"
+      class="relative flex size-10 shrink-0 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground"
+      type="button"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+    >
+      <span class="absolute left-1/2 top-1/2 size-12 -translate-1/2 pointer-fine:hidden" aria-hidden="true"></span>
+      <svg id="hamburger-icon" xmlns="http://www.w3.org/2000/svg" class="size-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+      <svg id="close-icon" xmlns="http://www.w3.org/2000/svg" class="hidden size-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+
+  <div class="hidden items-center sm:flex">
+    <div class="flex flex-1 items-center">
+      <a href="/" aria-label="Homepage" class="flex shrink-0 items-center gap-2">
+        <img src="/vk-crane-a.svg" alt="" class="size-8 shrink-0" />
+        <div class="text-sm font-semibold">Verge Kit</div>
+      </a>
+    </div>
+
+    <div class="flex items-center gap-6">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          aria-current={isActive(link.href) ? "page" : undefined}
+          class:list={[
+            "text-sm font-semibold",
+            isActive(link.href) ? "text-foreground" : "text-neutral-400 hover:text-foreground",
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+
+    <div class="flex flex-1 items-center justify-end">
+      <div class="flex min-w-0 items-center gap-2">
+        <div
+          id="search-button"
+          class="input-group h-8 w-28 min-w-0 cursor-text md:w-36"
+          role="button"
+          tabindex="0"
+          aria-label="Search site"
+        >
+          <input
+            type="text"
+            name="global-search-trigger"
+            placeholder="Search..."
+            readonly
+            tabindex="-1"
+            aria-hidden="true"
+          />
+          <span data-align="start" aria-hidden="true"><Fragment set:html={Search} /></span>
+          <span data-align="end" aria-hidden="true"><kbd class="kbd">⌘K</kbd></span>
+        </div>
+
+        <a
+          href={githubUrl}
+          target="_blank"
+          rel="noopener"
+          aria-label="Open GitHub repository"
+          data-side="bottom"
+          data-align="end"
+          data-tooltip="GitHub"
+          class="btn shrink-0"
+          data-size="icon-sm"
+        >
+          <svg
+            class="size-4 shrink-0"
+            fill="currentColor"
+            role="img"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <title>GitHub</title>
+            <path
+              d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+            ></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div
+    id="mobile-menu-backdrop"
+    class="fixed bottom-0 left-0 right-0 z-60 hidden bg-black/40 backdrop-blur-sm sm:hidden"
+  ></div>
+
+  <div
+    id="mobile-menu"
+    class="absolute left-0 right-0 top-full z-70 -mt-px hidden rounded-md bg-popover text-popover-foreground shadow-lg ring-1 ring-foreground/10 sm:hidden"
+  >
+    <div class="flex flex-col gap-1 p-4">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          aria-current={isActive(link.href) ? "page" : undefined}
+          class:list={[
+            "rounded px-3 py-2 text-base font-medium",
+            isActive(link.href)
+              ? "bg-muted text-foreground"
+              : "text-muted-foreground hover:bg-muted hover:text-foreground",
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</nav>
+
+<dialog id="search-modal" class="command-dialog" aria-label="Search site">
+  <div class="command" data-filter="manual">
+    <header>
+      <Fragment set:html={Search} />
+      <input
+        type="text"
+        name="site-search"
+        id="search-input"
+        placeholder="Search..."
+        aria-label="Search site"
+        autocomplete="off"
+      />
+    </header>
+    <div
+      id="search-results"
+      role="menu"
+      aria-live="polite"
+      data-empty="Type to search across the site."
+    ></div>
+  </div>
+</dialog>
+
+<script>
+  const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const mobileMenuBackdrop = document.getElementById("mobile-menu-backdrop") as HTMLElement;
+  const hamburgerIcon = document.getElementById("hamburger-icon");
+  const closeIcon = document.getElementById("close-icon");
+  const navElement = document.getElementById("site-navigation");
+
+  function openMobileMenu() {
+    if (mobileMenuBackdrop && navElement) {
+      mobileMenuBackdrop.style.top = `${navElement.getBoundingClientRect().bottom}px`;
+    }
+    mobileMenu?.classList.remove("hidden");
+    mobileMenuBackdrop?.classList.remove("hidden");
+    hamburgerIcon?.classList.add("hidden");
+    closeIcon?.classList.remove("hidden");
+    mobileMenuToggle?.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeMobileMenu() {
+    mobileMenu?.classList.add("hidden");
+    mobileMenuBackdrop?.classList.add("hidden");
+    hamburgerIcon?.classList.remove("hidden");
+    closeIcon?.classList.add("hidden");
+    mobileMenuToggle?.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  }
+
+  mobileMenuToggle?.addEventListener("click", () => {
+    mobileMenu?.classList.contains("hidden") ? openMobileMenu() : closeMobileMenu();
+  });
+  mobileMenuBackdrop?.addEventListener("click", closeMobileMenu);
+
+  const searchButton = document.getElementById("search-button");
+  const searchButtonMobile = document.getElementById("search-button-mobile");
+  const searchModal = document.getElementById("search-modal") as HTMLDialogElement;
+  const searchInput = document.getElementById("search-input") as HTMLInputElement;
+  const searchResults = document.getElementById("search-results");
+  let pagefind: any = null;
+
+  async function initPagefind() {
+    if (pagefind) return pagefind;
+    try {
+      const pagefindPath = ["/pagefind", "/pagefind.js"].join("");
+      pagefind = await import(/* @vite-ignore */ pagefindPath);
+      await pagefind.init();
+      return pagefind;
+    } catch {
+      return null;
+    }
+  }
+
+  function openSearch() {
+    if (searchModal && !searchModal.open) searchModal.showModal();
+    searchInput?.focus();
+    initPagefind();
+  }
+
+  function resetSearch() {
+    if (searchInput) searchInput.value = "";
+    if (searchResults) {
+      searchResults.innerHTML = "";
+      searchResults.dataset.empty = "Type to search across the site.";
+    }
+  }
+
+  function closeSearch() {
+    if (searchModal?.open) searchModal.close();
+    resetSearch();
+  }
+
+  function showEmptySearchState(message: string) {
+    if (!searchResults) return;
+    searchResults.innerHTML = "";
+    searchResults.dataset.empty = message;
+  }
+
+  searchButton?.addEventListener("click", openSearch);
+  searchButton?.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openSearch();
+    }
+  });
+  searchButtonMobile?.addEventListener("click", openSearch);
+  searchModal?.addEventListener("click", (event) => {
+    if (event.target === searchModal) closeSearch();
+  });
+  searchModal?.addEventListener("close", resetSearch);
+
+  document.addEventListener("keydown", (event) => {
+    if ((event.metaKey || event.ctrlKey) && event.key === "k") {
+      event.preventDefault();
+      searchModal?.open ? closeSearch() : openSearch();
+    }
+    if (event.key === "Escape") {
+      closeSearch();
+      closeMobileMenu();
+    }
+  });
+
+  let searchTimeout: ReturnType<typeof setTimeout>;
+  searchInput?.addEventListener("input", async (event) => {
+    const query = (event.target as HTMLInputElement).value;
+    clearTimeout(searchTimeout);
+
+    if (!query || query.length < 2) {
+      showEmptySearchState("Type to search across the site.");
+      return;
+    }
+
+    searchTimeout = setTimeout(async () => {
+      const pf = await initPagefind();
+      if (!pf) {
+        showEmptySearchState("Search is available after a production build.");
+        return;
+      }
+
+      const search = await pf.search(query);
+      if (search.results.length === 0) {
+        showEmptySearchState("No results found.");
+        return;
+      }
+
+      const results = await Promise.all(search.results.slice(0, 10).map((result: any) => result.data()));
+      if (searchResults) {
+        searchResults.innerHTML = `<div role="group" aria-labelledby="global-search-results-heading">
+          <span role="heading" id="global-search-results-heading">Results</span>
+          ${results.map((result: any) => `
+            <a href="${result.url}" role="menuitem" class="h-auto min-h-0 flex-col items-start gap-1 overflow-visible whitespace-normal py-2">
+              <strong class="w-full font-medium leading-5">${result.meta?.title || result.url}</strong>
+              <span class="line-clamp-2 w-full text-sm font-normal leading-5 text-muted-foreground">${result.excerpt}</span>
+            </a>
+          `).join("")}
+        </div>`;
+      }
+    }, 150);
+  });
+</script>
+
+<style is:global>
+  .public-site .command .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .public-site .command mark {
+    background-color: color-mix(
+      in oklab,
+      oklch(90.5% 0.182 98.111) 50%,
+      transparent
+    );
+    color: var(--color-foreground);
+  }
+</style>

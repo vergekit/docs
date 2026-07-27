@@ -1,0 +1,40 @@
+---
+import FieldGuideNav from "../components/FieldGuideNav.astro";
+import PageTitle from "../components/PageTitle.astro";
+import PrevNext from "../components/PrevNext.astro";
+import PublicLayout from "./PublicLayout.astro";
+
+interface NavigationEntry {
+  href: string;
+  title: string;
+}
+
+interface Props {
+  title: string;
+  description?: string;
+  prev?: NavigationEntry;
+  next?: NavigationEntry;
+}
+
+const { title, description, prev, next } = Astro.props;
+const pageTitle = title === "Field Guide" ? title : `${title}`;
+---
+
+<PublicLayout title={pageTitle} description={description}>
+  <div class="sm:hidden">
+    <FieldGuideNav />
+  </div>
+
+  <div class="gap-8 pb-16 sm:flex lg:gap-12">
+    <aside class="hidden w-56 shrink-0 sm:block lg:w-64">
+      <FieldGuideNav />
+    </aside>
+    <main class="min-w-0 max-w-3xl flex-1">
+      <article class="prose">
+        <PageTitle>{title}</PageTitle>
+        <slot />
+        <PrevNext prev={prev} next={next} />
+      </article>
+    </main>
+  </div>
+</PublicLayout>

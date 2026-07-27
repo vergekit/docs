@@ -1,0 +1,71 @@
+---
+interface Props {
+  id: string;
+  currentTitle: string;
+  label?: string;
+}
+
+const { id, currentTitle, label } = Astro.props;
+---
+
+<div class={`mobile-nav-dropdown mobile-nav-dropdown-${id} relative mb-6 sm:hidden`}>
+  <button
+    class="mobile-nav-toggle flex w-full items-center justify-between rounded-md border border-border bg-background px-4 py-3 text-base font-medium text-foreground hover:bg-muted sm:text-sm"
+    type="button"
+    aria-expanded="false"
+  >
+    <span>{currentTitle}</span>
+    <svg class="mobile-nav-chevron size-4 shrink-0 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="m9 18 6-6-6-6"></path>
+    </svg>
+  </button>
+
+  <nav class="mobile-nav-content absolute left-0 right-0 top-full z-50 mt-2 hidden max-h-[70vh] space-y-4 overflow-y-auto rounded-md bg-popover p-4 text-popover-foreground shadow-lg ring-1 ring-foreground/10" aria-label={label ?? "Section navigation"}>
+    {label && <h2 class="mb-3 px-2 text-xs font-medium text-muted-foreground">{label}</h2>}
+    <slot />
+  </nav>
+</div>
+
+<script>
+  function closeDropdown(container: Element) {
+    const dropdown = container.querySelector(".mobile-nav-content");
+    const chevron = container.querySelector(".mobile-nav-chevron");
+    const toggle = container.querySelector(".mobile-nav-toggle");
+    dropdown?.classList.add("hidden");
+    if (chevron) (chevron as HTMLElement).style.transform = "";
+    toggle?.setAttribute("aria-expanded", "false");
+  }
+
+  function initMobileNavDropdowns() {
+    const dropdowns = document.querySelectorAll(".mobile-nav-dropdown");
+    dropdowns.forEach((container) => {
+      const toggle = container.querySelector(".mobile-nav-toggle");
+      const dropdown = container.querySelector(".mobile-nav-content");
+      const chevron = container.querySelector(".mobile-nav-chevron");
+      if (toggle?.hasAttribute("data-dropdown-init")) return;
+      toggle?.setAttribute("data-dropdown-init", "true");
+
+      toggle?.addEventListener("click", (event) => {
+        event.stopPropagation();
+        const isHidden = dropdown?.classList.contains("hidden");
+        dropdowns.forEach((other) => {
+          if (other !== container) closeDropdown(other);
+        });
+        dropdown?.classList.toggle("hidden", !isHidden);
+        if (chevron) (chevron as HTMLElement).style.transform = isHidden ? "rotate(90deg)" : "";
+        toggle.setAttribute("aria-expanded", isHidden ? "true" : "false");
+      });
+      dropdown?.addEventListener("click", (event) => event.stopPropagation());
+    });
+
+    if (!document.documentElement.hasAttribute("data-mobile-nav-click-init")) {
+      document.documentElement.setAttribute("data-mobile-nav-click-init", "true");
+      document.addEventListener("click", () => {
+        document.querySelectorAll(".mobile-nav-dropdown").forEach(closeDropdown);
+      });
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", initMobileNavDropdowns);
+  document.addEventListener("astro:page-load", initMobileNavDropdowns);
+</script>

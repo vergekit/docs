@@ -11,6 +11,15 @@
   }
 }
 
+/* Light-only docs mode. Kept narrow so the theme switcher can be restored later. */
+body[data-theme-mode="light-only"] button[aria-label="Toggle dark mode"] {
+  display: none;
+}
+
+[role="button"][aria-label="Search docs"] {
+  max-width: --spacing(48);
+}
+
 @source "../**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}";
 @source "../../docs/**/*.{md,mdx}";
 @source "../../node_modules/reallysimpledocs/src/runtime/**/*.{astro,js,ts}";

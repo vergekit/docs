@@ -1,0 +1,39 @@
+---
+import type { FieldGuideNavSection } from "../utils/content";
+
+interface Props {
+  sections: FieldGuideNavSection[];
+  currentPath: string;
+}
+
+const { sections, currentPath } = Astro.props;
+---
+
+<div class="space-y-5">
+  {sections.map((section) => (
+    <section>
+      <h3 class="mb-2 px-2 text-xs font-medium text-muted-foreground">{section.label}</h3>
+      <ul role="list" class="space-y-1">
+        {section.entries.map((entry) => {
+          const active = currentPath === entry.href;
+          return (
+            <li>
+              <a
+                href={entry.href}
+                aria-current={active ? "page" : undefined}
+                class:list={[
+                  "flex min-h-12 items-center rounded-md px-3 text-base sm:min-h-0 sm:py-2 sm:text-sm",
+                  active
+                    ? "bg-muted text-foreground"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground active:bg-muted",
+                ]}
+              >
+                {entry.title}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  ))}
+</div>

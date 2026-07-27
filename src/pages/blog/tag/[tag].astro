@@ -1,0 +1,31 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BlogFeed from "../../../components/BlogFeed.astro";
+import BlogLayout from "../../../layouts/BlogLayout.astro";
+import { getPublishedBlogPosts } from "../../../utils/content";
+
+export async function getStaticPaths() {
+  const posts = await getPublishedBlogPosts();
+  const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
+
+  return tags.map((tag) => ({
+    params: { tag },
+    props: {
+      tag,
+      posts: posts.filter((post) => post.data.tags.includes(tag)),
+    },
+  }));
+}
+
+interface Props {
+  tag: string;
+  posts: CollectionEntry<"blog">[];
+}
+
+const { tag, posts } = Astro.props;
+---
+
+<BlogLayout>
+  <p class="mb-8 text-base text-muted-foreground">Posts tagged “{tag}”</p>
+  <BlogFeed entries={posts} emptyMessage={`No posts are tagged “${tag}”.`} />
+</BlogLayout>

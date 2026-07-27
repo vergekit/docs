@@ -1,0 +1,33 @@
+---
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Verge Kit is a foundation for building full-stack Astro applications on Cloudflare Workers." } = Astro.props;
+const pageTitle = title === "Verge Kit" ? title : `${title} | Verge Kit`;
+---
+
+<!doctype html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>{pageTitle}</title>
+  </head>
+  <body class="public-site min-h-dvh bg-background text-foreground" data-pagefind-body>
+    <div class="isolate mx-auto w-full max-w-7xl px-6 md:px-12 lg:px-20">
+      <SiteHeader />
+      <slot />
+      <SiteFooter />
+    </div>
+  </body>
+</html>
