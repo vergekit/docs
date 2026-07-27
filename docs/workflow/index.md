@@ -28,18 +28,15 @@ Use Wrangler secrets for deployed secrets.
 
 ## 2. Migrate
 
-Apply migrations before testing auth or database-backed pages:
-
-```bash
-npm run db:migrate:local
-```
-
-After schema changes, generate a migration and apply it locally:
+Edit table definitions in `src/config/schema.ts`, then generate and apply migrations before testing auth or database-backed pages:
 
 ```bash
 npm run db:generate
 npm run db:migrate:local
 ```
+
+For schema location, updates, and remote apply, see
+[Schema and Migrations](/docs/setup/database#schema-and-migrations).
 
 ## 3. Initialize
 

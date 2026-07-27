@@ -1,10 +1,11 @@
 # D1 Setup
 
-The application expects a Cloudflare D1 binding named `DB`, and
-Drizzle writes migrations to `migrations`. The database schema lives in
-`src/config/schema.ts`, which is also the Drizzle Kit entrypoint. Drizzle Kit
-keeps its generation journal and schema snapshots in `migrations/meta`; commit
-that directory together with the SQL migrations.
+The application expects a Cloudflare D1 binding named `DB`. Edit the database
+schema in `src/config/schema.ts`, generate SQL with Drizzle Kit into
+`migrations`, and apply those files with Wrangler. Commit `migrations/meta`
+together with the SQL migrations. See
+[Schema and Migrations](#schema-and-migrations) for the full create-and-run
+loop.
 
 D1 is currently the only supported runtime database. Runtime code should use the local
 `src/db.ts` module rather than importing `drizzle-orm/d1` directly from routes,
@@ -60,6 +61,101 @@ Wrangler is already a project dev dependency. Install dependencies with
 `npm install`, then use the project scripts. If you want to call Wrangler
 directly, prefer `npx wrangler ...` so the repository-pinned version is used.
 
+## Schema and Migrations
+
+Define tables in TypeScript, generate SQL with Drizzle Kit, and apply migrations
+with Wrangler.
+
+### Schema location
+
+Table definitions are in:
+
+```text
+src/config/schema.ts
+```
+
+Consumers of that file:
+
+- App query code that imports tables from `@/config/schema` (or the equivalent
+  project path)
+- Better Auth D1 adapter tables
+- Drizzle Kit via `drizzle.config.ts` (`schema: './src/config/schema.ts'`)
+
+Do not edit generated SQL under `migrations/` to change the schema. Update
+`src/config/schema.ts`, regenerate, and review the new migration.
+
+| Path | Role |
+| --- | --- |
+| `src/config/schema.ts` | Drizzle table definitions |
+| `drizzle.config.ts` | Drizzle Kit config (schema path, dialect, D1 driver) |
+| `migrations/*.sql` | Generated SQL migrations; commit these |
+| `migrations/meta/` | Drizzle Kit journal and snapshots; commit with the SQL |
+| `wrangler.jsonc` `migrations_dir` | Wrangler apply directory (`migrations`) |
+
+### Schema updates
+
+For a table, column, index, or relation change:
+
+1. Update `src/config/schema.ts`.
+2. Generate a migration with Drizzle Kit.
+3. Review the new SQL under `migrations/`.
+4. Apply to local D1, then remote as needed.
+5. Commit `src/config/schema.ts`, the new `migrations/*.sql` file, and updates
+   under `migrations/meta/`.
+
+If Better Auth plugins require extra tables or columns, add them to
+`src/config/schema.ts` and generate a migration. Auth and app tables share this
+file and the same generate/apply path.
+
+### Create a migration
+
+After editing `src/config/schema.ts`:
+
+```bash
+npm run db:generate
+```
+
+Drizzle Kit reads `drizzle.config.ts`, diffs the schema against the latest
+snapshot in `migrations/meta`, and writes a new SQL file under `migrations/`
+plus updated journal/snapshot files.
+
+Commit the generated files with the schema change. Omitting the migration causes
+environment drift.
+
+If generate reports no changes, the schema already matches the latest snapshot,
+or the edit did not change the exported Drizzle schema. Confirm the edit is in
+`src/config/schema.ts` and that `drizzle.config.ts` points at that file.
+
+### Run migrations
+
+Apply generated SQL with Wrangler. Do not use `drizzle-kit push` or
+`drizzle-kit migrate` for normal D1 work. Project scripts wrap Wrangler D1
+migration apply:
+
+Local (Wrangler/Miniflare state under `.wrangler/`):
+
+```bash
+npm run db:migrate:local
+```
+
+Remote (Cloudflare-hosted D1 for the binding in `wrangler.jsonc`):
+
+```bash
+npm run db:migrate:remote
+```
+
+Local loop after a schema change:
+
+```bash
+npm run db:generate
+npm run db:migrate:local
+```
+
+Apply remote migrations before or during deploy, after the migration files are
+committed. For named Wrangler environments, use the apply commands in
+[Alternate Development Databases](#alternate-development-databases) and
+[Production Database](#production-database).
+
 ## Local Development
 
 Install dependencies first:
@@ -68,15 +164,11 @@ Install dependencies first:
 npm install
 ```
 
-Generate migrations after schema changes:
+Generate and apply migrations after schema changes (see
+[Schema and Migrations](#schema-and-migrations)):
 
 ```bash
 npm run db:generate
-```
-
-Apply migrations to Wrangler's local D1 state:
-
-```bash
 npm run db:migrate:local
 ```
 
@@ -254,7 +346,9 @@ Copy the returned `database_id` into `wrangler.jsonc` under the `DB` binding:
 }
 ```
 
-For remote migrations, prefer Wrangler's D1 commands:
+Generate migrations from `src/config/schema.ts` first (see
+[Schema and Migrations](#schema-and-migrations)), then apply them with
+Wrangler's D1 commands:
 
 ```bash
 npm run db:migrate:remote
@@ -271,12 +365,6 @@ project environment file:
 CLOUDFLARE_ACCOUNT_ID=
 CLOUDFLARE_DATABASE_ID=
 CLOUDFLARE_D1_TOKEN=
-```
-
-Apply migrations to the remote database:
-
-```bash
-npm run db:migrate:remote
 ```
 
 Optionally create a verified remote user with the `admin` role after migrations:

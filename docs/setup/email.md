@@ -5,6 +5,10 @@ entry point is `sendEmail(runtimeEnv, input)`, which resolves the configured
 provider from `runtimeEnv.EMAIL_PROVIDER` and sends one message with the common
 `SendEmailInput` shape. App-specific React Email templates live in `src/email`.
 
+Resend and Mailgun are currently the only supported production email providers (more are coming soon). See the [Resend Astro guide](https://resend.com/astro) and
+[Mailgun send API](https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun)
+for integration details. Use `console` locally when you do not need real delivery.
+
 ## Direct Sends
 
 Use `sendEmail` from Worker or Astro server code when a route needs to send a
