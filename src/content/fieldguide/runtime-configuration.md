@@ -1,7 +1,7 @@
 ---
 title: Runtime configuration patterns
 description: Keep public configuration, server-only values, and secrets in the right runtime boundary.
-status: draft
+status: published
 updatedAt: 2026-07-27
 ---
 

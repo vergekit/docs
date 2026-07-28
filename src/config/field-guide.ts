@@ -6,10 +6,10 @@
 export const fieldGuideNavigation = [
   {
     label: "",
-    slugs: ["index", "organizing-content"],
+    slugs: ["index", "resources", "organizing-content", "runtime-configuration"],
   },
-  {
-    label: "Application Patterns",
-    slugs: ["runtime-configuration"],
-  },
+  // {
+  //   label: "Application Patterns",
+  //   slugs: [],
+  // },
 ] as const;
