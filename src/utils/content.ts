@@ -17,6 +17,7 @@ export function entrySlug(id: string) {
 }
 
 export function fieldGuideHref(slug: string) {
+  if (slug === "resources") return "/resources";
   return slug === "index" || slug === "" ? "/fieldguide" : `/fieldguide/${slug}`;
 }
 

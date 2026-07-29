@@ -1,0 +1,24 @@
+---
+import { getEntry } from "astro:content";
+import ResourceCollection from "../components/ResourceCollection.astro";
+import FieldGuideLayout from "../layouts/FieldGuideLayout.astro";
+import { getFieldGuidePrevNext } from "../utils/content";
+import { resources } from "../utils/resources";
+
+const entry = await getEntry("fieldGuide", "resources");
+if (!entry || entry.data.status !== "published") {
+  throw new Error("The published Resources field guide entry could not be found.");
+}
+
+const { prev, next } = await getFieldGuidePrevNext("resources");
+---
+
+<FieldGuideLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  prev={prev}
+  next={next}
+  format="collection"
+>
+  <ResourceCollection resources={resources} />
+</FieldGuideLayout>

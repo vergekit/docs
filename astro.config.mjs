@@ -28,7 +28,7 @@ export default defineConfig({
         ContentHeader: './src/components/ContentHeader.astro',
       },
       site: {
-        title: 'Verge Kit Docs',
+        title: 'Verge Kit',
         subtitle: 'v0.1.4',
         description: 'Documentation for VergeKit.',
         logo: {

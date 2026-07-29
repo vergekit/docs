@@ -5,7 +5,7 @@ import { entrySlug, getFieldGuidePrevNext } from "../../utils/content";
 
 export async function getStaticPaths() {
   const entries = await getCollection("fieldGuide", ({ data }) => data.status === "published");
-  return entries.map((entry) => {
+  return entries.filter((entry) => entrySlug(entry.id) !== "resources").map((entry) => {
     const slug = entrySlug(entry.id);
     return {
       params: { slug: slug === "index" ? undefined : slug },

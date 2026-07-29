@@ -1,0 +1,39 @@
+---
+import PublicLayout from "../layouts/PublicLayout.astro";
+---
+
+<PublicLayout
+  title="Page not found"
+  description="The requested page could not be found on Verge Kit."
+  fullHeight
+>
+  <main
+    class="flex flex-1 items-center justify-center py-16 sm:py-20"
+    data-pagefind-ignore
+  >
+    <div class="text-center">
+      <p class="font-mono text-base text-muted-foreground tabular-nums sm:text-sm">
+        404
+      </p>
+      <h1
+        class="mx-auto mt-3 max-w-[20ch] text-balance text-3xl font-semibold tracking-tight sm:text-4xl"
+      >
+        Page not found
+      </h1>
+      <p
+        class="mx-auto mt-4 max-w-[56ch] text-pretty text-base text-muted-foreground"
+      >
+        The page may have moved, or the address might be incorrect.
+      </p>
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+        <a href="/" class="btn">Back to homepage</a>
+        <a
+          href="/docs/"
+          class="font-medium text-foreground underline decoration-muted-foreground/50 underline-offset-4 hover:decoration-foreground/50"
+        >
+          Browse the docs
+        </a>
+      </div>
+    </div>
+  </main>
+</PublicLayout>

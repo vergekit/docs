@@ -11,6 +11,7 @@ const navLinks = [
 const normalizePath = (path: string) =>
   path !== "/" && path.endsWith("/") ? path.slice(0, -1) : path;
 const isActive = (href: string) =>
+  (href === "/fieldguide/" && normalizePath(currentPath) === "/resources") ||
   normalizePath(currentPath).startsWith(normalizePath(href));
 ---
 

@@ -1,0 +1,246 @@
+---
+import type { Resource } from "../utils/resources";
+
+interface Props {
+  resources: Resource[];
+}
+
+const { resources } = Astro.props;
+const sortedResources = [...resources].sort((a, b) =>
+  a.title.localeCompare(b.title),
+);
+
+const tagsByKey = new Map<string, string>();
+for (const resource of sortedResources) {
+  for (const tag of resource.tags) {
+    const label = tag.trim();
+    if (label) tagsByKey.set(label.toLocaleLowerCase(), label);
+  }
+}
+const tags = [...tagsByKey.entries()]
+  .sort(([, a], [, b]) => a.localeCompare(b))
+  .map(([key, label]) => ({ key, label }));
+
+const normalizedTags = (resource: Resource) =>
+  resource.tags.map((tag) => tag.trim().toLocaleLowerCase()).filter(Boolean);
+
+const hostname = (url: string) => new URL(url).hostname.replace(/^www\./, "");
+---
+
+<section class="flex flex-col gap-8" data-resource-collection>
+  <div class="flex flex-col gap-3" aria-labelledby="resource-filters-heading">
+    <div class="flex items-baseline justify-between gap-4">
+      <h2 id="resource-filters-heading" class="text-lg font-semibold text-balance">
+        Browse by tag
+      </h2>
+      <p class="text-base text-muted-foreground tabular-nums sm:text-sm" aria-live="polite" data-resource-count>
+        {sortedResources.length} {sortedResources.length === 1 ? "resource" : "resources"}
+      </p>
+    </div>
+
+    <ul role="list" class="flex flex-wrap gap-2" aria-label="Filter resources by tag">
+      <li>
+        <button
+          type="button"
+          class="resource-filter min-h-12 rounded-full border border-border px-3 text-base text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground sm:min-h-8 sm:text-sm data-active:bg-foreground data-active:text-background data-active:border-foreground"
+          data-resource-filter=""
+          data-active
+          aria-pressed="true"
+        >
+          All
+        </button>
+      </li>
+      {tags.map(({ key, label }) => (
+        <li>
+          <button
+            type="button"
+            class="resource-filter min-h-12 rounded-full border border-border px-3 text-base text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground sm:min-h-8 sm:text-sm data-active:bg-foreground data-active:text-background data-active:border-foreground"
+            data-resource-filter={key}
+            aria-pressed="false"
+          >
+            {label}
+          </button>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  {sortedResources.length > 0 ? (
+    <>
+      <ul role="list" class="divide-y divide-foreground/10 lg:hidden" data-resource-mobile-list>
+        {sortedResources.map((resource) => (
+          <li
+            class="flex flex-col gap-3 py-6 first:pt-0 last:pb-0"
+            data-resource-item
+            data-resource-count-item
+            data-resource-tags={JSON.stringify(normalizedTags(resource))}
+          >
+            <div class="flex flex-col gap-1">
+              <h3 class="text-lg font-semibold text-balance">
+                <a
+                  href={resource.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="underline decoration-muted-foreground/50 underline-offset-4 hover:decoration-foreground"
+                >
+                  {resource.title}
+                </a>
+              </h3>
+              <p class="text-base text-muted-foreground">{hostname(resource.url)}</p>
+            </div>
+            <p class="text-pretty text-base">{resource.description}</p>
+            {resource.tags.length > 0 && (
+              <ul role="list" class="flex flex-wrap gap-2" aria-label={`Tags for ${resource.title}`}>
+                {resource.tags.map((tag) => (
+                  <li>
+                    <button
+                      type="button"
+                      class="min-h-12 rounded-md bg-muted px-3 text-base text-muted-foreground hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground sm:min-h-8 sm:text-sm"
+                      data-resource-tag-select={tag.trim().toLocaleLowerCase()}
+                    >
+                      {tag}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+
+      <div class="hidden lg:block">
+        <table class="w-full table-fixed border-collapse">
+          <thead>
+            <tr class="border-b border-foreground/10">
+              <th scope="col" class="w-1/4 whitespace-nowrap py-3 pr-6 text-left text-sm font-semibold">Resource</th>
+              <th scope="col" class="w-1/2 whitespace-nowrap px-6 py-3 text-left text-sm font-semibold">Description</th>
+              <th scope="col" class="w-1/4 whitespace-nowrap py-3 pl-6 text-left text-sm font-semibold">Tags</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-foreground/10">
+            {sortedResources.map((resource) => (
+              <tr
+                data-resource-item
+                data-resource-tags={JSON.stringify(normalizedTags(resource))}
+              >
+                <td class="py-5 pr-6 align-top">
+                  <div class="flex min-w-0 flex-col gap-1">
+                    <p class="text-sm font-semibold">
+                      <a
+                        href={resource.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="underline decoration-muted-foreground/50 underline-offset-4 hover:decoration-foreground"
+                      >
+                        {resource.title}
+                      </a>
+                    </p>
+                    <p class="truncate text-sm text-muted-foreground">{hostname(resource.url)}</p>
+                  </div>
+                </td>
+                <td class="px-6 py-5 align-top">
+                  <p class="text-pretty text-sm text-muted-foreground">{resource.description}</p>
+                </td>
+                <td class="py-5 pl-6 align-top">
+                  {resource.tags.length > 0 && (
+                    <ul role="list" class="flex flex-wrap gap-2" aria-label={`Tags for ${resource.title}`}>
+                      {resource.tags.map((tag) => (
+                        <li>
+                          <button
+                            type="button"
+                            class="min-h-8 rounded-md bg-muted px-2.5 text-sm text-muted-foreground hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+                            data-resource-tag-select={tag.trim().toLocaleLowerCase()}
+                          >
+                            {tag}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p hidden class="border-t border-foreground/10 py-8 text-pretty text-base text-muted-foreground" data-resource-no-match>
+        No resources match this tag.
+      </p>
+    </>
+  ) : (
+    <div class="border-t border-foreground/10 py-8">
+      <p class="text-pretty text-base text-muted-foreground">
+        The collection is ready. Resources will be added soon.
+      </p>
+    </div>
+  )}
+</section>
+
+<script>
+  const initResourceCollections = () => {
+    document.querySelectorAll<HTMLElement>("[data-resource-collection]").forEach((collection) => {
+      if (collection.dataset.initialized === "true") return;
+      collection.dataset.initialized = "true";
+
+      const filters = [...collection.querySelectorAll<HTMLButtonElement>("[data-resource-filter]")];
+      const tagSelectors = [...collection.querySelectorAll<HTMLButtonElement>("[data-resource-tag-select]")];
+      const items = [...collection.querySelectorAll<HTMLElement>("[data-resource-item]")];
+      const countItems = [...collection.querySelectorAll<HTMLElement>("[data-resource-count-item]")];
+      const count = collection.querySelector<HTMLElement>("[data-resource-count]");
+      const noMatch = collection.querySelector<HTMLElement>("[data-resource-no-match]");
+
+      const setFilter = (tag: string, updateUrl = true) => {
+        const normalizedTag = tag.toLocaleLowerCase();
+        const selectedFilter = filters.find(
+          (filter) => filter.dataset.resourceFilter === normalizedTag,
+        );
+        const activeTag = selectedFilter ? normalizedTag : "";
+
+        for (const filter of filters) {
+          const active = filter.dataset.resourceFilter === activeTag;
+          filter.toggleAttribute("data-active", active);
+          filter.setAttribute("aria-pressed", String(active));
+        }
+
+        for (const item of items) {
+          const itemTags = JSON.parse(item.dataset.resourceTags ?? "[]") as string[];
+          const visible = !activeTag || itemTags.includes(activeTag);
+          item.hidden = !visible;
+        }
+
+        const visibleCount = countItems.filter((item) => !item.hidden).length;
+
+        if (count) {
+          count.textContent = `${visibleCount} ${visibleCount === 1 ? "resource" : "resources"}`;
+        }
+        if (noMatch) noMatch.hidden = visibleCount !== 0;
+
+        if (updateUrl) {
+          const url = new URL(window.location.href);
+          const label = selectedFilter?.textContent?.trim();
+          if (activeTag && label) url.searchParams.set("tag", label);
+          else url.searchParams.delete("tag");
+          window.history.replaceState({}, "", url);
+        }
+      };
+
+      for (const filter of filters) {
+        filter.addEventListener("click", () => setFilter(filter.dataset.resourceFilter ?? ""));
+      }
+      for (const selector of tagSelectors) {
+        selector.addEventListener("click", () => {
+          const tag = selector.dataset.resourceTagSelect ?? "";
+          setFilter(tag);
+          collection.querySelector<HTMLButtonElement>(`[data-resource-filter="${CSS.escape(tag)}"]`)?.focus();
+        });
+      }
+
+      const requestedTag = new URL(window.location.href).searchParams.get("tag") ?? "";
+      setFilter(requestedTag, false);
+    });
+  };
+
+  initResourceCollections();
+  document.addEventListener("astro:page-load", initResourceCollections);
+</script>

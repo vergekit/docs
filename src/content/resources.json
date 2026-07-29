@@ -1,0 +1,518 @@
+[
+  {
+    "title": "The Orange Cloud Report",
+    "url": "https://orangecloud.report/",
+    "description": "An independent, experience-based scorecard for Cloudflare products used in production.",
+    "tags": ["cloudflare", "report", "u"]
+  },
+  {
+    "title": "@webreflection/utils",
+    "url": "https://github.com/WebReflection/utils",
+    "description": "A curated collection of TypeScript-friendly JavaScript utilities.",
+    "tags": ["js", "library", "u"]
+  },
+  {
+    "title": "@arraypress/analytics-astro",
+    "url": "https://github.com/arraypress/analytics-astro",
+    "description": "A consent-aware Astro component supporting multiple analytics providers.",
+    "tags": ["astro", "analytics", "u"]
+  },
+  {
+    "title": "@casoon/astro-structured-data",
+    "url": "https://github.com/casoon/astro-structured-data",
+    "description": "An Astro integration for generating JSON-LD structured data.",
+    "tags": ["astro", "seo", "u"]
+  },
+  {
+    "title": "@arraypress/seo-astro",
+    "url": "https://github.com/arraypress/seo-astro",
+    "description": "An Astro SEO component covering canonical, social, robots, article, and structured metadata.",
+    "tags": ["astro", "seo", "u"]
+  },
+  {
+    "title": "Lexington SEO",
+    "url": "https://github.com/Lexington-Themes/lexington-seo",
+    "description": "A reusable SEO component for Astro projects.",
+    "tags": ["astro", "seo", "u"]
+  },
+  {
+    "title": "SEO for Astro Sites: What Actually Matters",
+    "url": "https://friquelme.dev/blog/seo-for-astro-sites/",
+    "description": "A practical guide to the SEO fundamentals that matter for Astro sites.",
+    "tags": ["article", "seo", "u"]
+  },
+  {
+    "title": "Astro Meta",
+    "url": "https://github.com/rafters-studio/astro-meta",
+    "description": "Metadata tooling for SEO, answer engines, and generative search in Astro.",
+    "tags": ["astro", "seo", "u"]
+  },
+  {
+    "title": "NoLoJS",
+    "url": "https://aarontgrogg.github.io/NoLoJS/",
+    "description": "Common JavaScript patterns reimplemented with HTML, CSS, or less JavaScript.",
+    "tags": ["js", "html", "u"]
+  },
+  {
+    "title": "Greyscala",
+    "url": "https://www.greyscala.xyz/",
+    "description": "A generator for stepped grayscale palettes suitable for utility-first design systems.",
+    "tags": ["color", "tools", "u"]
+  },
+  {
+    "title": "astro-render-component",
+    "url": "https://github.com/igorskyflyer/npm-astro-render-component",
+    "description": "A zero-configuration renderer for producing HTML strings from Astro components in Node.js.",
+    "tags": ["astro", "library", "??", "u"]
+  },
+  {
+    "title": "Unovis",
+    "url": "https://unovis.dev/",
+    "description": "A modular data visualization framework with components for several frontend stacks.",
+    "tags": ["js", "charts", "u"]
+  },
+  {
+    "title": "Bejamas UI Theme Creator",
+    "url": "https://ui.bejamas.com/create",
+    "description": "An interactive creator for configuring and exporting Bejamas UI themes.",
+    "tags": ["tools", "theme", "u"]
+  },
+  {
+    "title": "Shadcn Themer",
+    "url": "https://shadcnthemer.com/",
+    "description": "A visual theme generator for shadcn/ui color variables.",
+    "tags": ["tools", "theme", "u"]
+  },
+  {
+    "title": "TweakCN",
+    "url": "https://tweakcn.com/editor/theme",
+    "description": "A visual editor for creating, previewing, and sharing shadcn/ui themes.",
+    "tags": ["tools", "theme", "u"]
+  },
+  {
+    "title": "CloneCN",
+    "url": "https://github.com/hunvreus/clonecn",
+    "description": "A skill and visual editor for generating and previewing shadcn/ui themes.",
+    "tags": ["skill", "theme", "u"]
+  },
+  {
+    "title": "astro-masonry",
+    "url": "https://github.com/eremannisto/astro-masonry",
+    "description": "An accessible Astro masonry component with responsive shortest-column balancing.",
+    "tags": ["astro", "component", "u"]
+  },
+  {
+    "title": "Elu",
+    "url": "https://github.com/mateogasme/elu",
+    "description": "A dependency-free Astro select component supporting multiple selection modes.",
+    "tags": ["astro", "component", "u"]
+  },
+  {
+    "title": "astro-stacks",
+    "url": "https://github.com/Livog/astro-stacks",
+    "description": "A Blade-style stack system for collecting deeply nested content during Astro SSR.",
+    "tags": ["astro", "library", "u"]
+  },
+  {
+    "title": "astro-animations",
+    "url": "https://github.com/SaintSin/astro-animations",
+    "description": "A lightweight Astro integration for modern CSS animations.",
+    "tags": ["astro", "animation", "u"]
+  },
+  {
+    "title": "astro-cache",
+    "url": "https://github.com/wyattjoh/astro-cache",
+    "description": "Disk-backed caching utilities with stale-while-revalidate and memoization support.",
+    "tags": ["astro", "performance", "u"]
+  },
+  {
+    "title": "astro-icon-sprite",
+    "url": "https://github.com/Livog/astro-icon-sprite",
+    "description": "An Astro integration for bundling SVG icons into reusable sprites.",
+    "tags": ["astro", "icons", "u"]
+  },
+  {
+    "title": "astro-md-alternate",
+    "url": "https://github.com/gxjansen/astro-md-alternate",
+    "description": "An Astro integration that serves Markdown versions of pages to agents and LLMs.",
+    "tags": ["astro", "ai", "u"]
+  },
+  {
+    "title": "Agent Markup",
+    "url": "https://github.com/agentmarkup/agentmarkup",
+    "description": "Build-time AI discovery metadata, Markdown mirrors, crawler controls, and validation.",
+    "tags": ["ai", "seo", "u"]
+  },
+  {
+    "title": "Hyperspace",
+    "url": "https://github.com/smnbbrv/astroscope/tree/main/packages/hyperspace",
+    "description": "Pre-compressed in-memory static file serving for Astro SSR.",
+    "tags": ["astro", "performance", "??", "u"]
+  },
+  {
+    "title": "astro-legal",
+    "url": "https://github.com/velohost/astro-legal",
+    "description": "An Astro toolkit for generating comprehensive website legal policies.",
+    "tags": ["astro", "legal", "u"]
+  },
+  {
+    "title": "astro-http",
+    "url": "https://github.com/velohost/astro-http",
+    "description": "Declarative, auditable HTTP security headers applied through Astro middleware.",
+    "tags": ["astro", "security", "u"]
+  },
+  {
+    "title": "astro-auto-load",
+    "url": "https://www.npmjs.com/package/astro-auto-load",
+    "description": "Automatic component-level data loading for server-rendered Astro applications.",
+    "tags": ["astro", "library", "u"]
+  },
+  {
+    "title": "astro-speed-measure",
+    "url": "https://github.com/casoon/astro-speed-measure",
+    "description": "End-to-end Astro build timing for integrations, pages, and assets.",
+    "tags": ["astro", "performance", "u"]
+  },
+  {
+    "title": "PhotoSuite",
+    "url": "https://github.com/achuanya/photosuite",
+    "description": "An integrated image toolkit for lightboxes, EXIF data, path resolution, and grids.",
+    "tags": ["astro", "images", "??", "u"]
+  },
+  {
+    "title": "Astroscope",
+    "url": "https://github.com/smnbbrv/astroscope/",
+    "description": "A collection of Astro integrations for common server-side application needs.",
+    "tags": ["astro", "library", "u"]
+  },
+  {
+    "title": "Dynamic Storage Interface",
+    "url": "https://github.com/Adammatthiesen/s3-interface-test",
+    "description": "File-management components for working with S3-compatible storage providers.",
+    "tags": ["component", "storage", "??", "u"]
+  },
+  {
+    "title": "Astro AI Readiness",
+    "url": "https://github.com/obaronai/astro-ai-readiness#readme",
+    "description": "An Astro toolkit for AI discovery files, crawler rules, and structured metadata.",
+    "tags": ["astro", "ai", "??", "u"]
+  },
+  {
+    "title": "astro-gtm-lite",
+    "url": "https://github.com/tfmurad/astro-gtm-lite#readme",
+    "description": "A lightweight Google Tag Manager integration for Astro.",
+    "tags": ["astro", "analytics", "u"]
+  },
+  {
+    "title": "astro-feed-kit",
+    "url": "https://github.com/kitschpatrol/astro-feed-kit",
+    "description": "An Astro integration for full-content RSS, Atom, and JSON feeds.",
+    "tags": ["astro", "feeds", "u"]
+  },
+  {
+    "title": "Ponytail",
+    "url": "https://github.com/DietrichGebert/ponytail",
+    "description": "An agent skill that favors simpler solutions and writing less code.",
+    "tags": ["skill", "ai", "u"]
+  },
+  {
+    "title": "Make Interfaces Feel Better",
+    "url": "https://jakub.kr/skills/make-interfaces-feel-better",
+    "description": "An agent skill for applying small, high-impact interface design details.",
+    "tags": ["skill", "design", "u"]
+  },
+  {
+    "title": "Skill Issue",
+    "url": "https://github.com/hunvreus/skill-issue",
+    "description": "A concise toolkit of composable skills for everyday software development.",
+    "tags": ["skill", "ai", "u"]
+  },
+  {
+    "title": "Refero Styles",
+    "url": "https://styles.refero.design/",
+    "description": "A searchable library of AI-readable design systems derived from product websites.",
+    "tags": ["design", "reference", "u"]
+  },
+  {
+    "title": "Design.md",
+    "url": "https://designmd.me/",
+    "description": "A tool that turns an existing website into an AI-readable design system.",
+    "tags": ["design", "tools", "u"]
+  },
+  {
+    "title": "Astro Awaited",
+    "url": "https://github.com/matheusbronca/astro-awaited",
+    "description": "Astro components for loading placeholders and skeleton screens around awaited content.",
+    "tags": ["astro", "component", "u"]
+  },
+  {
+    "title": "URL Design: Routing, Query Parameters, and Fragments",
+    "url": "https://www.jstools.space/blog/url-design-routing-query-parameters-fragments/",
+    "description": "A practical article about designing clear routes, query parameters, and URL fragments.",
+    "tags": ["article", "routing", "u"]
+  },
+  {
+    "title": "@picoo-studio/astro-google-tagmanager",
+    "url": "https://www.npmjs.com/package/@picoo-studio/astro-google-tagmanager",
+    "description": "A Google Tag Manager component for Astro sites.",
+    "tags": ["astro", "analytics", "u"]
+  },
+  {
+    "title": "Windy",
+    "url": "https://usewindy.com/",
+    "description": "A browser tool that converts inspected website styles into Tailwind CSS classes.",
+    "tags": ["tailwind", "tools", "u"]
+  },
+  {
+    "title": "Tailwind CSS Colors",
+    "url": "https://tailwindcss.com/docs/colors",
+    "description": "The official reference for Tailwind CSS color palettes and utilities.",
+    "tags": ["tailwind", "color", "u"]
+  },
+  {
+    "title": "Kigen Color",
+    "url": "https://kigen.design/color",
+    "description": "A visual generator for creating stepped color palettes.",
+    "tags": ["color", "tools", "u"]
+  },
+  {
+    "title": "Tailwind CSS Gradient Generator",
+    "url": "https://www.creative-tim.com/twcomponents/gradient-generator",
+    "description": "A visual generator for producing Tailwind CSS gradient classes.",
+    "tags": ["tailwind", "tools", "u"]
+  },
+  {
+    "title": "HyperUI",
+    "url": "https://www.hyperui.dev/",
+    "description": "A collection of free Tailwind CSS components for application and marketing interfaces.",
+    "tags": ["tailwind", "component", "u"]
+  },
+  {
+    "title": "Wicked Blocks",
+    "url": "https://www.wickedblocks.dev/",
+    "description": "A collection of ready-to-use Tailwind CSS interface blocks.",
+    "tags": ["tailwind", "component", "u"]
+  },
+  {
+    "title": "Awesome Standalones",
+    "url": "https://github.com/davatron5000/awesome-standalones#element-extensions",
+    "description": "A curated list of framework-agnostic standalone web components.",
+    "tags": ["component", "web-components", "u"]
+  },
+  {
+    "title": "Colors & Fonts",
+    "url": "https://www.colorsandfonts.com/",
+    "description": "A collection of practical color and typography tools for designers and developers.",
+    "tags": ["design", "tools", "u"]
+  },
+  {
+    "title": "Open Color",
+    "url": "https://yeun.github.io/open-color/",
+    "description": "An open-source color scheme optimized for interface design.",
+    "tags": ["color", "library", "u"]
+  },
+  {
+    "title": "CSS Colors",
+    "url": "http://davidbau.com/colors/",
+    "description": "A compact visual reference for CSS named colors.",
+    "tags": ["color", "reference", "u"]
+  },
+  {
+    "title": "InclusiveColors",
+    "url": "https://www.inclusivecolors.com/",
+    "description": "An accessible palette creator with contrast-aware color scales.",
+    "tags": ["color", "accessibility", "u"]
+  },
+  {
+    "title": "Modern Font Stacks",
+    "url": "https://modernfontstacks.com/",
+    "description": "A reference of system font stacks organized by typographic style.",
+    "tags": ["font", "reference", "u"]
+  },
+  {
+    "title": "Radix Icons",
+    "url": "https://icons.radix-ui.com/",
+    "description": "A crisp open-source icon set designed for user interfaces.",
+    "tags": ["icons", "library", "u"]
+  },
+  {
+    "title": "React Icons",
+    "url": "https://react-icons.github.io/react-icons/",
+    "description": "A searchable React wrapper for many popular icon sets.",
+    "tags": ["icons", "library", "u"]
+  },
+  {
+    "title": "MingCute",
+    "url": "https://www.mingcute.com/",
+    "description": "A carefully designed open-source icon library with outlined and filled styles.",
+    "tags": ["icons", "library", "u"]
+  },
+  {
+    "title": "Heroicons",
+    "url": "https://heroicons.com/",
+    "description": "Hand-crafted SVG icons from the makers of Tailwind CSS.",
+    "tags": ["icons", "library", "u"]
+  },
+  {
+    "title": "Streamline Icons",
+    "url": "https://www.streamlinehq.com/icons/streamline-regular",
+    "description": "A large, comprehensive library of consistent interface icon sets.",
+    "tags": ["icons", "library", "u"]
+  },
+  {
+    "title": "Lucide",
+    "url": "https://lucide.dev/",
+    "description": "A community-made, open-source icon toolkit forked from Feather Icons.",
+    "tags": ["icons", "library", "u"]
+  },
+  {
+    "title": "Font Awesome",
+    "url": "https://cdnjs.com/libraries/font-awesome",
+    "description": "CDN-hosted assets for the widely supported Font Awesome icon toolkit.",
+    "tags": ["icons", "library", "u"]
+  },
+  {
+    "title": "HTML First Resources",
+    "url": "https://html-first.com/resources",
+    "description": "A curated list of resources for building simpler, HTML-first websites.",
+    "tags": ["html", "reference", "u"]
+  },
+  {
+    "title": "UnsuckJS",
+    "url": "https://unsuckjs.com/",
+    "description": "A collection of lightweight JavaScript libraries that improve native web interfaces.",
+    "tags": ["js", "reference", "u"]
+  },
+  {
+    "title": "HTMHell",
+    "url": "https://htmhell.dev/",
+    "description": "Bad HTML examples and explanations that teach better markup practices.",
+    "tags": ["html", "reference", "u"]
+  },
+  {
+    "title": "stdlib",
+    "url": "https://stdlib.io/",
+    "description": "A standard library for numerical and scientific computing in JavaScript.",
+    "tags": ["js", "library", "u"]
+  },
+  {
+    "title": "SVG Doodles",
+    "url": "https://svgdoodles.com/",
+    "description": "A collection of copy-and-paste SVG illustrations and decorative assets.",
+    "tags": ["svg", "assets", "u"]
+  },
+  {
+    "title": "HelloCSV",
+    "url": "https://hellocsv.github.io/HelloCSV",
+    "description": "Embeddable CSV import components for application upload workflows.",
+    "tags": ["js", "component", "u"]
+  },
+  {
+    "title": "Framer Shapes",
+    "url": "https://shapes.framer.website/",
+    "description": "A collection of copy-and-paste graphic shapes for interface compositions.",
+    "tags": ["design", "assets", "u"]
+  },
+  {
+    "title": "Tagger",
+    "url": "https://github.com/jcubic/tagger",
+    "description": "A dependency-free tagging input component for vanilla JavaScript.",
+    "tags": ["js", "component", "u"]
+  },
+  {
+    "title": "Web Glossary",
+    "url": "https://webglossary.info/",
+    "description": "A plain-language glossary for explaining web terminology to newcomers.",
+    "tags": ["reference", "web", "u"]
+  },
+  {
+    "title": "Minimum Viable Secure Product",
+    "url": "https://mvsp.dev/mvsp.en/",
+    "description": "A minimal security checklist for B2B software and service suppliers.",
+    "tags": ["security", "checklist", "u"]
+  },
+  {
+    "title": "HTML First",
+    "url": "https://html-first.com/",
+    "description": "Principles and practices for building simpler websites around the web platform.",
+    "tags": ["html", "reference", "u"]
+  },
+  {
+    "title": "CSS Grid Is Your Friend",
+    "url": "https://twitter.com/iam_chonchol/status/1633731490637807616",
+    "description": "A visual reminder of practical layouts that CSS Grid can handle directly.",
+    "tags": ["css", "article", "u"]
+  },
+  {
+    "title": "One-line Layouts",
+    "url": "https://web.dev/one-line-layouts/",
+    "description": "Ten modern CSS layouts implemented with compact, resilient declarations.",
+    "tags": ["css", "reference", "u"]
+  },
+  {
+    "title": "CSS Layout Generator",
+    "url": "https://layout.bradwoods.io/",
+    "description": "A visual generator for common CSS grid and flexbox layouts.",
+    "tags": ["css", "tools", "u"]
+  },
+  {
+    "title": "SmolCSS",
+    "url": "https://smolcss.dev/",
+    "description": "Minimal snippets for modern CSS layouts and interface components.",
+    "tags": ["css", "reference", "u"]
+  },
+  {
+    "title": "CSS Selectors",
+    "url": "https://fffuel.co/css-selectors",
+    "description": "An interactive introduction to the selectors available in modern CSS.",
+    "tags": ["css", "tutorial", "u"]
+  },
+  {
+    "title": "Web Development Glossary",
+    "url": "https://github.com/frontenddogma/web-development-glossary",
+    "description": "A glossary of terms used across frontend and general web development.",
+    "tags": ["reference", "web", "u"]
+  },
+  {
+    "title": "Upgrade Your HTML",
+    "url": "https://github.com/frontenddogma/upgrade-your-html",
+    "description": "A collection of practical techniques for writing more capable modern HTML.",
+    "tags": ["html", "reference", "u"]
+  },
+  {
+    "title": "Rote Learning HTML & CSS",
+    "url": "https://github.com/frontenddogma/rote-learning-html-css",
+    "description": "Exercises for building fluency with foundational HTML and CSS syntax.",
+    "tags": ["html", "tutorial", "u"]
+  },
+  {
+    "title": "Astro Capo",
+    "url": "https://github.com/felixicaza/astro-capo?tab=readme-ov-file",
+    "description": "An Astro integration that audits document-head ordering for loading performance.",
+    "tags": ["astro", "performance", "u"]
+  },
+  {
+    "title": "The Bag of Tricks",
+    "url": "https://events-3bg.pages.dev/",
+    "description": "A loose collection of practical Astro and web development tips.",
+    "tags": ["astro", "reference", "??", "u"]
+  },
+  {
+    "title": "Fixing FOUC During Astro View Transitions",
+    "url": "https://events-3bg.pages.dev/jotter/tips/flash-of-unstyled-content-during-view-transition/",
+    "description": "A focused fix for flashes of unstyled content during Astro view transitions.",
+    "tags": ["astro", "performance", "??", "u"]
+  },
+  {
+    "title": "astro-nprogress",
+    "url": "https://github.com/byronogis/astro-nprogress",
+    "description": "A page-load progress indicator compatible with Astro view transitions.",
+    "tags": ["astro", "component", "u"]
+  },
+  {
+    "title": "Beasties",
+    "url": "https://github.com/PlayForm/Inline",
+    "description": "A build plugin that inlines critical CSS and defers the remaining styles.",
+    "tags": ["css", "performance", "??", "u"]
+  }
+]
