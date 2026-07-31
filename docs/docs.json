@@ -26,36 +26,30 @@
     },
     {
       "type": "group",
-      "label": "Setup",
+      "label": "Overview",
       "items": [
         {
-          "slug": "setup/runtime-configuration",
+          "slug": "runtime-configuration",
           "label": "Configuration Guide",
           "icon": "settings",
           "attrs": { "data-astro-prefetch": true }
         },
         {
-          "slug": "setup/database",
+          "slug": "database",
           "label": "Database",
           "icon": "database",
           "attrs": { "data-astro-prefetch": true }
         },
         {
-          "slug": "setup/auth-routes",
+          "slug": "auth-routes",
           "label": "Route Authentication",
           "icon": "shield-check",
           "attrs": { "data-astro-prefetch": true }
         },
         {
-          "slug": "setup/email",
+          "slug": "email",
           "label": "Email Sending",
           "icon": "mail",
-          "attrs": { "data-astro-prefetch": true }
-        },
-        {
-          "slug": "setup/initial-admin",
-          "label": "Initial Admin User",
-          "icon": "user-plus",
           "attrs": { "data-astro-prefetch": true }
         }
       ]
@@ -65,7 +59,7 @@
       "label": "Operations",
       "items": [
         {
-          "slug": "workflow/index",
+          "slug": "workflow",
           "label": "Workflow",
           "icon": "map",
           "attrs": { "data-astro-prefetch": true }

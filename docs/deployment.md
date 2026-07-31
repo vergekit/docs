@@ -3,7 +3,7 @@
 VK deploys as an Astro server app on Cloudflare Workers. Keep committed runtime
 config in Workers bindings and `wrangler.jsonc` vars. Keep local secret values
 in `.dev.vars`, and set deployed secret values with Wrangler secrets. See
-[Configuration Guide](/docs/setup/runtime-configuration) for the separation of
+[Configuration Guide](/docs/runtime-configuration) for the separation of
 concerns between `src/config`, `wrangler.jsonc`, `.dev.vars`, and Wrangler
 secrets.
 

@@ -36,7 +36,7 @@ npm run db:migrate:local
 ```
 
 For schema location, updates, and remote apply, see
-[Schema and Migrations](/docs/setup/database#schema-and-migrations).
+[Schema and Migrations](/docs/database#schema-and-migrations).
 
 ## 3. Initialize
 

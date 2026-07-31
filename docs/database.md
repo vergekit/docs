@@ -14,7 +14,7 @@ actions, middleware, or UI code.
 
 Hyperdrive support is planned for future releases, but PostgreSQL and MySQL
 targets are not enabled at runtime and no proof adapters ship in the
-boilerplate. See [Future Hyperdrive Support](/docs/setup/hyperdrive-proof) for
+boilerplate. See [Future Hyperdrive Support](/docs/hyperdrive-proof) for
 the checklist to follow when adding a real Hyperdrive adapter slice.
 
 

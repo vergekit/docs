@@ -105,7 +105,7 @@ Local dev uses Wrangler/Miniflare-backed D1 state through the
 Astro Cloudflare adapter; no separate Miniflare config is required after
 `npm install`.
 
-See [D1 Setup](/docs/setup/d1) for production database setup, Drizzle Studio
+See [D1 Setup](/docs/database) for production database setup, Drizzle Studio
 notes, and alternate local or Cloudflare-hosted development database options.
 
 ## Auth Routes
@@ -115,13 +115,13 @@ prefixes in `src/config/auth.ts`, or call
 `await Astro.locals.loadAuthSession()` before checking auth inside a specific
 public page or route handler.
 
-See [Route Authentication](/docs/setup/auth-routes) for middleware-protected and
+See [Route Authentication](/docs/auth-routes) for middleware-protected and
 route-local examples.
 
 Better Auth policy is configured in `src/config/auth.ts`, and
 `@vergekit/core/auth` builds the runtime Better Auth options and plugins from
 that policy. The admin plugin is already installed and configured for the app
-role model. See [Route Authentication](/docs/setup/auth-routes) for the files
+role model. See [Route Authentication](/docs/auth-routes) for the files
 that usually need to change when adding or modifying Better Auth plugins.
 
 ## Email
@@ -154,7 +154,7 @@ MAILGUN_DOMAIN=mg.example.com
 
 Cloudflare Email uses the `EMAIL` binding from `wrangler.jsonc`.
 
-See [Email Sending](/docs/setup/email) for direct send examples, provider
+See [Email Sending](/docs/email) for direct send examples, provider
 requirements, auth-email helpers, and testing notes.
 
 ## Configuration
@@ -163,7 +163,7 @@ Editable app defaults and auth policy live in `src/config`. Runtime Worker
 values live in `wrangler.jsonc` vars. Local secrets live in `.dev.vars`, and
 deployed secrets live in Wrangler secrets.
 
-See [Configuration Guide](/docs/setup/runtime-configuration) for the full split.
+See [Configuration Guide](/docs/runtime-configuration) for the full split.
 
 ## Run
 
