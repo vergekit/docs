@@ -81,7 +81,7 @@ Committed, non-secret app defaults live in `wrangler.jsonc` under `vars`. Use
 
 ## Database
 
-Apply local D1 migrations:
+Apply local D1 migrations before running auth flows:
 
 ```bash
 npm run db:migrate:local

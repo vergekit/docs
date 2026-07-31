@@ -81,32 +81,6 @@
           "label": "Deployment",
           "icon": "rocket",
           "attrs": { "data-astro-prefetch": true }
-        },
-        {
-          "type": "submenu",
-          "label": "Guides",
-          "icon": "blocks",
-          "open": true,
-          "items": [
-            {
-              "slug": "workflow/customization",
-              "label": "Customization",
-              "icon": "slidersVertical",
-              "attrs": { "data-astro-prefetch": true }
-            },
-            {
-              "slug": "workflow/release-checklist",
-              "label": "Release Checklist",
-              "icon": "list-checks",
-              "attrs": { "data-astro-prefetch": true }
-            },
-            {
-              "slug": "workflow/roadmap",
-              "label": "Roadmap",
-              "icon": "map",
-              "attrs": { "data-astro-prefetch": true }
-            }
-          ]
         }
       ]
     }

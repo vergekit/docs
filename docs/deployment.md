@@ -93,15 +93,48 @@ npx wrangler secret list
 npx wrangler secret list --env production
 ```
 
-## Deployment Checklist
+## Release Checklist
 
-1. Create the D1 database with `wrangler d1 create vk`.
-2. Update the D1 `database_id` in `wrangler.jsonc`.
-3. Configure non-secret app values in `wrangler.jsonc`.
-4. Configure `BETTER_AUTH_SECRET` and any provider credentials with
-   `wrangler secret put`.
-5. Run `npm run db:migrate:remote`.
-6. Optionally create a verified user with the `admin` role with
-   `npm run init:admin -- --remote`.
-7. Run `npm run verify`.
-8. Deploy with the project Cloudflare workflow.
+Use this checklist before deploying a Verge Kit application to Cloudflare
+Workers.
+
+### Local Verification
+
+- Run the full verification suite with `npm run verify`.
+- Run `npm run build` separately when investigating adapter or bundling issues.
+
+### Configuration
+
+- Create the D1 database with `wrangler d1 create vk` if it does not exist.
+- Confirm `wrangler.jsonc` contains the production D1 `database_id`.
+- Confirm non-secret production values are in `wrangler.jsonc` or the named
+  Wrangler environment.
+- Confirm named Wrangler environments repeat their own `vars` blocks.
+- Confirm `.dev.vars` has not been committed.
+
+### Secrets
+
+- Configure `BETTER_AUTH_SECRET` with `wrangler secret put`.
+- Configure only the secrets required by the selected email provider.
+- Include `--env production` when using a named production environment.
+- Audit configured secret names with `npx wrangler secret list`.
+
+### Database
+
+- Apply remote D1 migrations with `npm run db:migrate:remote`.
+- For the first production deploy, optionally create a verified remote user with
+  the `admin` role using `npm run init:admin -- --remote`.
+
+### Email
+
+- Confirm `EMAIL_PROVIDER` matches the deployed environment.
+- Confirm `EMAIL_FROM` uses a verified sender or domain for the provider.
+- Confirm Cloudflare Email deployments have an `EMAIL` binding and verified
+  sending domain.
+- Confirm Resend or Mailgun deployments have the matching API key secret.
+
+### Deploy
+
+- Deploy with the project CI workflow or run `npx wrangler deploy`.
+- After deployment, verify login, registration, email verification, password
+  reset, and any protected routes that changed.

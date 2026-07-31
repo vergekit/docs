@@ -68,31 +68,26 @@
     margin-block: --spacing(6);
   }
 
-  .prose > p a:not(.btn):not(.badge),
-  .prose > li a:not(.btn):not(.badge),
-  .prose > dl a:not(.btn):not(.badge),
-  .prose > .table-container a:not(.btn):not(.badge),
-  .prose [role="listitem"] > p > a:not(.btn):not(.badge),
-  .prose [role="listitem"] > li > a:not(.btn):not(.badge) {
+  .prose :where(p, li, dd, td) a:not(.btn):not(.badge) {
     color: var(--color-foreground);
-    text-decoration-color: color-mix(in oklab, var(--color-muted-foreground) 50%, transparent);
+    font-weight: var(--font-weight-medium);
+    text-decoration-color: currentColor;
     text-decoration-line: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 2px;
   }
 
-  .prose > p a:not(.btn):not(.badge):hover,
-  .prose > li a:not(.btn):not(.badge):hover,
-  .prose > dl a:not(.btn):not(.badge):hover,
-  .prose > .table-container a:not(.btn):not(.badge):hover,
-  .prose [role="listitem"] > p > a:not(.btn):not(.badge):hover,
-  .prose [role="listitem"] > li > a:not(.btn):not(.badge):hover {
-    text-decoration-color: color-mix(in oklab, var(--color-foreground) 50%, transparent);
+  .prose :where(p, li, dd, td) a:not(.btn):not(.badge):hover {
+    opacity: 0.65;
   }
 
   .prose :is(h1, h2, h3, h4, h5, h6) > a.header-anchor {
     color: inherit;
     text-decoration-line: none;
+  }
+
+  .prose :is(h1, h2, h3, h4, h5, h6) > a.header-anchor:hover {
+    color: var(--color-muted-foreground);
   }
 
   .prose a.no-underline {

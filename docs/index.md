@@ -40,30 +40,34 @@ Better Auth, and Tailwind instead of adding a large custom framework layer.
 
 
 
-
-## Setup Flow
-
-New projects start with:
-
-```bash
-npm create vergekit@latest
-```
-
-Local development uses `.dev.vars` for local secrets, `wrangler.jsonc` for
-committed non-secret Worker configuration, and Wrangler secrets for deployed
-secret values. Apply D1 migrations before running auth flows, then optionally
-create a verified user with the `admin` role with `npm run init:admin`.
-
 ## App structure
 
+The generated project keeps application code in `src` and operational tooling
+at the project root. The key directories and files are:
+
 ```text
-src/
-  actions/       Astro Actions
-  auth/          Better Auth setup and route rules
-  components/    local Astro UI components
-  config/        source-level app and auth policy
-  db.ts          Drizzle D1 client and database boundary
-  email/         React Email templates
-  pages/         Astro pages and API routes
-  middleware.ts  auth locals and route protection
+./
+├── src/
+│   ├── actions/          # Astro Actions
+│   ├── components/
+│   │   ├── auth/         # shared authentication UI
+│   │   └── ui/           # local bejamas/ui components
+│   ├── config/           # app, auth, email, and database schema
+│   ├── email/            # React Email templates
+│   ├── layouts/          # base and authenticated page shells
+│   ├── lib/              # shared application utilities
+│   ├── pages/
+│   │   ├── api/          # auth, health, and debug endpoints
+│   │   └── auth/         # verification and password recovery
+│   ├── styles/           # global Tailwind styles
+│   ├── db.ts             # typed Drizzle D1 boundary
+│   ├── env.d.ts          # Astro locals and Worker binding types
+│   ├── middleware.ts     # request auth and route protection
+│   └── runtime.ts        # request-scoped Cloudflare runtime access
+├── cli/                 # operational scripts, including init-admin
+├── migrations/          # generated SQL and Drizzle metadata
+├── tests/               # auth, database, email, HTTP, and config tests
+├── astro.config.mjs     # Astro and Cloudflare adapter configuration
+├── drizzle.config.ts    # Drizzle Kit configuration
+└── wrangler.jsonc       # Worker bindings and non-secret runtime values
 ```

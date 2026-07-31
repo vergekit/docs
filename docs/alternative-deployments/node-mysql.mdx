@@ -10,6 +10,28 @@ The generated project is a standalone Astro server. It contains the Node
 adapter, one MySQL schema and migration tree, and no Wrangler or D1 runtime
 configuration.
 
+## How This Preset Differs
+
+The `node-mysql` preset is an overlay on the default `cloudflare-d1` app. Pages,
+layouts, components, Astro Actions, middleware, and app-owned auth policy stay
+the same. The preset replaces the runtime and database boundaries, along with
+the operational files and tests that exercise them.
+
+| Concern | Default `cloudflare-d1` | `node-mysql` |
+| --- | --- | --- |
+| Runtime | Cloudflare Workers adapter and request bindings | Standalone Node.js adapter and `process.env` |
+| Database | D1/SQLite through a Worker binding | MySQL through a `mysql2` connection pool |
+| Local configuration | `.dev.vars` and `wrangler.jsonc` | `.env` created from `.env.example` |
+| Migrations | `db:migrate:local` and `db:migrate:remote` through Wrangler | `db:migrate` through Drizzle Kit |
+| Email providers | Console, Resend, Mailgun, and Cloudflare Email | Console, Resend, and Mailgun |
+| Production | `wrangler deploy` to Cloudflare | `npm run start` behind a process manager and reverse proxy |
+
+In the generated source, the main replacements are `astro.config.mjs`,
+`drizzle.config.ts`, `src/db.ts`, `src/runtime.ts`, `src/env.d.ts`,
+`src/config/schema.ts`, the migration tree, and their runtime-specific tests.
+The rest of the documentation still applies unless this page gives a different
+configuration, migration, email, or deployment instruction.
+
 ## Requirements
 
 - Node.js 22.12 or newer

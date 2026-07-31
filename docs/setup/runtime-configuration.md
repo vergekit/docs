@@ -78,3 +78,78 @@ npx wrangler secret put BETTER_AUTH_SECRET --env production
 
 Only configure provider-specific secrets for the email provider the environment
 actually uses.
+
+## Application Customization
+
+Verge Kit is meant to be changed at the application boundary while keeping the
+platform wiring stable. Prefer small, local edits that keep Astro, Cloudflare,
+Drizzle, Better Auth, Tailwind, and the existing helper modules as the main
+surface area.
+
+### Branding
+
+Set the application name and default authenticated path in `src/config/app.ts`:
+
+```ts
+export const appConfig = {
+  name: 'Acme',
+  defaultAuthenticatedPath: '/dashboard',
+} as const;
+```
+
+### Auth Routes
+
+Add globally protected pages and API namespaces in `src/config/auth.ts`.
+
+Use exact paths for individual pages:
+
+```ts
+export const authConfig = defineAuthConfig({
+  routes: {
+    protectedExactPaths: ['/dashboard', '/account'],
+    protectedPrefixes: [],
+    // ...
+  },
+  // ...
+});
+```
+
+Use slash-terminated prefixes for route groups:
+
+```ts
+export const authConfig = defineAuthConfig({
+  routes: {
+    protectedExactPaths: ['/dashboard'],
+    protectedPrefixes: ['/settings/'],
+    adminExactPaths: ['/admin'],
+    adminPrefixes: ['/admin/'],
+    // ...
+  },
+  // ...
+});
+```
+
+Use route-local checks when the route needs custom behavior, such as returning
+JSON `401` from an API instead of redirecting to `/login`.
+
+### Auth Email Templates
+
+Auth verification and password reset email templates live under
+`src/email/auth`. Transactional auth email rendering and sender defaults are
+configured in `src/config/auth-email.ts`.
+
+Keep direct provider calls out of auth flows. Use
+`createAuthEmailSenderFromEnv` for Better Auth email and `sendEmail` for custom
+transactional email.
+
+### UI Components
+
+Local Astro UI components live under `src/components/ui`. Add project-specific
+components there when they are shared across pages. Keep one-off page layout in
+the page or a nearby component until it is clearly reused.
+
+### Database Queries
+
+App code should import the initialized `db` client from `@/db` instead of
+importing a Drizzle driver directly. This keeps the D1-first runtime boundary
+clear and preserves the path for future adapter work.
