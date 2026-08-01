@@ -1,4 +1,4 @@
-# Components
+# UI Components
 
 Verge Kit uses [bejamas/ui](https://ui.bejamas.com), an Astro component library. Each installed component becomes local source in `src/components/ui`.
 

@@ -26,12 +26,18 @@
     },
     {
       "type": "group",
-      "label": "Overview",
+      "label": "Application Essentials",
       "items": [
         {
           "slug": "configuration",
           "label": "Configuration",
           "icon": "settings",
+          "attrs": { "data-astro-prefetch": true }
+        },
+        {
+          "slug": "components",
+          "label": "UI Components",
+          "icon": "blocks",
           "attrs": { "data-astro-prefetch": true }
         },
         {
@@ -61,55 +67,49 @@
               "attrs": { "data-astro-prefetch": true }
             },
             {
-              "slug": "auth/plugins",
-              "label": "Plugins",
-              "attrs": { "data-astro-prefetch": true }
-            },
-            {
               "slug": "auth/forms",
-              "label": "Auth Forms",
+              "label": "Forms",
               "attrs": { "data-astro-prefetch": true }
             },
             {
               "slug": "auth/roles-and-admin",
-              "label": "Roles and Admin",
+              "label": "Roles & Administration",
               "attrs": { "data-astro-prefetch": true }
             },
             {
               "slug": "auth/schema-and-migrations",
-              "label": "Schema and Migrations",
+              "label": "Schema & Migrations",
+              "attrs": { "data-astro-prefetch": true }
+            },
+            {
+              "slug": "auth/plugins",
+              "label": "Better Auth Plugins",
               "attrs": { "data-astro-prefetch": true }
             }
           ]
-        },
-        {
-          "slug": "security",
-          "label": "Security",
-          "icon": "lock-keyhole",
-          "attrs": { "data-astro-prefetch": true }
         },
         {
           "slug": "email",
           "label": "Email",
           "icon": "mail",
           "attrs": { "data-astro-prefetch": true }
+        },
+        {
+          "slug": "security",
+          "label": "Security",
+          "icon": "lock-keyhole",
+          "attrs": { "data-astro-prefetch": true }
         }
       ]
     },
     {
       "type": "group",
-      "label": "Operations",
+      "label": "Build & Deploy",
       "items": [
         {
           "slug": "workflow",
-          "label": "Workflow",
+          "label": "Development Workflow",
           "icon": "map",
-          "attrs": { "data-astro-prefetch": true }
-        },
-        {
-          "slug": "components",
-          "label": "Components",
-          "icon": "blocks",
           "attrs": { "data-astro-prefetch": true }
         },
         {
