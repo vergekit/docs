@@ -1,0 +1,91 @@
+---
+import PageTitle from "../components/PageTitle.astro";
+import PublicLayout from "../layouts/PublicLayout.astro";
+---
+
+<PublicLayout
+  title="Demo"
+  description="A standalone demonstration of the non-docs page layout and content styles."
+>
+  <main class="pb-16">
+    <article class="prose mx-auto max-w-3xl">
+      <PageTitle>Demo</PageTitle>
+
+      <p>
+        Lorem ipsum dolor sit amet, <a href="/docs/">consectetur adipiscing elit</a>.
+        Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+
+      <p class="flex flex-wrap items-center gap-2">
+        <span class="badge" data-variant="secondary">Example</span>
+        <span class="badge" data-variant="outline">Public layout</span>
+      </p>
+
+      <h2>Typography</h2>
+      <p>
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. <strong>Duis aute irure dolor</strong> in reprehenderit in voluptate
+        velit esse cillum dolore eu fugiat nulla pariatur.
+      </p>
+
+      <blockquote>
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+        anim id est laborum.
+      </blockquote>
+
+      <h3>Lists</h3>
+      <ul>
+        <li>Lorem ipsum dolor sit amet.</li>
+        <li>Consectetur adipiscing elit.</li>
+        <li>Sed do eiusmod tempor incididunt.</li>
+      </ul>
+
+      <ol>
+        <li>Ut enim ad minim veniam.</li>
+        <li>Quis nostrud exercitation ullamco.</li>
+        <li>Laboris nisi ut aliquip ex ea commodo consequat.</li>
+      </ol>
+
+      <h2>Table</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Element</th>
+            <th>Example</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Prose</td>
+            <td>Lorem ipsum dolor sit amet.</td>
+            <td>Ready</td>
+          </tr>
+          <tr>
+            <td>Navigation</td>
+            <td>Demo and documentation links.</td>
+            <td>Ready</td>
+          </tr>
+          <tr>
+            <td>Actions</td>
+            <td>Primary and secondary buttons.</td>
+            <td>Ready</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Code</h2>
+      <p>Inline code uses <code>const message = "Lorem ipsum"</code>.</p>
+      <pre><code>const message = "Lorem ipsum dolor sit amet";
+console.log(message);</code></pre>
+
+      <hr />
+
+      <h2>Actions</h2>
+      <p class="flex flex-wrap gap-2">
+        <a href="/docs/" class="btn no-underline">Read the docs</a>
+        <button type="button" class="btn" data-variant="secondary">Secondary action</button>
+      </p>
+    </article>
+  </main>
+</PublicLayout>

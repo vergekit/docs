@@ -1,6 +1,6 @@
 # Deployment Setup
 
-Verge Kit deploys to Cloudflare Workers with D1 by default. The [Node.js + MySQL preset](/docs/presets/node-mysql) uses a self-hosted Node.js server.
+Verge Kit deploys to Cloudflare Workers with D1 by default. The [Node.js + MySQL preset](/docs/fieldguide/node-mysql) uses a self-hosted Node.js server.
 
 ## 1. Run Project Checks
 

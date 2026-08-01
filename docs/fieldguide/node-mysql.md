@@ -1,8 +1,6 @@
----
-title: Node.js + MySQL Preset
----
+# Node.js + MySQL Preset
 
-Verge Kit uses Cloudflare Workers and D1 by default. Use this preset for a self-hosted Node.js server with MySQL.
+Verge Kit uses Cloudflare Workers and D1 by default, but you can use this preset for a self-hosted Node.js server with MySQL.
 
 The preset creates a standalone Astro server. It replaces the Cloudflare runtime, D1 schema, migrations, and related tests.
 

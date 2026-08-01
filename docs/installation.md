@@ -29,7 +29,7 @@ The guided D1 setup can complete these tasks:
 - Apply local migrations.
 - Start administrator creation.
 
-The [Node.js + MySQL preset](/docs/presets/node-mysql) uses `.env` and asks for the database connection.
+The [Node.js + MySQL preset](/docs/fieldguide/node-mysql) uses `.env` and asks for the database connection.
 
 For scripts and CI, use setup flags:
 

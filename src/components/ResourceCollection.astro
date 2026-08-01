@@ -3,9 +3,10 @@ import type { Resource } from "../utils/resources";
 
 interface Props {
   resources: Resource[];
+  layout?: "responsive" | "list";
 }
 
-const { resources } = Astro.props;
+const { resources, layout = "responsive" } = Astro.props;
 const sortedResources = [...resources].sort((a, b) =>
   a.title.localeCompare(b.title),
 );
@@ -67,7 +68,14 @@ const hostname = (url: string) => new URL(url).hostname.replace(/^www\./, "");
 
   {sortedResources.length > 0 ? (
     <>
-      <ul role="list" class="divide-y divide-foreground/10 lg:hidden" data-resource-mobile-list>
+      <ul
+        role="list"
+        class:list={[
+          "divide-y divide-foreground/10",
+          layout === "responsive" && "lg:hidden",
+        ]}
+        data-resource-mobile-list
+      >
         {sortedResources.map((resource) => (
           <li
             class="flex flex-col gap-3 py-6 first:pt-0 last:pb-0"
@@ -108,8 +116,9 @@ const hostname = (url: string) => new URL(url).hostname.replace(/^www\./, "");
         ))}
       </ul>
 
-      <div class="hidden lg:block">
-        <table class="w-full table-fixed border-collapse">
+      {layout === "responsive" && (
+        <div class="hidden lg:block">
+          <table class="w-full table-fixed border-collapse">
           <thead>
             <tr class="border-b border-foreground/10">
               <th scope="col" class="w-1/4 whitespace-nowrap py-3 pr-6 text-left text-sm font-semibold">Resource</th>
@@ -161,8 +170,9 @@ const hostname = (url: string) => new URL(url).hostname.replace(/^www\./, "");
               </tr>
             ))}
           </tbody>
-        </table>
-      </div>
+          </table>
+        </div>
+      )}
 
       <p hidden class="border-t border-foreground/10 py-8 text-pretty text-base text-muted-foreground" data-resource-no-match>
         No resources match this tag.

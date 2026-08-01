@@ -11,6 +11,12 @@
           "attrs": { "data-astro-prefetch": true }
         },
         {
+          "slug": "overview",
+          "label": "Overview",
+          "icon": "layers",
+          "attrs": { "data-astro-prefetch": true }
+        },
+        {
           "slug": "installation",
           "label": "Installation",
           "icon": "download",
@@ -103,13 +109,88 @@
         {
           "slug": "workflow",
           "label": "Development Workflow",
-          "icon": "map",
+          "icon": "terminal",
           "attrs": { "data-astro-prefetch": true }
         },
         {
           "slug": "deployment",
           "label": "Deployment",
           "icon": "rocket",
+          "attrs": { "data-astro-prefetch": true }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": "Reference",
+      "items": [
+        {
+          "type": "submenu",
+          "label": "Field Guide",
+          "icon": "book-open",
+          "items": [
+            {
+              "slug": "fieldguide/first-and-last-name",
+              "label": "First & Last Names",
+              "attrs": { "data-astro-prefetch": true }
+            },
+            {
+              "slug": "fieldguide/fuzzy-search",
+              "label": "Fuzzy Search",
+              "attrs": { "data-astro-prefetch": true }
+            },
+            {
+              "slug": "fieldguide/responsible-d1-use",
+              "label": "Responsible D1 Use",
+              "attrs": { "data-astro-prefetch": true }
+            },
+            {
+              "slug": "fieldguide/node-mysql",
+              "label": "Node.js + MySQL Preset",
+              "attrs": { "data-astro-prefetch": true }
+            },
+            {
+              "slug": "fieldguide/theme-development",
+              "label": "Theme Development",
+              "attrs": { "data-astro-prefetch": true }
+            },
+            {
+              "slug": "fieldguide/progressive-web-app",
+              "label": "Progressive Web App",
+              "attrs": { "data-astro-prefetch": true }
+            },
+            {
+              "slug": "fieldguide/astro-islands",
+              "label": "Astro Islands",
+              "attrs": { "data-astro-prefetch": true }
+            },
+            {
+              "slug": "fieldguide/ngrok",
+              "label": "Ngrok",
+              "attrs": { "data-astro-prefetch": true }
+            },
+            {
+              "slug": "fieldguide/frontend-snippets",
+              "label": "CSS Layout Snippets",
+              "attrs": { "data-astro-prefetch": true }
+            },
+            {
+              "slug": "fieldguide/htaccess",
+              "label": "Apache .htaccess",
+              "attrs": { "data-astro-prefetch": true }
+            }
+          ]
+        },
+        {
+          "slug": "resources",
+          "label": "Resources",
+          "icon": "library",
+          "attrs": { "data-astro-prefetch": true }
+        },
+        {
+          "slug": "project",
+          "label": "Project",
+          "icon": "folder-git-2",
           "attrs": { "data-astro-prefetch": true }
         }
       ]

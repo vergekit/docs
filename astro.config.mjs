@@ -19,7 +19,7 @@ export default defineConfig({
   integrations: [
     reallySimpleDocs({
       docsDir: './docs',
-      routeBase: '/docs',
+      routeBase: '/',
       bodyAttrs: {
         'data-pagefind-body': true,
         'data-theme-mode': 'light-only',

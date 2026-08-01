@@ -39,6 +39,159 @@ body[data-theme-mode="light-only"] button[aria-label="Toggle dark mode"] {
   max-width: --spacing(48);
 }
 
+/* The introduction is a branded landing page inside the docs shell. */
+body:has(.docs-landing) article > div > header,
+body:has(.docs-landing) article > div > footer,
+body:has(.docs-landing) [data-docs-toc],
+body:has([data-resource-collection])
+  article
+  > div
+  > header
+  .button-group:has([data-md-url]),
+body:has([data-resource-collection]) [data-docs-toc] {
+  display: none;
+}
+
+body:has(.docs-landing) article + aside,
+body:has([data-resource-collection]) article + aside {
+  display: none;
+}
+
+body:has(.docs-landing) article > div {
+  max-width: 42rem;
+}
+
+.docs-landing {
+  color: var(--color-foreground);
+}
+
+.docs-landing-bird {
+  display: block;
+  margin-bottom: --spacing(8);
+  width: --spacing(48);
+}
+
+.docs-landing-copy {
+  font-size: var(--text-xl);
+  line-height: 1.5;
+}
+
+.docs-landing-copy p {
+  margin-block: 0 --spacing(6);
+  text-wrap: pretty;
+}
+
+.docs-landing-copy p:last-child {
+  margin-bottom: 0;
+}
+
+.docs-landing-title {
+  font-size: var(--text-4xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  padding-right: 0.15em;
+}
+
+.docs-landing .tool-link {
+  align-items: center;
+  display: inline-flex;
+  font-weight: var(--font-weight-semibold);
+  gap: 0.2em;
+  line-height: 1;
+  margin-left: 0.2em;
+  position: relative;
+  text-decoration-line: none;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+.docs-landing .tool-link-logo {
+  display: block;
+  flex-shrink: 0;
+  height: 0.65em;
+  width: auto;
+}
+
+.docs-landing .tool-link-logo-astro {
+  transform: translateY(0.06em);
+}
+
+.docs-landing + :is(pre, .code-block) {
+  margin-inline: auto;
+  margin-top: --spacing(10);
+  max-width: 100%;
+  width: fit-content;
+}
+
+.docs-landing + .code-block {
+  align-items: center;
+  background: var(--color-muted);
+  border-radius: var(--radius-lg);
+  display: flex;
+}
+
+.docs-landing + .code-block::before {
+  color: var(--color-muted-foreground);
+  content: "$";
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-weight: var(--font-weight-semibold);
+  margin-left: --spacing(4);
+}
+
+.docs-landing + .code-block > pre {
+  background: transparent !important;
+  min-width: 0;
+}
+
+.docs-landing + .code-block > pre > code {
+  padding: --spacing(4) --spacing(16) --spacing(4) --spacing(3);
+}
+
+.docs-landing + .code-block > button {
+  background: transparent;
+  border-radius: var(--radius-md);
+  height: --spacing(12);
+  right: --spacing(1);
+  top: 50%;
+  transform: translateY(-50%);
+  transition: none;
+  width: --spacing(12);
+}
+
+.docs-landing + .code-block > button:hover {
+  background: color-mix(in oklab, var(--color-foreground) 6%, transparent);
+}
+
+.docs-landing + .code-block > button:focus-visible {
+  outline: 2px solid var(--color-foreground);
+  outline-offset: -4px;
+}
+
+@media (hover: hover) {
+  .docs-landing .tool-link:hover {
+    opacity: 1;
+  }
+
+  .docs-landing .tool-link:hover::after {
+    border-bottom: 2px solid currentColor;
+    bottom: -4px;
+    content: "";
+    inset-inline: 0;
+    position: absolute;
+  }
+}
+
+@media (min-width: 40rem) {
+  .docs-landing-copy {
+    font-size: var(--text-2xl);
+  }
+
+  .docs-landing + :is(pre, .code-block) {
+    translate: --spacing(-4) 0;
+  }
+}
+
 @source "../**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}";
 @source "../../docs/**/*.{md,mdx}";
 @source "../../node_modules/reallysimpledocs/src/runtime/**/*.{astro,js,ts}";

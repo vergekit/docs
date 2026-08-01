@@ -1,0 +1,44 @@
+@import "tailwindcss";
+@import "basecoat-css/base";
+@import "basecoat-css/styles/vega";
+@import "reallysimpledocs/css";
+@import "reallysimpledocs/css/styles/vega";
+
+@layer base {
+  ::selection {
+    background-color: var(--color-foreground);
+    color: var(--color-background);
+  }
+}
+
+@layer components {
+  .prose :where(p, li, dd, td) a:not(.btn):not(.badge) {
+    color: var(--color-foreground);
+    font-weight: var(--font-weight-medium);
+    text-decoration-color: currentColor;
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+
+  .prose :where(p, li, dd, td) a:not(.btn):not(.badge):hover {
+    opacity: 0.65;
+  }
+
+  .prose :is(h1, h2, h3, h4, h5, h6) > a.header-anchor:hover {
+    color: var(--color-muted-foreground);
+  }
+}
+
+/* Light-only docs mode. Kept narrow so the theme switcher can be restored later. */
+body[data-theme-mode="light-only"] button[aria-label="Toggle dark mode"] {
+  display: none;
+}
+
+[role="button"][aria-label="Search docs"] {
+  max-width: --spacing(48);
+}
+
+@source "../**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}";
+@source "../../docs/**/*.{md,mdx}";
+@source "../../node_modules/reallysimpledocs/src/runtime/**/*.{astro,js,ts}";

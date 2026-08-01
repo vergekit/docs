@@ -1,69 +1,97 @@
-# Introduction
+# Verge Kit
 
-Verge Kit provides a solid foundation for building modern web applications with [Astro](https://astro.build) and the [Cloudflare Workers](https://workers.dev) ecosystem.
+<div class="docs-landing">
+  <img
+    class="docs-landing-bird"
+    src="/vk-crane-a.svg"
+    alt=""
+    aria-hidden="true"
+  />
+  <div class="docs-landing-copy">
+    <p>
+      <strong class="docs-landing-title">Verge Kit</strong> is a solid foundation
+      for building web applications with
+      <a
+        href="https://astro.build"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="tool-link"
+      ><img
+          src="/tool-logos/astro-light-gradient.svg"
+          alt=""
+          aria-hidden="true"
+          data-logo="astro"
+          class="tool-link-logo tool-link-logo-astro"
+        />Astro</a>
+      and the
+      <a
+        href="https://workers.dev"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="tool-link"
+      ><img
+          src="/tool-logos/cloudflare.svg"
+          alt=""
+          aria-hidden="true"
+          class="tool-link-logo"
+        />Cloudflare Workers</a>
+      ecosystem.
+    </p>
+    <p>
+      Pre-wired with
+      <a
+        href="https://orm.drizzle.team"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="tool-link"
+      ><img
+          src="/tool-logos/drizzle.svg"
+          alt=""
+          aria-hidden="true"
+          class="tool-link-logo"
+        />Drizzle</a>,
+      <a
+        href="https://www.better-auth.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="tool-link"
+      ><img
+          src="/tool-logos/better-auth.svg"
+          alt=""
+          aria-hidden="true"
+          class="tool-link-logo"
+        />Better Auth</a>,
+      <a
+        href="https://tailwindcss.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="tool-link"
+      ><img
+          src="/tool-logos/tailwind-css.svg"
+          alt=""
+          aria-hidden="true"
+          class="tool-link-logo"
+        />Tailwind</a>, and
+      <a
+        href="https://ui.bejamas.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="tool-link"
+      ><img
+          src="/tool-logos/bejamas-ui.svg"
+          alt=""
+          aria-hidden="true"
+          class="tool-link-logo"
+        />bejamas/ui</a>.
+    </p>
+    <p>
+      We've also configured middleware, basic auth flows, route protection,
+      user roles, and transactional email utilities.
+    </p>
+    <p class="italic font-semibold">Start new apps with low effort and high confidence!</p>
+  </div>
+</div>
 
-At its core is a pre-wired stack of dependencies and minimal boilerplate. This configuration is designed to help LLMs produce reliable and understandable applications.
-
-
-## The Stack
-
-- [Astro](https://astro.build) - SSR with strict
-  [TypeScript](https://www.typescriptlang.org) and [Cloudflare Workers](https://workers.dev) adapter
-- [Cloudflare D1](https://developers.cloudflare.com/d1/) - default SQLite database
-- [Drizzle](https://orm.drizzle.team) - ORM, schema, migrations (w/ [Drizzle Kit](https://orm.drizzle.team/docs/kit-overview))
-- [Better Auth](https://www.better-auth.com) w/ [admin plugin](https://www.better-auth.com/docs/plugins/admin)
-- [Tailwind](https://tailwindcss.com) - CSS utility classes
-- [bejamas/ui](https://ui.bejamas.com) components (based on [shadcn/ui](https://ui.shadcn.com/))
-- [Lucide](https://lucide.dev/) icons
-- [astro-favicons](https://github.com/ACP-CODE/astro-favicons) - simplified favicon generation
-- [React Email](https://react.email/) components and templates
-- [VK Core](https://github.com/vergekit/core) utilites & runtime helpers
-- [Zod](https://zod.dev/) schema validation
-- [Vitest](https://vitest.dev), [happy-dom](https://github.com/capricorn86/happy-dom), [oxlint](https://oxc.rs/docs/guide/usage/linter.html), and integrated npm verification scripts
-
-
-
-## The Boilerplate
-
-- Lazy auth middleware with typed, request-scoped `Astro.locals`
-- Basic authentication flows with requisite email notifications
-- Public-by-default route authorization with opt-in protected pages and APIs
-- CSRF origin checks through [Astro config](https://docs.astro.build/en/guides/security/)
-- Custom 404 and 500 error pages
-- Drizzle schema, migrations, and typed database client for the default D1 preset
-- Configurable user roles and permissions for `admin`, `moderator`, `user`, and `banned`
-- Transactional email providers for console output,
-  [Resend](https://resend.com), [Mailgun](https://www.mailgun.com),
-  and [Cloudflare Email](https://developers.cloudflare.com/email-service/)
-- Verification and helper scripts exposed through npm scripts
-
-
-
-## Application Structure
-
-```text
-./
-├── src/
-│   ├── actions/          # Astro Actions
-│   ├── components/
-│   │   ├── auth/         # shared authentication UI
-│   │   └── ui/           # local bejamas/ui components
-│   ├── config/           # app, auth, email, and database schema
-│   ├── email/            # React Email templates
-│   ├── layouts/          # base and authenticated page shells
-│   ├── lib/              # shared application utilities
-│   ├── pages/
-│   │   ├── api/          # auth, health, and debug endpoints
-│   │   └── auth/         # verification and password recovery
-│   ├── styles/           # global Tailwind styles
-│   ├── db.ts             # typed Drizzle D1 boundary
-│   ├── env.d.ts          # Astro locals and Worker binding types
-│   ├── middleware.ts     # request auth and route protection
-│   └── runtime.ts        # request-scoped Cloudflare runtime access
-├── cli/                  # operational scripts, including init-admin
-├── migrations/           # generated SQL and Drizzle metadata
-├── tests/                # auth, database, email, HTTP, and config tests
-├── astro.config.mjs      # Astro and Cloudflare adapter configuration
-├── drizzle.config.ts     # Drizzle Kit configuration
-└── wrangler.jsonc        # Worker bindings and non-secret runtime values
+```bash
+npm create vergekit@latest
 ```
