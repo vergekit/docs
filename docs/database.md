@@ -11,22 +11,9 @@ This page covers the default D1 preset. It uses Drizzle with the schema in `src/
 
 The default preset exposes D1 through a binding named `DB`. The binding is in `wrangler.jsonc`:
 
-```jsonc
-{
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "vk",
-      "database_id": "00000000-0000-0000-0000-000000000000",
-      "migrations_dir": "migrations",
-    },
-  ],
-}
-```
-
-Keep the binding name `DB`. If you change it, also update `src/env.d.ts` and `src/db.ts`.
-
 See the [Wrangler D1 binding reference](https://developers.cloudflare.com/workers/wrangler/configuration/#d1-databases) for all binding options.
+
+## Usage
 
 Import the configured database client from `@/db`:
 

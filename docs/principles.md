@@ -1,4 +1,4 @@
-# Core Concepts
+# Principles
 
 ## Use Existing Platform Tools
 

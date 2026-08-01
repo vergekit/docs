@@ -17,8 +17,8 @@
           "attrs": { "data-astro-prefetch": true }
         },
         {
-          "slug": "core-concepts",
-          "label": "Core Concepts",
+          "slug": "principles",
+          "label": "Principles",
           "icon": "route",
           "attrs": { "data-astro-prefetch": true }
         }
