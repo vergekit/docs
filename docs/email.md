@@ -1,18 +1,12 @@
-# Email Sending
+# Email
 
-VK sends mail through the provider abstraction in `@vergekit/core/email`. The main
-entry point is `sendEmail(runtimeEnv, input)`, which resolves the configured
-provider from `runtimeEnv.EMAIL_PROVIDER` and sends one message with the common
-`SendEmailInput` shape. App-specific React Email templates live in `src/email`.
+Verge Kit sends email through `@vergekit/core/email`. Application templates are in `src/email`.
 
-Resend and Mailgun are currently the only supported production email providers (more are coming soon). See the [Resend Astro guide](https://resend.com/astro) and
-[Mailgun send API](https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun)
-for integration details. Use `console` locally when you do not need real delivery.
+Available providers are `console`, Cloudflare Email, Resend, and Mailgun. Use `console` for local development without delivery.
 
-## Direct Sends
+## Send Transactional Email
 
-Use `sendEmail` from Worker or Astro server code when a route needs to send a
-custom transactional email.
+Use `sendEmail` in Worker or Astro server code:
 
 ```ts
 import { env } from 'cloudflare:workers';
@@ -30,34 +24,24 @@ const result = await sendEmail(env, {
 console.info('sent email', result.provider, result.id);
 ```
 
-`to` can be a single email address, a named address object, or an array of
-either form. `from` and `replyTo` accept the same address forms.
+`to` accepts one address, one named address, or an array of either form. `from` and `replyTo` accept the same forms.
 
-Always include both `html` and `text`. The abstraction requires both so every
-message has a plain-text fallback.
+Always include `html` and `text`. The text value gives each message a plain-text version.
 
-`sendEmail` does not automatically read `EMAIL_FROM` for direct sends. Pass
-`from` in the message input. `EMAIL_FROM` is used by the auth-email helper
-described below.
+For a direct send, include `from` in the message. `sendEmail` does not read `EMAIL_FROM` automatically.
 
-## Provider Configuration
+## Configure a Provider
 
-The provider is selected by `EMAIL_PROVIDER`. When it is missing, the
-abstraction uses `console`.
+`EMAIL_PROVIDER` selects the provider. If this value is missing, Verge Kit uses `console`.
 
-- `console`: Requires no config. Logs the email payload and returns
-  `{ provider: 'console', id: 'console' }`. This is the local default.
-- `cloudflare`: Requires the `EMAIL` binding. Uses the Worker `send_email`
-  binding configured in `wrangler.jsonc`.
-- `resend`: Requires `RESEND_API_KEY`. Sends with the Resend HTTP API.
-- `mailgun`: Requires `MAILGUN_API_KEY` and `MAILGUN_DOMAIN`. Sends with the
-  Mailgun HTTP API.
+| Provider | Required configuration |
+| --- | --- |
+| `console` | None. Writes the message to the server log. |
+| `cloudflare` | An `EMAIL` binding in `wrangler.jsonc`. |
+| `resend` | `RESEND_API_KEY`. |
+| `mailgun` | `MAILGUN_API_KEY` and `MAILGUN_DOMAIN`. |
 
-SMTP/Nodemailer adapters are intentionally not part of this Worker runtime
-surface. Prefer the Cloudflare Email binding for deployed Workers, or a
-fetch-based provider when an external email service is required.
-
-Put shared, non-secret configuration in `wrangler.jsonc`:
+Put non-secret values in `wrangler.jsonc`:
 
 ```jsonc
 {
@@ -77,18 +61,18 @@ RESEND_API_KEY=your-local-resend-key
 MAILGUN_API_KEY=your-local-mailgun-key
 ```
 
-For deployed Workers, set provider secrets with Wrangler:
+Use Wrangler for deployed secrets:
 
 ```bash
 npx wrangler secret put RESEND_API_KEY
 npx wrangler secret put MAILGUN_API_KEY
 ```
 
-Only configure the secret for the provider the environment uses.
+Add only the secret for the selected provider.
 
-## Auth Emails
+## Send Authentication Email
 
-Verification and password-reset emails use the higher-level auth helper:
+Use `createAuthEmailSenderFromEnv` for verification and password-reset email:
 
 ```ts
 import { env } from 'cloudflare:workers';
@@ -104,34 +88,22 @@ await authEmail.sendVerificationEmail({
 });
 ```
 
-`createAuthEmailSenderFromEnv` resolves the mailer and sender from runtime env.
-`authEmailOptions` lives in `src/config/auth-email.ts` and supplies the app's
-auth email defaults. With `EMAIL_PROVIDER=console`, it falls back to
-`noreply@example.test` and the app name from `src/config/app.ts`.
+Configure sender defaults and render functions in `src/config/auth-email.ts`. The email templates are in these files:
 
-Customize transactional auth email behavior in `src/config/auth-email.ts`. The
-email templates stay in `src/email/auth/verify-email.tsx` and
-`src/email/auth/reset-password.tsx`.
-Preview them with the React Email CLI:
+- `src/email/auth/verify-email.tsx`
+- `src/email/auth/reset-password.tsx`
+
+Preview the templates:
 
 ```bash
 npm run email
 ```
 
-The debug email route at `src/pages/api/debug/email.ts` returns a non-sending
-response by default. To test delivery manually, enable the commented
-implementation in that file; it renders `src/email/demo.tsx` and sends it
-through the configured provider to verify template rendering and delivery
-together.
+The route `src/pages/api/debug/email.ts` does not send email by default. Enable its example implementation to do a manual delivery test.
 
-Use this helper for Better Auth verification and reset flows. Use `sendEmail`
-directly for other transactional messages.
+## Handle Errors
 
-## Error Handling
-
-`sendEmail` rejects when required provider configuration is missing or when the
-selected provider returns an error. Callers should catch errors at the route or
-job boundary and avoid exposing provider response bodies to users.
+A missing configuration value or provider error causes `sendEmail` to reject. Catch the error at the route or job boundary.
 
 ```ts
 try {
@@ -141,13 +113,11 @@ try {
 }
 ```
 
-The returned `id` is optional because provider responses differ. Store it only
-as diagnostic metadata.
+Do not return provider response bodies to users. If you need diagnostic data, store the optional result `id`.
 
-## Tests
+## Test Email Code
 
-Use the `console` provider for tests that only need to assert that a send was
-requested:
+Use the `console` provider for a test that does not need delivery:
 
 ```ts
 const info = vi.fn();
@@ -168,5 +138,4 @@ expect(result).toEqual({ provider: 'console', id: 'console' });
 expect(info).toHaveBeenCalledWith('[email:console]', expect.any(Object));
 ```
 
-For Resend or Mailgun provider tests, pass `options.fetcher` to stub HTTP
-requests without calling the real provider.
+For Resend or Mailgun tests, pass `options.fetcher` to replace HTTP requests.

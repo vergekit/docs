@@ -29,8 +29,8 @@
       "label": "Overview",
       "items": [
         {
-          "slug": "runtime-configuration",
-          "label": "Configuration Guide",
+          "slug": "configuration",
+          "label": "Configuration",
           "icon": "settings",
           "attrs": { "data-astro-prefetch": true }
         },
@@ -41,14 +41,56 @@
           "attrs": { "data-astro-prefetch": true }
         },
         {
-          "slug": "auth-routes",
-          "label": "Route Authentication",
+          "type": "submenu",
+          "label": "Authentication",
           "icon": "shield-check",
+          "items": [
+            {
+              "slug": "auth/index",
+              "label": "Overview",
+              "attrs": { "data-astro-prefetch": true }
+            },
+            {
+              "slug": "auth/architecture",
+              "label": "Architecture",
+              "attrs": { "data-astro-prefetch": true }
+            },
+            {
+              "slug": "auth/routes",
+              "label": "Route Protection",
+              "attrs": { "data-astro-prefetch": true }
+            },
+            {
+              "slug": "auth/plugins",
+              "label": "Plugins",
+              "attrs": { "data-astro-prefetch": true }
+            },
+            {
+              "slug": "auth/forms",
+              "label": "Auth Forms",
+              "attrs": { "data-astro-prefetch": true }
+            },
+            {
+              "slug": "auth/roles-and-admin",
+              "label": "Roles and Admin",
+              "attrs": { "data-astro-prefetch": true }
+            },
+            {
+              "slug": "auth/schema-and-migrations",
+              "label": "Schema and Migrations",
+              "attrs": { "data-astro-prefetch": true }
+            }
+          ]
+        },
+        {
+          "slug": "security",
+          "label": "Security",
+          "icon": "lock-keyhole",
           "attrs": { "data-astro-prefetch": true }
         },
         {
           "slug": "email",
-          "label": "Email Sending",
+          "label": "Email",
           "icon": "mail",
           "attrs": { "data-astro-prefetch": true }
         }

@@ -1,28 +1,15 @@
-# D1 Setup
+# Database
 
-The application expects a Cloudflare D1 binding named `DB`. Edit the database
-schema in `src/config/schema.ts`, generate SQL with Drizzle Kit into
-`migrations`, and apply those files with Wrangler. Commit `migrations/meta`
-together with the SQL migrations. See
-[Schema and Migrations](#schema-and-migrations) for the full create-and-run
-loop.
+Verge Kit includes two database presets:
 
-D1 is currently the only supported runtime database. Runtime code should use the local
-`src/db.ts` module rather than importing `drizzle-orm/d1` directly from routes,
-actions, middleware, or UI code.
+- Cloudflare Workers with [Cloudflare D1](https://developers.cloudflare.com/d1/) is the default and primary preset.
+- [Node.js with MySQL](/docs/alternative-deployments/node-mysql) is the alternative preset for a self-hosted Node.js server.
 
+This page covers the default D1 preset. It uses Drizzle with the schema in `src/config/schema.ts`.
 
-Hyperdrive support is planned for future releases, but PostgreSQL and MySQL
-targets are not enabled at runtime and no proof adapters ship in the
-boilerplate. See [Future Hyperdrive Support](/docs/hyperdrive-proof) for
-the checklist to follow when adding a real Hyperdrive adapter slice.
+## D1 Binding
 
-
-
-
-## Default Setup
-
-The committed default is a single D1 binding in `wrangler.jsonc`:
+The default preset exposes D1 through a binding named `DB`. The binding is in `wrangler.jsonc`:
 
 ```jsonc
 {
@@ -37,11 +24,11 @@ The committed default is a single D1 binding in `wrangler.jsonc`:
 }
 ```
 
-Runtime code always reads `env.DB`; keep that binding name unless you also update
-`src/env.d.ts` and `src/db.ts`.
+Keep the binding name `DB`. If you change it, also update `src/env.d.ts` and `src/db.ts`.
 
-For queries in pages, API routes, and server modules, import the initialized
-client:
+See the [Wrangler D1 binding reference](https://developers.cloudflare.com/workers/wrangler/configuration/#d1-databases) for all binding options.
+
+Import the configured database client from `@/db`:
 
 ```ts
 import { db } from '@/db';
@@ -49,170 +36,52 @@ import { db } from '@/db';
 const rows = await db.select().from(user);
 ```
 
-`createD1Database` remains available from `@/db` for tests or custom bindings.
-
-Local development uses the Astro Cloudflare adapter and Wrangler config. The
-`npm run dev` script runs `astro dev`, and the adapter reads `wrangler.jsonc` so
-the `DB` binding is available through the local Workers runtime. Wrangler's local
-D1 implementation is powered by Miniflare/workerd. No separate Miniflare config
-is required for the default flow.
-
-Wrangler is already a project dev dependency. Install dependencies with
-`npm install`, then use the project scripts. If you want to call Wrangler
-directly, prefer `npx wrangler ...` so the repository-pinned version is used.
+Do not create another D1 client in a page, route, Action, or component.
 
 ## Schema and Migrations
 
-Define tables in TypeScript, generate SQL with Drizzle Kit, and apply migrations
-with Wrangler.
+These files define and track the D1 schema:
 
-### Schema location
-
-Table definitions are in:
-
-```text
-src/config/schema.ts
-```
-
-Consumers of that file:
-
-- App query code that imports tables from `@/config/schema` (or the equivalent
-  project path)
-- Better Auth D1 adapter tables
-- Drizzle Kit via `drizzle.config.ts` (`schema: './src/config/schema.ts'`)
-
-Do not edit generated SQL under `migrations/` to change the schema. Update
-`src/config/schema.ts`, regenerate, and review the new migration.
-
-| Path | Role |
+| Path | Purpose |
 | --- | --- |
 | `src/config/schema.ts` | Drizzle table definitions |
-| `drizzle.config.ts` | Drizzle Kit config (schema path, dialect, D1 driver) |
-| `migrations/*.sql` | Generated SQL migrations; commit these |
-| `migrations/meta/` | Drizzle Kit journal and snapshots; commit with the SQL |
-| `wrangler.jsonc` `migrations_dir` | Wrangler apply directory (`migrations`) |
+| `drizzle.config.ts` | Drizzle Kit configuration |
+| `migrations/*.sql` | Generated SQL migrations |
+| `migrations/meta/` | Drizzle migration history |
 
-### Schema updates
-
-For a table, column, index, or relation change:
+For each schema change:
 
 1. Update `src/config/schema.ts`.
-2. Generate a migration with Drizzle Kit.
-3. Review the new SQL under `migrations/`.
-4. Apply to local D1, then remote as needed.
-5. Commit `src/config/schema.ts`, the new `migrations/*.sql` file, and updates
-   under `migrations/meta/`.
+2. Generate a migration.
+3. Review the new SQL in `migrations/`.
+4. Apply the migration to local D1.
+5. Commit the schema and migration files.
 
-If Better Auth plugins require extra tables or columns, add them to
-`src/config/schema.ts` and generate a migration. Auth and app tables share this
-file and the same generate/apply path.
-
-### Create a migration
-
-After editing `src/config/schema.ts`:
+Generate the migration:
 
 ```bash
 npm run db:generate
 ```
 
-Drizzle Kit reads `drizzle.config.ts`, diffs the schema against the latest
-snapshot in `migrations/meta`, and writes a new SQL file under `migrations/`
-plus updated journal/snapshot files.
-
-Commit the generated files with the schema change. Omitting the migration causes
-environment drift.
-
-If generate reports no changes, the schema already matches the latest snapshot,
-or the edit did not change the exported Drizzle schema. Confirm the edit is in
-`src/config/schema.ts` and that `drizzle.config.ts` points at that file.
-
-### Run migrations
-
-Apply generated SQL with Wrangler. Do not use `drizzle-kit push` or
-`drizzle-kit migrate` for normal D1 work. Project scripts wrap Wrangler D1
-migration apply:
-
-Local (Wrangler/Miniflare state under `.wrangler/`):
+Apply migrations to local D1:
 
 ```bash
 npm run db:migrate:local
 ```
 
-Remote (Cloudflare-hosted D1 for the binding in `wrangler.jsonc`):
+Apply migrations to remote D1:
 
 ```bash
 npm run db:migrate:remote
 ```
 
-Local loop after a schema change:
+`db:generate` creates SQL files. It does not apply them.
 
-```bash
-npm run db:generate
-npm run db:migrate:local
-```
-
-Apply remote migrations before or during deploy, after the migration files are
-committed. For named Wrangler environments, use the apply commands in
-[Alternate Development Databases](#alternate-development-databases) and
-[Production Database](#production-database).
-
-## Local Development
-
-Install dependencies first:
-
-```bash
-npm install
-```
-
-Generate and apply migrations after schema changes (see
-[Schema and Migrations](#schema-and-migrations)):
-
-```bash
-npm run db:generate
-npm run db:migrate:local
-```
-
-Optionally create a verified local user with the `admin` role after migrations:
-
-```bash
-npm run init:admin
-```
-
-This writes directly to D1 with Wrangler and does not require `npm run dev`.
-
-Wrangler stores local D1 state under `.wrangler/`, which is ignored by git.
-The Miniflare-backed D1 SQLite files live at:
-
-```text
-.wrangler/state/v3/d1/miniflare-D1DatabaseObject/
-```
-
-The application database is the hashed `*.sqlite` file in that directory. The
-`metadata.sqlite` files are Miniflare bookkeeping and are not the app database.
-Wrangler persists local D1 data between dev sessions by default. If you need a
-fresh local database, remove the relevant `.wrangler` state or reset it with SQL.
-
-Run the app:
-
-```bash
-npm run dev
-```
-
-The app uses the same `DB` binding locally, but the data is local-only unless the
-binding is configured as remote.
+Use these scripts instead of `drizzle-kit push` or `drizzle-kit migrate`. Read the [D1 migrations guide](https://developers.cloudflare.com/d1/reference/migrations/) for more details.
 
 ## Drizzle Studio
 
-The project includes:
-
-```bash
-npm run db:studio
-```
-
-Drizzle Studio reads `drizzle.config.ts`. With this project's default
-`driver: 'd1-http'` config, Studio connects through Cloudflare's D1 HTTP API,
-not through Wrangler's local `DB` binding. Use this mode for a Cloudflare-hosted
-D1 database by setting the required values in the shell that starts Studio:
+Use Drizzle Studio to inspect a remote D1 database:
 
 ```bash
 CLOUDFLARE_ACCOUNT_ID=your-account-id \
@@ -221,287 +90,22 @@ CLOUDFLARE_D1_TOKEN=your-api-token \
 npm run db:studio
 ```
 
-Do not put `CLOUDFLARE_D1_TOKEN` in `wrangler.jsonc` or commit it. Drizzle Kit
-does not read the Wrangler login session for this path; it needs the explicit
-Cloudflare account, database, and token values.
+Keep `CLOUDFLARE_D1_TOKEN` out of `wrangler.jsonc` and version control.
 
-If you run `npm run db:studio` without real Cloudflare values, Drizzle Kit will
-use the placeholder `local` values from `drizzle.config.ts` and eventually fail
-with a Cloudflare routing error such as
-`Could not route to /client/v4/accounts/local/d1/database/local/query`. That
-means Studio is trying to use remote D1 mode without real remote D1 credentials.
+## Production D1
 
-For local D1, Wrangler stores the Miniflare-backed database as a SQLite file
-under `.wrangler/state/v3/d1/miniflare-D1DatabaseObject/` after local migrations
-or local app usage. Drizzle Studio can inspect that file as SQLite, but that is a
-local-dev convenience rather than a Cloudflare D1 API connection. This project
-does not commit a local Studio config because Studio support is optional; copy
-the config below only when you want this workflow.
-
-First apply local migrations:
-
-```bash
-npm run db:migrate:local
-```
-
-Then create an uncommitted local config:
-
-```ts
-// drizzle.studio.local.config.ts
-import { existsSync, readdirSync } from 'node:fs';
-import { join } from 'node:path';
-import { defineConfig } from 'drizzle-kit';
-
-const localD1Directory = '.wrangler/state/v3/d1/miniflare-D1DatabaseObject';
-
-function toFileUrl(path: string) {
-  return path.startsWith('file:') ? path : `file:${path}`;
-}
-
-function getLocalD1SqliteUrl() {
-  const explicitPath = process.env.LOCAL_D1_SQLITE_PATH;
-
-  if (explicitPath) {
-    return toFileUrl(explicitPath);
-  }
-
-  if (!existsSync(localD1Directory)) {
-    throw new Error(
-      [
-        `Local D1 state was not found at ${localD1Directory}.`,
-        'Run npm run db:migrate:local first, or set LOCAL_D1_SQLITE_PATH.',
-      ].join('\n'),
-    );
-  }
-
-  const sqliteFiles = readdirSync(localD1Directory)
-    .filter((file) => file.endsWith('.sqlite') && file !== 'metadata.sqlite')
-    .sort();
-
-  if (sqliteFiles.length !== 1) {
-    throw new Error(
-      [
-        `Expected one local D1 SQLite database in ${localD1Directory}.`,
-        ...sqliteFiles.map((file) => `- ${join(localD1Directory, file)}`),
-        'Set LOCAL_D1_SQLITE_PATH to the database file you want Studio to open.',
-      ].join('\n'),
-    );
-  }
-
-  return toFileUrl(join(localD1Directory, sqliteFiles[0]));
-}
-
-export default defineConfig({
-  dialect: 'sqlite',
-  schema: './src/config/schema.ts',
-  dbCredentials: {
-    url: getLocalD1SqliteUrl(),
-  },
-});
-```
-
-Run Studio with that config:
-
-```bash
-npx drizzle-kit studio --config drizzle.studio.local.config.ts
-```
-
-If you have more than one local D1 file, point Studio at the one you want:
-
-```bash
-LOCAL_D1_SQLITE_PATH=.wrangler/state/v3/d1/miniflare-D1DatabaseObject/your-file.sqlite \
-npx drizzle-kit studio --config drizzle.studio.local.config.ts
-```
-
-Drizzle Kit needs either `better-sqlite3` or `@libsql/client` installed to open a
-raw SQLite file. This project does not require either package for normal D1
-runtime behavior, so install one only if you want the local-file Studio workflow.
-
-The Chrome extension is not required for the CLI workflow above. Drizzle's
-Chrome extension is an optional way to use Studio from supported browser-based
-database dashboards. For this project, local D1 inspection should use the CLI
-Studio server plus the local SQLite file, and Cloudflare-hosted D1 inspection
-should use the CLI Studio server plus D1 HTTP credentials.
-
-## Production Database
-
-Create the remote D1 database once:
+Create the production database once:
 
 ```bash
 npx wrangler d1 create vk
 ```
 
-Copy the returned `database_id` into `wrangler.jsonc` under the `DB` binding:
+Copy the returned `database_id` into the `DB` binding in `wrangler.jsonc`.
 
-```jsonc
-{
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "vk",
-      "database_id": "replace-with-cloudflare-d1-id",
-      "migrations_dir": "migrations",
-    },
-  ],
-}
-```
-
-Generate migrations from `src/config/schema.ts` first (see
-[Schema and Migrations](#schema-and-migrations)), then apply them with
-Wrangler's D1 commands:
+Apply the migrations before you deploy code that needs them:
 
 ```bash
 npm run db:migrate:remote
 ```
 
-Wrangler reads the D1 binding from `wrangler.jsonc` and uses your Wrangler auth
-session or `CLOUDFLARE_API_TOKEN` from the shell or CI environment.
-
-If you run a Drizzle Kit command that connects directly to Cloudflare D1 over
-HTTP, provide these values through your shell or CI secret store instead of a
-project environment file:
-
-```bash
-CLOUDFLARE_ACCOUNT_ID=
-CLOUDFLARE_DATABASE_ID=
-CLOUDFLARE_D1_TOKEN=
-```
-
-Optionally create a verified remote user with the `admin` role after migrations:
-
-```bash
-npm run init:admin -- --remote
-```
-
-This writes directly to the remote D1 database with Wrangler and does not require
-the app server to be running.
-
-## Alternate Development Databases
-
-You have three common options when `DB` should point somewhere other than the
-default local D1 state.
-
-### Separate Local D1 State
-
-Keep `binding` as `DB`, keep `database_name` as the database that Wrangler
-commands should target, and add a `preview_database_id` to isolate the local dev
-database identity:
-
-```jsonc
-{
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "vk",
-      "database_id": "replace-with-production-cloudflare-d1-id",
-      "preview_database_id": "vk-local-jane",
-      "migrations_dir": "migrations",
-    },
-  ],
-}
-```
-
-Then apply migrations to that local database:
-
-```bash
-npm run db:migrate:local
-```
-
-Use a stable `preview_database_id` if you want local data to persist across
-sessions. Use a different `preview_database_id` when you intentionally want a
-separate local D1 database.
-
-### Cloudflare-Hosted Dev Database
-
-Create a second Cloudflare D1 database for development:
-
-```bash
-npx wrangler d1 create vk-dev
-```
-
-Use a named Wrangler environment so production and development bindings stay
-separate. Binding configuration is environment-specific, so repeat both `vars`
-and `d1_databases` inside the named environment:
-
-```jsonc
-{
-  "env": {
-    "development": {
-      "name": "vk-development",
-      "vars": {
-        "EMAIL_PROVIDER": "console",
-      },
-      "d1_databases": [
-        {
-          "binding": "DB",
-          "database_name": "vk-dev",
-          "database_id": "replace-with-dev-cloudflare-d1-id",
-          "migrations_dir": "migrations",
-          "remote": true,
-        },
-      ],
-    },
-  },
-}
-```
-
-Run local dev against that Cloudflare-hosted database by selecting the environment
-for the Cloudflare Vite runtime:
-
-```bash
-CLOUDFLARE_ENV=development npm run dev
-```
-
-Apply migrations to that remote dev database with:
-
-```bash
-npx wrangler d1 migrations apply vk-dev --remote --env development
-```
-
-`remote: true` means local requests can mutate the Cloudflare D1 database. Use a
-dev database, not production, unless that is intentional.
-
-### Production-Like Named Environment
-
-For production, use the same environment pattern but point `DB` at the production
-database and omit `remote: true`; deploy commands run on Cloudflare and use the
-bound remote database there:
-
-```jsonc
-{
-  "env": {
-    "production": {
-      "name": "vk-production",
-      "vars": {
-        "EMAIL_PROVIDER": "console",
-      },
-      "d1_databases": [
-        {
-          "binding": "DB",
-          "database_name": "vk",
-          "database_id": "replace-with-production-cloudflare-d1-id",
-          "migrations_dir": "migrations",
-        },
-      ],
-    },
-  },
-}
-```
-
-Apply migrations and deploy with the same environment name:
-
-```bash
-npx wrangler d1 migrations apply vk --remote --env production
-npx wrangler deploy --env production
-```
-
-## Runtime Boundary
-
-Runtime code should continue to use the local `src/db.ts` module. Do not import
-`drizzle-orm/d1` from app routes, actions, middleware, or UI code. Hyperdrive is
-a planned adapter target, but D1 is the only supported runtime database in this
-milestone.
-
-Future Hyperdrive work should add real adapters, schemas, migrations, and tests
-in one feature slice. Do not keep database target parsing or placeholder
-PostgreSQL/MySQL utilities in application code before those adapters exist.
+Use a separate D1 database for each deployed environment. See the [Wrangler D1 command reference](https://developers.cloudflare.com/d1/wrangler-commands/) for additional commands.

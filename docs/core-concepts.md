@@ -1,103 +1,66 @@
 # Core Concepts
 
-## Use The Platform
+## Use Existing Platform Tools
 
-Verge Kit prefers the framework and platform tools already in the project.
+Use Astro pages, API routes, Actions, middleware, and configuration before you add an abstraction.
 
-Use Astro pages, API routes, Actions, middleware, and config before adding a new
-local abstraction. Add helpers only when they remove repeated code or protect a
-real boundary.
+If a helper removes repeated code or protects a system boundary, add it.
 
-## D1 First
+## Use the Database Through the App Client
 
-D1 is the supported runtime database.
+Each database preset provides a configured Drizzle client in `src/db.ts`. Import this client in application code.
 
-Use the local `src/db.ts` module from app code. Do not import `drizzle-orm/d1`
-directly in routes, pages, actions, or components.
+Do not import a Drizzle database driver directly in routes, pages, Actions, or components.
 
-This keeps future Hyperdrive PostgreSQL or MySQL work isolated to the database
-adapter layer. The boilerplate does not ship PostgreSQL or MySQL placeholders;
-those targets should be added only when real Hyperdrive adapters are
-implemented.
+## Keep Configuration in the Correct Place
 
-## Config Has A Boundary
+- Use `src/config` for application defaults, schemas, and authentication policy.
+- Use `wrangler.jsonc` for committed Worker values that are not secret.
+- Use `.dev.vars` for local secrets and local overrides.
+- Use Wrangler secrets for deployed secrets.
 
-Use `src/config` for source-level app defaults and auth policy that app code
-imports directly. App identity, default authenticated navigation, protected
-routes, app roles, permission values, and banned-session copy belong there.
+Do not put API keys, authentication secrets, or provider credentials in `wrangler.jsonc`.
 
-Use `wrangler.jsonc` as the committed source of truth for non-secret Worker
-runtime values. Typical values include `EMAIL_PROVIDER`, `EMAIL_FROM`,
-`EMAIL_REPLY_TO`, `BETTER_AUTH_URL`, and `MAILGUN_DOMAIN`.
+## Keep Server Operations on the Server
 
-Use `.dev.vars` for local secret values and local-only overrides. Use Wrangler
-secrets for deployed secret values. Do not commit API keys, auth secrets, or
-provider credentials in `wrangler.jsonc`.
+Keep authentication, database writes, email, and input validation on the server.
 
-## Server First
+If an interaction requires client JavaScript, use it.
 
-Keep auth, database writes, email, and validation on the server.
+## Use Input Validation
 
-Use client JavaScript only where it improves a specific interaction.
+Use Zod for request bodies, forms, and Action input. Keep each schema close to the route or Action that uses it.
 
-## Validate At The Boundary
+## Load Authentication Only When Needed
 
-Use Zod for request bodies, form input, and action input.
+Each request starts with an anonymous authentication state in `Astro.locals`. Middleware loads a session for protected, admin, and authentication-aware routes.
 
-Keep validation close to the route or action that receives external data.
+Public routes can call `Astro.locals.loadAuthSession()`. The loader performs only one session lookup for each request.
 
-## Middleware Owns Lazy Auth State
+## Protect Routes Explicitly
 
-Every request starts with anonymous, typed auth state in:
+Routes are public by default. Add shared route rules in `src/config/auth.ts`.
 
-- `Astro.locals.user`
-- `Astro.locals.session`
-- `Astro.locals.isAuthenticated`
-- `Astro.locals.loadAuthSession()`
+Use a route-local check for a custom redirect or a JSON `401` response. Keep `/api/auth/*` public.
 
-Middleware loads the session only for protected, admin, or explicitly auth-aware
-routes. The memoized loader lets public route code opt in without reimplementing
-session lookup or causing duplicate work.
+See [Route Protection](/docs/auth/routes) for examples.
 
-## Routes Are Public By Default
+## Keep Roles in Application Policy
 
-Middleware skips session loading for ordinary public requests, and route
-protection is opt-in. Use `src/config/auth.ts` when pages or API namespaces
-should be consistently protected by middleware. Use route-local checks when a
-page or API handler needs custom redirect or JSON `401` behavior, and call
-`loadAuthSession()` before checking auth on a public route.
+The default roles are `admin`, `moderator`, `user`, and `banned`. Role permissions are in `src/config/auth.ts`.
 
-Keep Better Auth endpoints under `/api/auth` public so sign in, sign up,
-verification, reset, session, callback, and sign-out requests can reach Better
-Auth before a user has a session.
+Use the permission helpers from `@vergekit/core/auth` for local access rules.
 
-## Roles Are App Policy
+## Send Email Through a Provider
 
-The Better Auth admin plugin is installed and configured with `admin`,
-`moderator`, `user`, and `banned` roles. App permissions live in
-`src/config/auth.ts`, and local checks should use the helpers in
-`@vergekit/core/auth` with the app's `authConfig`.
+Use `sendEmail` for custom transactional email. Use `createAuthEmailSenderFromEnv` for Better Auth verification and reset email.
 
-## Email Is A Provider
+Local development can use `console`. Deployed Workers can use Cloudflare Email, Resend, or Mailgun.
 
-Auth email is rendered once and sent through a provider.
+## Run Migrations Before Initialization
 
-Local development can use `console`. Workers deployments should use Cloudflare
-Email, Resend, Mailgun, or another fetch/binding-based provider.
+Run migrations before you create users. `npm run init:admin` creates a verified user with the `admin` role.
 
-Use `sendEmail` directly for custom transactional messages. Use
-`createAuthEmailSenderFromEnv` for Better Auth verification and reset flows so
-auth email templates and `EMAIL_FROM` handling stay centralized.
+## Add Features When the App Needs Them
 
-## Initialization Is Operational
-
-Run migrations before seeding users. `npm run init:admin` creates a verified
-Better Auth user directly in D1 through Wrangler, selecting local or remote D1
-from `BETTER_AUTH_URL` unless `--local` or `--remote` is passed.
-
-## Keep The Boilerplate Small
-
-Verge Kit does not include uploads, media processing, full admin CRUD screens,
-analytics, queues, workflows, or production PostgreSQL/MySQL runtime support yet.
-
-Add those when an application needs them.
+The starter does not include uploads, media processing, analytics, queues, workflows, or full admin screens.

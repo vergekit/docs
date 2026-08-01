@@ -35,7 +35,7 @@ export const fieldGuideNavigation = [
   },
   {
     label: "Application Patterns",
-    slugs: ["runtime-configuration"],
+    slugs: ["configuration"],
   },
 ];
 ```

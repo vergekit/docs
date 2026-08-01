@@ -2,67 +2,47 @@
 title: Node.js + MySQL
 ---
 
-Verge Kit is Cloudflare-first. Workers and D1 remain the default and primary
-deployment path. The `node-mysql` preset is an alternative for applications
-that need a self-hosted Node.js runtime and MySQL database.
+Verge Kit uses Cloudflare Workers and D1 by default. Use this preset for a self-hosted Node.js server with MySQL.
 
-The generated project is a standalone Astro server. It contains the Node
-adapter, one MySQL schema and migration tree, and no Wrangler or D1 runtime
-configuration.
+The preset creates a standalone Astro server. It replaces the Cloudflare runtime, D1 schema, migrations, and related tests.
 
-## How This Preset Differs
+## Main Differences
 
-The `node-mysql` preset is an overlay on the default `cloudflare-d1` app. Pages,
-layouts, components, Astro Actions, middleware, and app-owned auth policy stay
-the same. The preset replaces the runtime and database boundaries, along with
-the operational files and tests that exercise them.
-
-| Concern | Default `cloudflare-d1` | `node-mysql` |
+| Concern | Default | Node.js with MySQL |
 | --- | --- | --- |
-| Runtime | Cloudflare Workers adapter and request bindings | Standalone Node.js adapter and `process.env` |
-| Database | D1/SQLite through a Worker binding | MySQL through a `mysql2` connection pool |
-| Local configuration | `.dev.vars` and `wrangler.jsonc` | `.env` created from `.env.example` |
-| Migrations | `db:migrate:local` and `db:migrate:remote` through Wrangler | `db:migrate` through Drizzle Kit |
-| Email providers | Console, Resend, Mailgun, and Cloudflare Email | Console, Resend, and Mailgun |
-| Production | `wrangler deploy` to Cloudflare | `npm run start` behind a process manager and reverse proxy |
+| Runtime | Cloudflare Workers | Standalone Node.js server |
+| Database | D1 with SQLite | MySQL with `mysql2` |
+| Local configuration | `.dev.vars` and `wrangler.jsonc` | `.env` |
+| Migrations | Wrangler | Drizzle Kit |
+| Email | Console, Cloudflare Email, Resend, Mailgun | Console, Resend, Mailgun |
+| Deployment | `wrangler deploy` | `npm run start` |
 
-In the generated source, the main replacements are `astro.config.mjs`,
-`drizzle.config.ts`, `src/db.ts`, `src/runtime.ts`, `src/env.d.ts`,
-`src/config/schema.ts`, the migration tree, and their runtime-specific tests.
-The rest of the documentation still applies unless this page gives a different
-configuration, migration, email, or deployment instruction.
+Pages, components, Actions, middleware, and authentication policy stay the same.
 
 ## Requirements
 
 - Node.js 22.12 or newer
 - npm
 - MySQL 8
-- A process manager and TLS-terminating reverse proxy for production
+- A process manager and TLS reverse proxy for production
 
-## Scaffold The Project
+## Create the Project
 
-Select the preset when creating the application:
+Run the installer and select Node.js with MySQL:
 
 ```bash
 npm create vergekit@latest
 ```
 
-In an interactive terminal, the installer creates `.env` with a fresh Better
-Auth secret and can run `npm install` for you. It then groups the MySQL host,
-port, database, user, and masked password questions into one connection step,
-using `.env.example` values as the defaults. After saving those five settings,
-it can run the migration and launch administrator creation. If `.env` already
-exists, its secrets and unrelated settings are preserved; only the five MySQL
-values you explicitly confirm are updated.
+The installer can create `.env`, install dependencies, collect the MySQL connection values, and apply migrations.
 
-Preset selection happens only during scaffolding. The generated application is
-a normal Node.js Astro project and does not switch runtimes at startup.
+The generated application uses Node.js for every run. It does not select a runtime during startup.
 
-## Create The MySQL Database
+## Create the Database
 
-Create an empty MySQL 8 database and a dedicated application user through your
-database provider or administration tool. An authorized MySQL administrator
-can use SQL like this for a local deployment:
+Create an empty MySQL 8 database and a dedicated application user.
+
+An authorized administrator can use this SQL for local development:
 
 ```sql
 CREATE DATABASE vergekit CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
@@ -70,20 +50,17 @@ CREATE USER 'vergekit'@'127.0.0.1' IDENTIFIED BY 'replace-with-a-strong-password
 GRANT ALL PRIVILEGES ON vergekit.* TO 'vergekit'@'127.0.0.1';
 ```
 
-Change the allowed host to match where the application connects from. Keep the
-database off the public internet where possible, and follow your provider's
-network and transport-security requirements.
+Change the allowed host to the application host. When possible, keep the database off the public internet.
 
-## Configure The Environment
+## Configure the Environment
 
-Copy the committed template:
+Copy the environment template:
 
 ```bash
 cp .env.example .env
 ```
 
-If you skip the guided connection step or run non-interactively, set the local
-values in `.env`:
+Add the local values:
 
 ```dotenv
 MYSQL_HOST=127.0.0.1
@@ -96,29 +73,21 @@ BETTER_AUTH_URL=http://localhost:4321
 EMAIL_PROVIDER=console
 ```
 
-If the installer did not create `.env`, generate a Better Auth secret with
-Node.js:
+If you need a Better Auth secret, generate one:
 
 ```bash
 node -e "console.log(require('node:crypto').randomBytes(32).toString('base64url'))"
 ```
 
-Do not commit `.env`. `MYSQL_PASSWORD` may be empty only when the configured
-database account has no password. The application, Drizzle Kit, and
-administrator command all use these same five MySQL settings.
+Do not commit `.env`. The application, Drizzle Kit, and administrator command use the same five `MYSQL_*` values.
 
-For production, supply environment variables through the hosting platform,
-service manager, or secret store. Existing process variables take precedence
-over `.env`. Keep `BETTER_AUTH_SECRET` stable, and set `BETTER_AUTH_URL` to the
-exact public HTTPS origin.
+For production, provide these values through the host, process manager, or secret store. Keep `BETTER_AUTH_SECRET` stable.
 
-## Migrate And Initialize
+Set `BETTER_AUTH_URL` to the exact public HTTPS origin.
 
-Committed and generated SQL migrations live in `migrations/`. Drizzle Kit keeps
-its generation journal and schema snapshots in `migrations/meta`; commit that
-directory together with the SQL migrations.
+## Apply Migrations
 
-Apply the committed MySQL migrations:
+Apply the committed migrations:
 
 ```bash
 npm run db:migrate
@@ -130,20 +99,22 @@ Create the first verified user with the `admin` role:
 npm run init:admin
 ```
 
-The administrator command prompts for a name, email, and password, uses the
-same MySQL settings, and closes its database pool before exiting.
-
-After an intentional change to `src/config/schema.ts`, generate and review a
-new migration before applying it:
+After a schema change, generate and apply a migration:
 
 ```bash
 npm run db:generate
 npm run db:migrate
 ```
 
-Use `npm run db:studio` when you need to inspect the configured database.
+Commit `migrations/*.sql` and `migrations/meta/` with each schema change.
 
-## Develop And Verify
+Open the configured database in Drizzle Studio:
+
+```bash
+npm run db:studio
+```
+
+## Develop and Run Checks
 
 Start local development:
 
@@ -151,67 +122,57 @@ Start local development:
 npm run dev
 ```
 
-Before deployment, run the complete check, lint, test, and build pipeline:
+Run all project checks:
 
 ```bash
 npm run verify
 ```
 
-## Email Options
+## Configure Email
 
-`EMAIL_PROVIDER=console` is the non-delivering development default. It prints
-auth email content and links to the server log, so treat those logs as
-sensitive.
+`EMAIL_PROVIDER=console` writes authentication email to the server log. Treat these logs as sensitive data.
 
-Use an HTTP API provider for delivered email from Node.js:
+For delivered email, use one of these providers:
 
-- `EMAIL_PROVIDER=resend` requires `RESEND_API_KEY` and `EMAIL_FROM`.
-- `EMAIL_PROVIDER=mailgun` requires `MAILGUN_API_KEY`, `MAILGUN_DOMAIN`, and
-  `EMAIL_FROM`.
-- `EMAIL_REPLY_TO` is optional for Resend and Mailgun.
+- Resend requires `RESEND_API_KEY` and `EMAIL_FROM`.
+- Mailgun requires `MAILGUN_API_KEY`, `MAILGUN_DOMAIN`, and `EMAIL_FROM`.
+- `EMAIL_REPLY_TO` is optional for both providers.
 
-The Node.js preset has no Cloudflare Email binding. Do not select the
-`cloudflare` email provider for this deployment target. Store provider API keys
-and the Better Auth secret outside source control, and test verification and
-password-reset delivery before launch.
+The Node.js preset does not support the `cloudflare` email provider.
 
-## Build And Run
+Before launch, do a delivery test for verification and password-reset email.
 
-Build and start the standalone server through the generated project scripts:
+## Build and Start
+
+Build and start the server:
 
 ```bash
 npm run build
 npm run start
 ```
 
-`npm run start` runs `dist/server/entry.mjs`. In production, run that command
-under a service manager or hosting supervisor that starts it on boot, restarts
-it after failures, preserves logs, and stops it cleanly during deployments.
+`npm run start` runs `dist/server/entry.mjs`. Use a process manager to start it on boot and restart it after a failure.
 
-Keep the application port private behind a reverse proxy. Terminate TLS at the
-proxy, forward the original host and protocol, configure appropriate body-size
-and timeout limits, and send health checks to `/api/health`. Keep
-`BETTER_AUTH_URL` aligned with the public HTTPS origin exposed by the proxy.
+Keep the application port behind a TLS reverse proxy. Send health checks to `/api/health`.
 
-## Backups And Recovery
+The proxy must forward the original host and protocol. `BETTER_AUTH_URL` must match the public HTTPS origin.
 
-Back up the MySQL database on a schedule appropriate for the application's
-recovery requirements. Keep copies outside the database host, protect them like
-production data, and test restoration into a separate database. Take or confirm
-a current backup before applying production schema migrations.
+## Backups
+
+Back up the database on a schedule that meets your recovery requirements. Keep backup copies outside the database host.
+
+Before each production migration, make sure that a current backup exists. Do restoration tests with a separate database.
 
 ## Deployment Checklist
 
-1. Use Node.js 22.12 or newer and a reachable MySQL 8 database.
-2. Install the exact dependency tree with `npm ci` in the deployment artifact.
-3. Supply all five `MYSQL_*` settings, a stable `BETTER_AUTH_SECRET`, and the
-   public `BETTER_AUTH_URL` through production configuration or secret storage.
-4. Configure console, Resend, or Mailgun intentionally; use a delivering
-   provider for production auth email.
-5. Confirm a current database backup and a tested restore procedure.
-6. Run `npm run db:migrate` and `npm run verify`.
-7. Run `npm run build`, then supervise `npm run start` behind the reverse proxy.
-8. Check `/api/health`, registration, verification, sign-in, sign-out, password
-   reset, protected routes, and administrator access after deployment.
-9. Confirm process monitoring, application logs, database monitoring, and
-   backup alerts.
+1. Install the exact dependencies with `npm ci`.
+2. Add all five `MYSQL_*` values.
+3. Add a stable `BETTER_AUTH_SECRET` and the public `BETTER_AUTH_URL`.
+4. Configure Resend or Mailgun for production authentication email.
+5. Make sure that a current database backup exists.
+6. Run `npm run db:migrate`.
+7. Run `npm run verify`.
+8. Run `npm run build`.
+9. Start `npm run start` with a process manager and reverse proxy.
+10. Do checks for `/api/health`, authentication, protected routes, and administrator access.
+11. Monitor the process, logs, database, and backups.

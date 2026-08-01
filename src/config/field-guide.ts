@@ -6,7 +6,7 @@
 export const fieldGuideNavigation = [
   {
     label: "",
-    slugs: ["index", "resources", "organizing-content", "runtime-configuration"],
+    slugs: ["index", "resources", "organizing-content", "configuration"],
   },
   // {
   //   label: "Application Patterns",

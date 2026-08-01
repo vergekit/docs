@@ -4,38 +4,34 @@
 
 - Node.js 22.12 or newer
 - npm
-- Wrangler through the project dependency
 - A Cloudflare account for remote D1 and deployment
 
-## Create A Project
+## Create a Project
 
-Run the interactive installer:
+Run the installer:
 
 ```bash
 npm create vergekit@latest
 ```
 
-It asks where to create the project and whether to use Cloudflare Workers + D1
-or Node.js + MySQL. You can also provide the destination directly:
+The installer asks for a project location and a runtime. Cloudflare Workers with D1 is the default runtime.
+
+You can include the project location in the command:
 
 ```bash
 npm create vergekit@latest my-app
 ```
 
-Verge Kit is Cloudflare-first, so Workers + D1 is the default. The guided D1
-flow can install dependencies, create `.dev.vars` with a fresh Better Auth
-secret, apply local migrations, and launch administrator creation. The secret is
-generated with Node.js and is never printed.
+The guided D1 setup can complete these tasks:
 
-The Node.js + MySQL flow creates `.env` with a fresh Better Auth secret, installs
-dependencies, and presents one grouped connection step for the MySQL host,
-port, database, user, and masked password. It can then run the migration and
-administrator commands. See the
-[Node.js + MySQL guide](/docs/alternative-deployments/node-mysql).
+- Install dependencies.
+- Create `.dev.vars` with a new Better Auth secret.
+- Apply local migrations.
+- Start administrator creation.
 
-For scripts and CI, non-interactive terminals never prompt. With no setup flags,
-the command only generates the project. Use `--yes` for dependency installation
-and local D1 migration, or choose stages explicitly:
+The Node.js with MySQL setup uses `.env` and asks for the database connection. See the [Node.js and MySQL guide](/docs/alternative-deployments/node-mysql).
+
+For scripts and CI, use setup flags:
 
 ```bash
 npm create vergekit@latest my-app -- --yes
@@ -43,137 +39,76 @@ npm create vergekit@latest my-app -- --install --migrate --no-admin
 npm create vergekit@latest my-app -- --no-install
 ```
 
-Administrator creation remains manual under `--yes` because it securely prompts
-for credentials. Non-interactive Node.js + MySQL setup also leaves database
-migration and administrator creation manual because its connection prompt is
-unavailable. Run `npm create vergekit@latest -- --help` for every CLI option.
+`--yes` installs dependencies and applies local D1 migrations. Administrator creation always requires an interactive terminal.
 
-## Local Runtime Secrets
+Run this command to see all installer flags:
 
-The interactive installer creates `.dev.vars` with a fresh Better Auth secret.
-If you skipped setup or generated from a non-interactive terminal, copy the
-example file:
+```bash
+npm create vergekit@latest -- --help
+```
+
+## Add Local Secrets
+
+If the installer did not create `.dev.vars`, copy the example file:
 
 ```bash
 cp .dev.vars.example .dev.vars
 ```
 
-Generate a secret with Node.js:
+Generate a Better Auth secret:
 
 ```bash
 node -e "console.log(require('node:crypto').randomBytes(32).toString('base64url'))"
 ```
 
-Add it to `.dev.vars`:
+Add the secret and the local URL to `.dev.vars`:
 
 ```bash
 BETTER_AUTH_SECRET=your-generated-secret
-```
-
-Local callback URLs usually stay in `.dev.vars`:
-
-```bash
 BETTER_AUTH_URL=http://localhost:4321
 ```
 
-Committed, non-secret app defaults live in `wrangler.jsonc` under `vars`. Use
-`.dev.vars` only for local secrets or local-only overrides.
+Do not commit `.dev.vars`.
 
-## Database
+## Prepare the Database
 
-Apply local D1 migrations before running auth flows:
+Apply the local D1 migrations:
 
 ```bash
 npm run db:migrate:local
 ```
 
-Regenerate migrations after schema changes:
-
-```bash
-npm run db:generate
-```
-
-Optionally create a verified local user with the `admin` role after migrations:
+Create a local user with the `admin` role:
 
 ```bash
 npm run init:admin
 ```
 
-This writes directly to D1 with Wrangler and does not require `npm run dev`.
+This command writes directly to D1. The development server does not need to run.
 
-Local dev uses Wrangler/Miniflare-backed D1 state through the
-Astro Cloudflare adapter; no separate Miniflare config is required after
-`npm install`.
+See [D1 Setup](/docs/database) for schema changes, remote databases, and Drizzle Studio.
 
-See [D1 Setup](/docs/database) for production database setup, Drizzle Studio
-notes, and alternate local or Cloudflare-hosted development database options.
+## Configure Routes and Email
 
-## Auth Routes
+See [Authentication](/docs/auth/) for the included flows and required configuration.
 
-All routes are public until they opt into auth. Add protected exact paths or URL
-prefixes in `src/config/auth.ts`, or call
-`await Astro.locals.loadAuthSession()` before checking auth inside a specific
-public page or route handler.
+Routes are public by default. See [Route Protection](/docs/auth/routes) to protect a page or API route.
 
-See [Route Authentication](/docs/auth-routes) for middleware-protected and
-route-local examples.
+Local email uses the `console` provider by default. It writes authentication links to the terminal.
 
-Better Auth policy is configured in `src/config/auth.ts`, and
-`@vergekit/core/auth` builds the runtime Better Auth options and plugins from
-that policy. The admin plugin is already installed and configured for the app
-role model. See [Route Authentication](/docs/auth-routes) for the files
-that usually need to change when adding or modifying Better Auth plugins.
+See [Email](/docs/email) to configure Cloudflare Email, Resend, or Mailgun.
 
-## Email
+See the [Configuration Guide](/docs/configuration) for the location of application values and secrets.
 
-The default local email provider is `console`.
+## Run the Project
 
-Use it for local setup when you only need links printed to the terminal:
-
-```bash
-EMAIL_PROVIDER=console
-```
-
-For full auth behavior with delivered verification and reset emails, configure a
-real provider before testing auth:
-
-```bash
-EMAIL_PROVIDER=resend
-EMAIL_FROM="VK <noreply@example.com>"
-RESEND_API_KEY=your-api-key
-```
-
-Mailgun uses:
-
-```bash
-EMAIL_PROVIDER=mailgun
-EMAIL_FROM="VK <noreply@example.com>"
-MAILGUN_API_KEY=your-api-key
-MAILGUN_DOMAIN=mg.example.com
-```
-
-Cloudflare Email uses the `EMAIL` binding from `wrangler.jsonc`.
-
-See [Email Sending](/docs/email) for direct send examples, provider
-requirements, auth-email helpers, and testing notes.
-
-## Configuration
-
-Editable app defaults and auth policy live in `src/config`. Runtime Worker
-values live in `wrangler.jsonc` vars. Local secrets live in `.dev.vars`, and
-deployed secrets live in Wrangler secrets.
-
-See [Configuration Guide](/docs/runtime-configuration) for the full split.
-
-## Run
-
-Start the dev server:
+Start the development server:
 
 ```bash
 npm run dev
 ```
 
-Run the full local check:
+Run all project checks:
 
 ```bash
 npm run verify

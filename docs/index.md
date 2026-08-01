@@ -1,37 +1,36 @@
 # Introduction
 
-Verge Kit is a foundation for building full-stack applications with Astro and
-Cloudflare Workers.
+Verge Kit provides a solid foundation for building modern web applications with [Astro](https://astro.build) and the [Cloudflare Workers](https://workers.dev) ecosystem.
 
-It starts with the pieces most full-stack apps need: server-rendered Astro, D1,
-Drizzle, Better Auth, email, middleware, Zod validation, Astro Actions, and a
-plain Tailwind UI base. The project stays close to Astro, Cloudflare, Drizzle,
-Better Auth, and Tailwind instead of adding a large custom framework layer.
+It's a pre-wired stack of dependencies and minimal boilerplate. This configuration is designed to help LLMs produce reliable and understandable applications.
 
 
 ## The Stack
 
 - [Astro](https://astro.build) - SSR with strict
   [TypeScript](https://www.typescriptlang.org) and [Cloudflare Workers](https://workers.dev) adapter
-- [Cloudflare D1](https://developers.cloudflare.com/d1/) - SQLite databsae
+- [Cloudflare D1](https://developers.cloudflare.com/d1/) - default SQLite database
 - [Drizzle](https://orm.drizzle.team) - ORM, schema, migrations (w/ [Drizzle Kit](https://orm.drizzle.team/docs/kit-overview))
 - [Better Auth](https://www.better-auth.com) w/ [admin plugin](https://www.better-auth.com/docs/plugins/admin)
 - [Tailwind](https://tailwindcss.com) - CSS utility classes
 - [bejamas/ui](https://ui.bejamas.com) components (based on [shadcn/ui](https://ui.shadcn.com/))
-- [Lucide Astro](https://lucide.dev/guide/astro) icons
+- [Lucide](https://lucide.dev/) icons
+- [astro-favicons](https://github.com/ACP-CODE/astro-favicons) - simplified favicon generation
 - [React Email](https://react.email/) components and templates
-- [Vitest](https://vitest.dev), [happy-dom](https://github.com/capricorn86/happy-dom), and [oxlint](https://oxc.rs/docs/guide/usage/linter.html), and integrated npm verification scripts
+- [VK Core](https://github.com/vergekit/core) utilites & runtime helpers
+- [Zod](https://zod.dev/) schema validation
+- [Vitest](https://vitest.dev), [happy-dom](https://github.com/capricorn86/happy-dom), [oxlint](https://oxc.rs/docs/guide/usage/linter.html), and integrated npm verification scripts
 
 
 
 ## The Boilerplate
 
 - Lazy auth middleware with typed, request-scoped `Astro.locals`
+- Basic authentication flows with requisite email notifications
 - Public-by-default route authorization with opt-in protected pages and APIs
 - CSRF origin checks through [Astro config](https://docs.astro.build/en/guides/security/)
 - Custom 404 and 500 error pages
-- D1-backed Drizzle schema, migrations, and typed database client
-- Basic authentication flows (register, login, logout, email verification, forgot password, and reset password) with requisite email notifications
+- Drizzle schema, migrations, and typed database client for the default D1 preset
 - Configurable user roles and permissions for `admin`, `moderator`, `user`, and `banned`
 - Transactional email providers for console output,
   [Resend](https://resend.com), [Mailgun](https://www.mailgun.com),
@@ -40,10 +39,10 @@ Better Auth, and Tailwind instead of adding a large custom framework layer.
 
 
 
-## App structure
+## App Structure
 
-The generated project keeps application code in `src` and operational tooling
-at the project root. The key directories and files are:
+The generated project stores application code in `src`. It stores operational
+tools at the project root. These directories and files are important:
 
 ```text
 ./
