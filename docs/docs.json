@@ -15,12 +15,6 @@
           "label": "Installation",
           "icon": "download",
           "attrs": { "data-astro-prefetch": true }
-        },
-        {
-          "slug": "principles",
-          "label": "Principles",
-          "icon": "route",
-          "attrs": { "data-astro-prefetch": true }
         }
       ]
     },

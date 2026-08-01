@@ -2,7 +2,7 @@
 
 Verge Kit provides a solid foundation for building modern web applications with [Astro](https://astro.build) and the [Cloudflare Workers](https://workers.dev) ecosystem.
 
-It's a pre-wired stack of dependencies and minimal boilerplate. This configuration is designed to help LLMs produce reliable and understandable applications.
+At its core is a pre-wired stack of dependencies and minimal boilerplate. This configuration is designed to help LLMs produce reliable and understandable applications.
 
 
 ## The Stack
@@ -39,10 +39,7 @@ It's a pre-wired stack of dependencies and minimal boilerplate. This configurati
 
 
 
-## App Structure
-
-The generated project stores application code in `src`. It stores operational
-tools at the project root. These directories and files are important:
+## Application Structure
 
 ```text
 ./
@@ -63,10 +60,10 @@ tools at the project root. These directories and files are important:
 │   ├── env.d.ts          # Astro locals and Worker binding types
 │   ├── middleware.ts     # request auth and route protection
 │   └── runtime.ts        # request-scoped Cloudflare runtime access
-├── cli/                 # operational scripts, including init-admin
-├── migrations/          # generated SQL and Drizzle metadata
-├── tests/               # auth, database, email, HTTP, and config tests
-├── astro.config.mjs     # Astro and Cloudflare adapter configuration
-├── drizzle.config.ts    # Drizzle Kit configuration
-└── wrangler.jsonc       # Worker bindings and non-secret runtime values
+├── cli/                  # operational scripts, including init-admin
+├── migrations/           # generated SQL and Drizzle metadata
+├── tests/                # auth, database, email, HTTP, and config tests
+├── astro.config.mjs      # Astro and Cloudflare adapter configuration
+├── drizzle.config.ts     # Drizzle Kit configuration
+└── wrangler.jsonc        # Worker bindings and non-secret runtime values
 ```

@@ -8,15 +8,9 @@ import PublicLayout from "../layouts/PublicLayout.astro";
     <article class="prose mx-auto max-w-3xl">
       <PageTitle>Project</PageTitle>
 
-      <h2>About</h2>
-      <p>
-        Verge Kit is an opinionated starting point for building full-stack Astro applications on Cloudflare Workers. It brings together a focused set of tools, conventions, and utilities so new projects can begin from a useful baseline.
-      </p>
-      <p>Verge Kit is produced and maintained by <a href="https://jonathanyoungblood.com/">Jonathan Youngblood</a>.</p>
 
       <h2>Repositories</h2>
       <table>
-        <thead><tr><th>Repository</th><th>Purpose</th></tr></thead>
         <tbody>
           <tr><td><a href="https://github.com/vergekit/vergekit">vergekit/vergekit</a></td><td>Main application boilerplate and reference stack.</td></tr>
           <tr><td><a href="https://github.com/vergekit/core">vergekit/core</a></td><td>Shared core utilities for Verge Kit projects.</td></tr>
@@ -32,10 +26,8 @@ import PublicLayout from "../layouts/PublicLayout.astro";
         <li><a href="https://www.dropbox.com/scl/fo/4j440rzgyno0mgqt3lrae/AOPE27BDTBCbTsU2o5qx1WI?rlkey=l57r1ifm7m08k6telhvkc8m69&dl=0">Shared project files</a></li>
       </ul>
 
-      <h2>Colophon</h2>
-      <p>
-        The public site is built with <a href="https://astro.build/">Astro</a> and <a href="https://tailwindcss.com/">Tailwind CSS</a>. Documentation uses <a href="https://reallysimpledocs.com/">Really Simple Docs</a> and <a href="https://basecoatui.com/">Basecoat</a>. Content is written in Markdown and published from the public <a href="https://github.com/vergekit/docs">docs repository</a>.
-      </p>
+      <h2>Personnel</h2>
+      <p>Verge Kit is produced and maintained by <a href="https://jonathanyoungblood.com/">Jonathan Youngblood</a>.</p>
 
       <h2>Support</h2>
       <p>
@@ -45,61 +37,12 @@ import PublicLayout from "../layouts/PublicLayout.astro";
 
       <h2>Contributing</h2>
       <p>
-        The project is not currently accepting external feature contributions or pull requests. This keeps the reference stack focused and its implementation decisions consistent. Clear bug reports are welcome through the issue tracker.
+        This project is not currently accepting external feature contributions or pull requests. This keeps the reference stack focused and its implementation decisions consistent. Clear bug reports are welcome through the issue tracker.
       </p>
 
       <h2>License</h2>
       <p>Verge Kit is available under the <a href="https://opensource.org/license/mit/">MIT License</a>.</p>
 
-      <h2>Roadmap</h2>
-      <p>
-        The first Verge Kit milestone is complete: it is an empty but deployable Cloudflare Workers Astro app with a D1 database layer, Better Auth mounted, middleware locals wired, email delivery seams, and a small database portability plan for future Hyperdrive work.
-      </p>
-
-      <h3>Architecture Principle</h3>
-      <p>
-        VK is D1-first and adapter-ready. The first implementation supports Cloudflare D1 only, while app code imports database behavior through stable local modules that can later route to real Hyperdrive-backed PostgreSQL or MySQL implementations.
-      </p>
-      <p>
-        App query code should stay inside a conservative Drizzle query-builder subset unless a dialect-specific helper is explicitly introduced.
-      </p>
-
-      <h3>Slice Status</h3>
-      <table>
-        <thead><tr><th>Slice</th><th>Status</th><th>Goal</th></tr></thead>
-        <tbody>
-          <tr><td>Foundation</td><td>Done</td><td>Scaffold Astro on Cloudflare Workers with strict TypeScript, Tailwind 4, baseline tooling, and deployment config.</td></tr>
-          <tr><td>D1 Database Contract</td><td>Done</td><td>Add Drizzle D1 schema and a small local <code>src/db.ts</code> D1 client surface.</td></tr>
-          <tr><td>Auth Spine</td><td>Done</td><td>Add Better Auth config, D1-backed schema, auth route, typed locals, and middleware route guards.</td></tr>
-          <tr><td>Email Layer</td><td>Done</td><td>Add provider-based mailer with console, Cloudflare Email, Resend, and Mailgun; render auth emails with React Email.</td></tr>
-          <tr><td>Form And API Conventions</td><td>Done</td><td>Add Zod parsing helpers, standard JSON responses, and Astro Actions registration patterns.</td></tr>
-          <tr><td>Minimal Auth UI</td><td>Done</td><td>Add form components, Lucide Astro icons, login/register/reset/verify pages, custom 404/500 error pages, and a dashboard shell.</td></tr>
-          <tr><td>Operational Polish</td><td>Done</td><td>Add docs, example env files, D1 setup notes, ADRs, and CI-ready scripts.</td></tr>
-          <tr><td>Future Hyperdrive Notes</td><td>Done</td><td>Document the future D1-or-Hyperdrive implementation checklist without shipping PostgreSQL/MySQL placeholder code.</td></tr>
-        </tbody>
-      </table>
-
-      <h3>Dependency Policy</h3>
-      <p>
-        Prefer first-party Astro, Cloudflare, Better Auth, Drizzle, Tailwind, and Vitest packages. Add helper packages only when they remove meaningful boilerplate or are required by a chosen integration. Avoid adding UI/runtime libraries that imply React, Vue, Svelte, or SPA-style app structure.
-      </p>
-
-      <h3>Deferred By Design</h3>
-      <p>These are useful but intentionally outside the current boilerplate scope:</p>
-      <ul>
-        <li>R2 uploads.</li>
-        <li>Media processing.</li>
-        <li>Image transforms.</li>
-        <li>Admin CRUD screens.</li>
-        <li>CLI generation beyond project and admin initialization.</li>
-        <li>Queues and workflows.</li>
-        <li>Analytics.</li>
-        <li>CSP policy presets.</li>
-        <li>Object storage adapters.</li>
-        <li>Full RBAC admin UI.</li>
-        <li>Data grids, charts, and toasts.</li>
-        <li>Hyperdrive production support.</li>
-      </ul>
     </article>
   </main>
 </PublicLayout>
