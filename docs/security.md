@@ -10,6 +10,35 @@ For form content, Astro compares the `Origin` header with the request URL. A mis
 
 The rule applies to `POST`, `PUT`, `PATCH`, and `DELETE` requests. Read the [Astro security configuration](https://docs.astro.build/en/reference/configuration-reference/#securitycheckorigin) for the complete rules.
 
+## Cross-Origin Requests
+
+Astro origin checks do not configure Cross-Origin Resource Sharing (CORS). The `security.checkOrigin` option supplies Cross-Site Request Forgery (CSRF) protection.
+
+The starter does not add CORS response headers. Browser clients on another origin cannot read API responses by default.
+
+If another origin must use an API route, add CORS headers only to that route:
+
+1. Use an exact list of allowed origins.
+2. Handle `OPTIONS` preflight requests.
+3. Return only the required methods and request headers.
+4. If the response origin changes by request, add `Vary: Origin`.
+5. If the request includes cookies, return an exact origin and `Access-Control-Allow-Credentials: true`.
+6. Do not use `Access-Control-Allow-Origin: *` for cookie requests.
+
+Keep `security.checkOrigin` active.
+
+CORS does not replace CSRF protection, authentication, or authorization.
+
+The starter does not support a separate frontend with cookie authentication by default. This architecture needs explicit origin and cookie configuration in Better Auth.
+
+Bucket CORS is separate from Worker API CORS.
+
+Add bucket rules only for direct requests from a browser to a bucket.
+
+The starter has no R2 binding or direct-upload flow.
+
+If you add this flow, read the [Cloudflare R2 CORS guide](https://developers.cloudflare.com/r2/buckets/cors/).
+
 ## Session Access
 
 Routes are public by default. Add each protected route to the policy in `src/config/auth.ts`.
@@ -25,6 +54,8 @@ Read the Better Auth [session guide](https://better-auth.com/docs/concepts/sessi
 Authentication identifies a user. Authorization controls the data and actions that the user can access.
 
 A protected route permits all signed-in users. Use an admin route or `userHasAppPermission()` for sensitive data.
+
+These rules do not control access to individual records. Read [Data Authorization and Ownership](/docs/auth/data-authorization) for record-level rules.
 
 Banned users cannot create sessions. Middleware also denies their access to protected routes.
 

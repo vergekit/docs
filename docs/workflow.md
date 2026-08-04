@@ -71,6 +71,23 @@ npm run test
 npm run build
 ```
 
+## Add a Database-Backed Feature
+
+If a feature needs a schema change, use this sequence:
+
+1. Add the table, fields, foreign keys, and indexes to `src/config/schema.ts`.
+2. Run `npm run db:generate`.
+3. Review the generated SQL in `migrations/`.
+4. Run `npm run db:migrate:local`.
+5. Put the database code in a server module that imports `db` from `@/db`.
+6. Parse all request input on the server.
+7. Add route, permission, and ownership rules.
+8. Add tests for valid, anonymous, non-permitted, and wrong-owner requests.
+9. Run `npm run verify`.
+10. Before you deploy code that uses the new schema, apply the remote migration.
+
+Read [Data Authorization and Ownership](/docs/auth/data-authorization) for record-level rules.
+
 ## 6. Deploy
 
 Create the remote D1 database before the first deployment. Then add secrets and apply remote migrations.

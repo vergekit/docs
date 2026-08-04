@@ -52,3 +52,7 @@ A banned user cannot create a new session. A banned user with an existing sessio
 ## Protect Sensitive Data
 
 A protected route permits every signed-in user. Use an admin route or a permission rule for sensitive data.
+
+Roles do not control access to individual records. Add ownership rules for private resources.
+
+Read [Data Authorization and Ownership](/docs/auth/data-authorization) for record-level rules.

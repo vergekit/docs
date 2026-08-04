@@ -55,6 +55,7 @@ Use [Better Auth plugins](https://better-auth.com/docs/plugins) to add authentic
 
 - [Architecture](/docs/auth/architecture) explains the request flow and file ownership.
 - [Route Protection](/docs/auth/routes) explains authentication and permission rules for routes.
+- [Data Authorization and Ownership](/docs/auth/data-authorization) explains access rules for individual records.
 - [Auth Forms](/docs/auth/forms) explains the form attributes in the included pages.
 - [Roles and Admin](/docs/auth/roles-and-admin) explains the default access policy.
 - [Schema and Migrations](/docs/auth/schema-and-migrations) explains database changes for authentication.

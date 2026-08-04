@@ -66,6 +66,28 @@ npm run db:migrate:remote
 
 Use these scripts instead of `drizzle-kit push` or `drizzle-kit migrate`. Read the [D1 migrations guide](https://developers.cloudflare.com/d1/reference/migrations/) for more details.
 
+## Migration Safety
+
+Treat each applied migration as permanent history. Do not edit or rename an applied migration.
+
+If you need another schema change, update the Drizzle schema. Then generate a new migration.
+
+Commit the new SQL file and migration metadata.
+
+Apply each migration to local D1 before remote D1. Review the generated SQL before each apply command.
+
+Before a remote migration, make sure that the command uses the correct database and Wrangler environment.
+
+Wrangler records applied migration names in the `d1_migrations` table. Wrangler captures a backup after each remote apply operation.
+
+If a migration fails, Wrangler rolls back that migration. Earlier successful migrations remain applied.
+
+Cloudflare D1 Time Travel can restore a database after a bad schema change.
+
+Before a production migration, read the [Time Travel guide](https://developers.cloudflare.com/d1/reference/time-travel/).
+
+CAUTION: Before a Time Travel restore, make sure that you select the correct database and restore point. The restore overwrites the current database.
+
 ## Drizzle Studio
 
 Use Drizzle Studio to inspect a remote D1 database:

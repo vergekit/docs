@@ -125,6 +125,10 @@ if (
 }
 ```
 
+A permission rule does not control access to individual records. Add an ownership rule for each private resource.
+
+Read [Data Authorization and Ownership](/docs/auth/data-authorization) for direct and relationship-based ownership rules.
+
 ## Keep Auth Endpoints Public
 
 Keep `/api/auth/*` public. Sign-in, registration, verification, reset, session, callback, and sign-out requests use these endpoints.

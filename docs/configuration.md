@@ -101,6 +101,28 @@ The starter includes these files for common application tasks:
 
 If the application does not need these starter files, replace or remove them.
 
+## Favicons and Branding
+
+Replace `public/favicon.svg` with the artwork for your application.
+
+The production build uses this SVG to create `favicon.ico` and `apple-touch-icon.png`. `src/components/Favicon.astro` adds all three icon links to each page.
+
+The starter also uses `public/favicon.svg` as visible artwork. The home page, authentication pages, and authenticated layout contain these image references.
+
+If these pages need different artwork, replace their image references.
+
+If you need other icon variants or background colors, change `astro.config.mjs`.
+
+Run the production build after the change:
+
+```bash
+npm run build
+```
+
+Browsers cache favicons. The old icon can remain after a build.
+
+If the old icon remains, clear the site data. Alternatively, use a private browser window.
+
 ## Related Configuration
 
 - See [Authentication](/docs/auth/) for the included auth flow.

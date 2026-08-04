@@ -41,6 +41,12 @@
           "attrs": { "data-astro-prefetch": true }
         },
         {
+          "slug": "themes",
+          "label": "Themes & Styling",
+          "icon": "palette",
+          "attrs": { "data-astro-prefetch": true }
+        },
+        {
           "slug": "database",
           "label": "Database",
           "icon": "database",
@@ -64,6 +70,11 @@
             {
               "slug": "auth/routes",
               "label": "Route Protection",
+              "attrs": { "data-astro-prefetch": true }
+            },
+            {
+              "slug": "auth/data-authorization",
+              "label": "Data Authorization & Ownership",
               "attrs": { "data-astro-prefetch": true }
             },
             {
@@ -147,11 +158,6 @@
             {
               "slug": "fieldguide/node-mysql",
               "label": "Node.js + MySQL Preset",
-              "attrs": { "data-astro-prefetch": true }
-            },
-            {
-              "slug": "fieldguide/theme-development",
-              "label": "Theme Development",
               "attrs": { "data-astro-prefetch": true }
             },
             {

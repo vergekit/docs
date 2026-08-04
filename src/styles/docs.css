@@ -43,6 +43,9 @@ body[data-theme-mode="light-only"] button[aria-label="Toggle dark mode"] {
 body:has(.docs-landing) article > div > header,
 body:has(.docs-landing) article > div > footer,
 body:has(.docs-landing) [data-docs-toc],
+body:has(.docs-not-found) article > div > header,
+body:has(.docs-not-found) article > div > footer,
+body:has(.docs-not-found) [data-docs-toc],
 body:has([data-resource-collection])
   article
   > div
@@ -53,8 +56,29 @@ body:has([data-resource-collection]) [data-docs-toc] {
 }
 
 body:has(.docs-landing) article + aside,
+body:has(.docs-not-found) article + aside,
 body:has([data-resource-collection]) article + aside {
   display: none;
+}
+
+body:has(.docs-not-found) .prose {
+  height: 100%;
+  margin-block: 0;
+}
+
+body:has(.docs-not-found) #content {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+}
+
+body:has(.docs-not-found) #content > div {
+  flex: 1;
+  min-height: 0;
+}
+
+body:has(.docs-not-found) article > div {
+  height: 100%;
 }
 
 body:has(.docs-landing) article > div {
