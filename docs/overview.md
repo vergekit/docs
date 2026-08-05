@@ -1,5 +1,10 @@
 # Overview
 
+Verge Kit is a toolkit for building web applications using [Astro](https://astro.build) and the [Cloudflare Workers](https://workers.dev) ecosystem. Its pre-wired stack provides a reliable, understandable starting point with minimal boilerplate.
+
+The toolkit covers database access, UI components, schema validation, tests, deployment configuration, and transactional email. It also supplies middleware, basic authentication flows, route protection, user roles, and permissions.
+
+A boilerplate with consistent project structure and clear conventions helps LLM-based coding agents produce reliable output.
 
 ## The Stack
 

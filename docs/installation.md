@@ -4,73 +4,44 @@
 
 - Node.js 22.12 or newer
 - npm
-- A Cloudflare account for remote D1 and deployment
+- OpenSSL for local secret generation
+- A Cloudflare account for remote D1 and Cloudflare deployment
 
-## Create a Project
+## Recommended Installation
 
-Run the installer:
+Run the interactive installer:
 
 ```bash
 npm create vergekit@latest
 ```
 
-The installer asks for a project location and a runtime. Cloudflare Workers with D1 is the default runtime.
+Cloudflare Workers with D1 is the default preset. The installer also offers the [Node.js + MySQL preset](/docs/fieldguide/node-mysql) as a self-hosted alternative.
 
-You can include the project location in the command:
+The installer asks for a project location and completes the guided setup. It creates local secrets, installs dependencies, applies migrations, and can create the initial administrator.
 
-```bash
-npm create vergekit@latest my-app
-```
+## Manual Installation
 
-The guided D1 setup can complete these tasks:
+If you skip the guided setup or start from the boilerplate files, use these steps. These steps apply to the default Cloudflare Workers with D1 preset.
 
-- Install dependencies.
-- Create `.dev.vars` with a new Better Auth secret.
-- Apply local migrations.
-- Start administrator creation.
+Run all commands from the generated project directory. Complete only the steps that the installer did not finish.
 
-The [Node.js + MySQL preset](/docs/fieldguide/node-mysql) uses `.env` and asks for the database connection.
-
-For scripts and CI, use setup flags:
+### Install Dependencies
 
 ```bash
-npm create vergekit@latest my-app -- --yes
-npm create vergekit@latest my-app -- --install --migrate --no-admin
-npm create vergekit@latest my-app -- --no-install
+npm install
 ```
 
-`--yes` installs dependencies and applies local D1 migrations. Administrator creation always requires an interactive terminal.
+### Create Local Secrets
 
-Run this command to see all installer flags:
+If `.dev.vars` does not exist, copy the template and write a fresh Better Auth secret:
 
 ```bash
-npm create vergekit@latest -- --help
+cp .dev.vars.example .dev.vars && secret="$(openssl rand -base64 32)" && awk -v secret="$secret" 'BEGIN { done = 0 } /^BETTER_AUTH_SECRET=/ { print "BETTER_AUTH_SECRET=" secret; done = 1; next } { print } END { if (!done) print "BETTER_AUTH_SECRET=" secret }' .dev.vars > .dev.vars.tmp && mv .dev.vars.tmp .dev.vars
 ```
 
-## Add Local Secrets
+Do not commit `.dev.vars`. Use the [Configuration Guide](/docs/configuration) for other local values, deployed values, and secrets.
 
-If the installer did not create `.dev.vars`, copy the example file:
-
-```bash
-cp .dev.vars.example .dev.vars
-```
-
-Generate a Better Auth secret:
-
-```bash
-node -e "console.log(require('node:crypto').randomBytes(32).toString('base64url'))"
-```
-
-Add the secret and the local URL to `.dev.vars`:
-
-```bash
-BETTER_AUTH_SECRET=your-generated-secret
-BETTER_AUTH_URL=http://localhost:4321
-```
-
-Do not commit `.dev.vars`.
-
-## Prepare the Database
+### Prepare the Database
 
 Apply the local D1 migrations:
 
@@ -78,40 +49,28 @@ Apply the local D1 migrations:
 npm run db:migrate:local
 ```
 
-Create a local user with the `admin` role:
+See [Database](/docs/database) for schema changes, remote D1 setup, and Drizzle Studio.
+
+### Create an Administrator
+
+To create the initial administrator, run:
 
 ```bash
 npm run init:admin
 ```
 
-This command writes directly to D1. The development server does not need to run.
+This step is optional. See [Roles and Administration](/docs/auth/roles-and-admin) for the default roles and administrator workflow.
 
-See [D1 Setup](/docs/database) for schema changes, remote databases, and Drizzle Studio.
-
-## Configure Routes and Email
-
-See [Authentication](/docs/auth/) for the included flows and required configuration.
-
-Routes are public by default. See [Route Protection](/docs/auth/routes) to protect a page or API route.
-
-Local email uses the `console` provider by default. It writes authentication links to the terminal.
-
-See [Email](/docs/email) to configure Cloudflare Email, Resend, or Mailgun.
-
-See the [Configuration Guide](/docs/configuration) for the location of application values and secrets.
-
-## Run the Project
-
-Start the development server:
+### Start Development
 
 ```bash
 npm run dev
 ```
 
-Run all project checks:
+## Next Steps
 
-```bash
-npm run verify
-```
-
-`npm run verify` runs type checks, linting, tests, and the production build.
+- Use [Authentication](/docs/auth/) for the included sign-in flows.
+- Use [Route Protection](/docs/auth/routes) for protected pages and API routes.
+- Use [Email](/docs/email) to select and configure an email provider.
+- Use the [Development Workflow](/docs/workflow) for project checks and common changes.
+- Use [Deployment](/docs/deployment) to prepare and deploy the application.
