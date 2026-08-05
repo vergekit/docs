@@ -3,7 +3,7 @@
 Verge Kit includes two database presets:
 
 - Cloudflare Workers with [Cloudflare D1](https://developers.cloudflare.com/d1/) is the default and primary preset.
-- The [Node.js + MySQL preset](/docs/fieldguide/node-mysql) is the alternative for a self-hosted Node.js server.
+- The [Node.js + MySQL preset](/fieldguide/node-mysql) is the alternative for a self-hosted Node.js server.
 
 This page covers the default D1 preset. It uses Drizzle with the schema in `src/config/schema.ts`.
 

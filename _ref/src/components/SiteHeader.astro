@@ -4,7 +4,7 @@ import Search from "lucide-static/icons/search.svg?raw";
 const currentPath = Astro.url.pathname;
 const githubUrl = "https://github.com/vergekit/vergekit";
 const navLinks = [
-  { href: "/docs/", label: "Docs" },
+  { href: "/", label: "Docs" },
   { href: "/fieldguide/", label: "Field Guide" },
   { href: "/blog/", label: "Blog" },
   { href: "/project/", label: "Project" },
@@ -12,8 +12,15 @@ const navLinks = [
 
 const normalizePath = (path: string) =>
   path !== "/" && path.endsWith("/") ? path.slice(0, -1) : path;
-const isActive = (href: string) =>
-  normalizePath(currentPath).startsWith(normalizePath(href));
+const sectionPaths = ["/fieldguide", "/blog", "/project"];
+const isActive = (href: string) => {
+  const path = normalizePath(currentPath);
+  const target = normalizePath(href);
+
+  return target === "/"
+    ? !sectionPaths.some((section) => path.startsWith(section))
+    : path.startsWith(target);
+};
 ---
 
 <nav id="site-navigation" class="relative mb-12 border-b border-border py-3">

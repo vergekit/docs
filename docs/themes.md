@@ -2,7 +2,7 @@
 
 Verge Kit uses the [Bejamas theme system](https://ui.bejamas.com/docs/theming). The theme controls shared colors, fonts, radius, and other visual choices.
 
-[Bejamas components](https://ui.bejamas.com/components) and Tailwind utilities read the same semantic CSS variables. Read [UI Components](/docs/components) for installation and changes.
+[Bejamas components](https://ui.bejamas.com/components) and Tailwind utilities read the same semantic CSS variables. Read [UI Components](/components) for installation and changes.
 
 ## Understand the theme files
 

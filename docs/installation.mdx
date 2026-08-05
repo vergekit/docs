@@ -1,0 +1,81 @@
+# Installation
+
+## Requirements
+
+- Node.js >= 22.12 & npm
+- [Cloudflare](https://www.cloudflare.com/) account for remote D1 and Cloudflare deployment
+
+## Recommended Installation
+
+Run the interactive installer:
+
+```bash
+npm create vergekit@latest
+```
+
+Verge Kit uses Cloudflare Workers with D1 by default, but the installer also offers a [Node.js + MySQL preset](/fieldguide/node-mysql) as a self-hosted alternative.
+
+The installer asks for a project location and completes the guided setup, creating local secrets, installing dependencies, applying migrations, and optionally creating the initial administrator account.
+
+## Manual Installation
+
+These steps install the default Cloudflare Workers with D1 preset from the default branch of the repository.
+
+Start in an empty project directory and run all commands from this location.
+
+<Steps>
+  <Step title="Download the Boilerplate">
+    ```bash
+    npx degit vergekit/vergekit
+    ```
+  </Step>
+
+  <Step title="Install Dependencies">
+    ```bash
+    npm install
+    ```
+  </Step>
+
+  <Step title="Create Local Secrets">
+
+    Create `.dev.vars` (if it doesn't exist), and copy the template and write a fresh Better Auth secret:
+
+    ```bash
+    cp .dev.vars.example .dev.vars && secret="$(openssl rand -base64 32)" && awk -v secret="$secret" 'BEGIN { done = 0 } /^BETTER_AUTH_SECRET=/ { print "BETTER_AUTH_SECRET=" secret; done = 1; next } { print } END { if (!done) print "BETTER_AUTH_SECRET=" secret }' .dev.vars > .dev.vars.tmp && mv .dev.vars.tmp .dev.vars
+    ```
+
+    Note: this command requires [OpenSSL](https://www.openssl.org/).
+
+    Do not commit `.dev.vars`. Use the [Configuration Guide](/configuration) for other local values, deployed values, and secrets.
+  </Step>
+
+  <Step title="Apply the Initial Database Migration">
+    ```bash
+    npm run db:migrate:local
+    ```
+
+    See [Database](/database) for schema changes, remote D1 setup, and Drizzle Studio.
+  </Step>
+
+  <Step title="Create an Administrator (optional)">
+    ```bash
+    npm run init:admin
+    ```
+
+    See [Roles and Administration](/auth/roles-and-admin) for the default access model.
+  </Step>
+
+  <Step title="Start Development">
+    ```bash
+    npm run dev
+    ```
+  </Step>
+</Steps>
+
+## Next Steps
+
+- Configure the included sign-in flows with [Authentication](/auth/).
+- Protect pages and API routes with [Route Protection](/auth/routes).
+- Select and configure an email provider with [Email](/email).
+- Run project checks and manage common changes with the [Development Workflow](/workflow).
+- Prepare and deploy the application with the [Deployment](/deployment) guide.

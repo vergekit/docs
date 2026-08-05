@@ -47,4 +47,4 @@ For a JSON request, the handler returns the original Better Auth response.
 
 ## Add Client Functions
 
-If a feature requires client functions, create a Better Auth client. See [Plugins](/docs/auth/plugins) for the shared plugin configuration.
+If a feature requires client functions, create a Better Auth client. See [Plugins](/auth/plugins) for the shared plugin configuration.

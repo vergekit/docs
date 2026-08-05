@@ -47,4 +47,4 @@ Do not create a separate Better Auth instance in a page or route.
 
 Use `createAuthFromEnv()` at the existing application boundaries. Apply the same plugin and server configuration to each auth construction path.
 
-See the [Configuration Guide](/docs/configuration) for runtime values. See [Route Protection](/docs/auth/routes) for access rules.
+See the [Configuration Guide](/configuration) for runtime values. See [Route Protection](/auth/routes) for access rules.

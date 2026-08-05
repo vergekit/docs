@@ -8,7 +8,7 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   prefetch: true,
   redirects: {
-    '/docs/auth-routes': '/docs/auth/routes/',
+    '/docs/auth-routes': '/auth/routes/',
   },
   markdown: {
     shikiConfig: {

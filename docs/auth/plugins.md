@@ -69,4 +69,4 @@ For each plugin, complete these tasks:
 4. If the plugin sends email, add email templates.
 5. Add tests for the plugin configuration and access policy.
 
-See [Schema and Migrations](/docs/auth/schema-and-migrations) for the database workflow.
+See [Schema and Migrations](/auth/schema-and-migrations) for the database workflow.

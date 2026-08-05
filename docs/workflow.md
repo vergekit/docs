@@ -32,7 +32,7 @@ npm run db:generate
 npm run db:migrate:local
 ```
 
-See [Schema and Migrations](/docs/database#schema-and-migrations) for the complete process.
+See [Schema and Migrations](/database#schema-and-migrations) for the complete process.
 
 ## 3. Create an Administrator
 
@@ -86,13 +86,13 @@ If a feature needs a schema change, use this sequence:
 9. Run `npm run verify`.
 10. Before you deploy code that uses the new schema, apply the remote migration.
 
-Read [Data Authorization and Ownership](/docs/auth/data-authorization) for record-level rules.
+Read [Data Authorization and Ownership](/auth/data-authorization) for record-level rules.
 
 ## 6. Deploy
 
 Create the remote D1 database before the first deployment. Then add secrets and apply remote migrations.
 
-See [Deployment Setup](/docs/deployment) for the deployment steps.
+See [Deployment Setup](/deployment) for the deployment steps.
 
 ## Common Commands
 
@@ -119,4 +119,4 @@ npm run init:admin          # create a verified D1 user with the admin role
 
 `npm run init:admin` writes directly to the selected database. Use `-- --remote` to select the remote D1 database.
 
-See [Database](/docs/database) for migration commands. See [Email](/docs/email) for the email preview and provider configuration.
+See [Database](/database) for migration commands. See [Email](/email) for the email preview and provider configuration.

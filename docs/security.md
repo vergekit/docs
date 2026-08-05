@@ -55,7 +55,7 @@ Authentication identifies a user. Authorization controls the data and actions th
 
 A protected route permits all signed-in users. Use an admin route or `userHasAppPermission()` for sensitive data.
 
-These rules do not control access to individual records. Read [Data Authorization and Ownership](/docs/auth/data-authorization) for record-level rules.
+These rules do not control access to individual records. Read [Data Authorization and Ownership](/auth/data-authorization) for record-level rules.
 
 Banned users cannot create sessions. Middleware also denies their access to protected routes.
 
@@ -69,7 +69,7 @@ These rules prevent an auth flow from redirecting a user to an external site.
 
 Keep `BETTER_AUTH_SECRET` stable for each environment. Store it in `.dev.vars` locally and in Wrangler secrets for deployment.
 
-Do not put secrets in `wrangler.jsonc` or source files. See the [Configuration Guide](/docs/configuration) for the storage locations.
+Do not put secrets in `wrangler.jsonc` or source files. See the [Configuration Guide](/configuration) for the storage locations.
 
 Use a delivered email provider in production. Make sure that `EMAIL_FROM` uses a verified sender or domain.
 

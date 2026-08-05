@@ -125,10 +125,10 @@ If the old icon remains, clear the site data. Alternatively, use a private brows
 
 ## Related Configuration
 
-- See [Authentication](/docs/auth/) for the included auth flow.
-- See [Route Protection](/docs/auth/routes) for protected routes and permissions.
-- See [Security](/docs/security) for request and session safeguards.
-- See [Email](/docs/email) for email providers and templates.
-- See [D1 Setup](/docs/database) for schemas and migrations.
+- See [Authentication](/auth/) for the included auth flow.
+- See [Route Protection](/auth/routes) for protected routes and permissions.
+- See [Security](/security) for request and session safeguards.
+- See [Email](/email) for email providers and templates.
+- See [D1 Setup](/database) for schemas and migrations.
 - Add shared Astro components under `src/components/ui`.
 - Import the initialized database client from `@/db`.

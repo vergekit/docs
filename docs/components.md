@@ -4,7 +4,7 @@ Verge Kit uses [bejamas/ui](https://ui.bejamas.com), an Astro component library.
 
 The components do not add a browser framework. Interactive components use `@data-slot` packages for behavior and accessibility.
 
-Read [Themes & Styling](/docs/themes) to change colors, fonts, radius, and other shared styles.
+Read [Themes & Styling](/themes) to change colors, fonts, radius, and other shared styles.
 
 ## Find a component
 
@@ -80,7 +80,7 @@ Use semantic theme classes for shared colors:
 </div>
 ```
 
-Use [Themes & Styling](/docs/themes) for a visual change that must affect many components.
+Use [Themes & Styling](/themes) for a visual change that must affect many components.
 
 ## Update a component
 
@@ -101,7 +101,7 @@ npx bejamas add button --overwrite
 
 CAUTION: Review the registry differences before you use `--overwrite`. This option can replace your component changes.
 
-A full Bejamas preset also replaces installed UI components. Read [Apply a complete preset](/docs/themes#apply-a-complete-preset) before you run it.
+A full Bejamas preset also replaces installed UI components. Read [Apply a complete preset](/themes#apply-a-complete-preset) before you run it.
 
 ## Class name utility
 

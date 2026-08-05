@@ -129,7 +129,7 @@ Run the authentication, middleware, and resource tests after each authorization 
 
 ## Related Pages
 
-- [Route Protection](/docs/auth/routes) explains route and permission rules.
-- [Roles and Admin](/docs/auth/roles-and-admin) explains the default roles.
-- [Security](/docs/security) explains request and session safeguards.
-- [Database](/docs/database) explains schema changes and migrations.
+- [Route Protection](/auth/routes) explains route and permission rules.
+- [Roles and Admin](/auth/roles-and-admin) explains the default roles.
+- [Security](/security) explains request and session safeguards.
+- [Database](/database) explains schema changes and migrations.

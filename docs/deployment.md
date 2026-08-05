@@ -1,6 +1,6 @@
 # Deployment Setup
 
-Verge Kit deploys to Cloudflare Workers with D1 by default. The [Node.js + MySQL preset](/docs/fieldguide/node-mysql) uses a self-hosted Node.js server.
+Verge Kit deploys to Cloudflare Workers with D1 by default. The [Node.js + MySQL preset](/fieldguide/node-mysql) uses a self-hosted Node.js server.
 
 ## 1. Run Project Checks
 
@@ -29,7 +29,7 @@ Put non-secret Worker values in `wrangler.jsonc`:
 
 Each named Wrangler environment needs its own `vars` block.
 
-See the [Configuration Guide](/docs/configuration) for the correct location of each value.
+See the [Configuration Guide](/configuration) for the correct location of each value.
 
 ## 3. Add Deployed Secrets
 

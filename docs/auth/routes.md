@@ -71,7 +71,7 @@ roleAppPermissions: {
 },
 ```
 
-See [Roles and Admin](/docs/auth/roles-and-admin) for the default role policy.
+See [Roles and Admin](/auth/roles-and-admin) for the default role policy.
 
 ## Use a Local Access Rule
 
@@ -127,7 +127,7 @@ if (
 
 A permission rule does not control access to individual records. Add an ownership rule for each private resource.
 
-Read [Data Authorization and Ownership](/docs/auth/data-authorization) for direct and relationship-based ownership rules.
+Read [Data Authorization and Ownership](/auth/data-authorization) for direct and relationship-based ownership rules.
 
 ## Keep Auth Endpoints Public
 

@@ -25,9 +25,9 @@ The included authentication flow does not require application code changes.
 3. Configure an email provider for delivered email.
 4. Add `BETTER_AUTH_URL` for a stable production origin.
 
-The installer can create the local secret and apply local migrations. See [Installation](/docs/installation) for the commands.
+The installer can create the local secret and apply local migrations. See [Installation](/installation) for the commands.
 
-The `console` email provider prints verification and reset messages during local development. See [Email](/docs/email) for production providers.
+The `console` email provider prints verification and reset messages during local development. See [Email](/email) for production providers.
 
 Run `npm run init:admin` to create a verified administrator. This step is optional.
 
@@ -49,13 +49,13 @@ The catch-all route at `/api/auth/*` supplies the Better Auth endpoints. Keep th
 
 The starter does not include social sign-in, passkeys, magic links, multi-factor authentication, or an admin user interface.
 
-Use [Better Auth plugins](https://better-auth.com/docs/plugins) to add authentication features. See [Plugins](/docs/auth/plugins) before you change the configuration.
+Use [Better Auth plugins](https://better-auth.com/docs/plugins) to add authentication features. See [Plugins](/auth/plugins) before you change the configuration.
 
 ## Next Pages
 
-- [Architecture](/docs/auth/architecture) explains the request flow and file ownership.
-- [Route Protection](/docs/auth/routes) explains authentication and permission rules for routes.
-- [Data Authorization and Ownership](/docs/auth/data-authorization) explains access rules for individual records.
-- [Auth Forms](/docs/auth/forms) explains the form attributes in the included pages.
-- [Roles and Admin](/docs/auth/roles-and-admin) explains the default access policy.
-- [Schema and Migrations](/docs/auth/schema-and-migrations) explains database changes for authentication.
+- [Architecture](/auth/architecture) explains the request flow and file ownership.
+- [Route Protection](/auth/routes) explains authentication and permission rules for routes.
+- [Data Authorization and Ownership](/auth/data-authorization) explains access rules for individual records.
+- [Auth Forms](/auth/forms) explains the form attributes in the included pages.
+- [Roles and Admin](/auth/roles-and-admin) explains the default access policy.
+- [Schema and Migrations](/auth/schema-and-migrations) explains database changes for authentication.

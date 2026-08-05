@@ -33,7 +33,7 @@ npm run db:migrate:remote
 
 Do not edit an applied migration. Add a new migration for an existing application.
 
-See [Database](/docs/database) for the D1 migration workflow.
+See [Database](/database) for the D1 migration workflow.
 
 ## Keep Types Consistent
 

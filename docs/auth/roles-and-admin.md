@@ -15,7 +15,7 @@ The `user` role is the default role for new accounts. A stored role value can co
 
 Use `userHasAppPermission()` for a local permission rule. Use the admin route policy for a shared administrator area.
 
-See [Route Protection](/docs/auth/routes) for both patterns.
+See [Route Protection](/auth/routes) for both patterns.
 
 ## Admin Routes
 
@@ -55,4 +55,4 @@ A protected route permits every signed-in user. Use an admin route or a permissi
 
 Roles do not control access to individual records. Add ownership rules for private resources.
 
-Read [Data Authorization and Ownership](/docs/auth/data-authorization) for record-level rules.
+Read [Data Authorization and Ownership](/auth/data-authorization) for record-level rules.
