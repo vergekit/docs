@@ -3,7 +3,7 @@
     "title": "The Orange Cloud Report",
     "url": "https://orangecloud.report/",
     "description": "An independent, experience-based scorecard for Cloudflare products used in production.",
-    "tags": ["cloudflare"]
+    "tags": ["reference"]
   },
   {
     "title": "@webreflection/utils",
@@ -69,7 +69,7 @@
     "title": "Unovis",
     "url": "https://unovis.dev/",
     "description": "A modular data visualization framework with components for several frontend stacks.",
-    "tags": ["js", "charts"]
+    "tags": ["js", "components"]
   },
   {
     "title": "Bejamas UI Theme Creator",
@@ -99,13 +99,13 @@
     "title": "astro-masonry",
     "url": "https://github.com/eremannisto/astro-masonry",
     "description": "An accessible Astro masonry component with responsive shortest-column balancing.",
-    "tags": ["astro", "component"]
+    "tags": ["astro", "components"]
   },
   {
     "title": "Elu",
     "url": "https://github.com/mateogasme/elu",
     "description": "A dependency-free Astro select component supporting multiple selection modes.",
-    "tags": ["astro", "component"]
+    "tags": ["astro", "components"]
   },
   {
     "title": "astro-stacks",
@@ -117,7 +117,7 @@
     "title": "astro-animations",
     "url": "https://github.com/SaintSin/astro-animations",
     "description": "A lightweight Astro integration for modern CSS animations.",
-    "tags": ["astro", "animation"]
+    "tags": ["astro", "css"]
   },
   {
     "title": "astro-cache",
@@ -153,13 +153,13 @@
     "title": "astro-legal",
     "url": "https://github.com/velohost/astro-legal",
     "description": "An Astro toolkit for generating comprehensive website legal policies.",
-    "tags": ["astro", "legal"]
+    "tags": ["astro"]
   },
   {
     "title": "astro-http",
     "url": "https://github.com/velohost/astro-http",
     "description": "Declarative, auditable HTTP security headers applied through Astro middleware.",
-    "tags": ["astro", "security"]
+    "tags": ["astro"]
   },
   {
     "title": "astro-auto-load",
@@ -177,7 +177,7 @@
     "title": "PhotoSuite",
     "url": "https://github.com/achuanya/photosuite",
     "description": "An integrated image toolkit for lightboxes, EXIF data, path resolution, and grids.",
-    "tags": ["astro", "images"]
+    "tags": ["astro"]
   },
   {
     "title": "Astroscope",
@@ -189,7 +189,7 @@
     "title": "Dynamic Storage Interface",
     "url": "https://github.com/Adammatthiesen/s3-interface-test",
     "description": "File-management components for working with S3-compatible storage providers.",
-    "tags": ["component", "storage"]
+    "tags": ["components"]
   },
   {
     "title": "Astro AI Readiness",
@@ -207,7 +207,7 @@
     "title": "astro-feed-kit",
     "url": "https://github.com/kitschpatrol/astro-feed-kit",
     "description": "An Astro integration for full-content RSS, Atom, and JSON feeds.",
-    "tags": ["astro", "feeds"]
+    "tags": ["astro"]
   },
   {
     "title": "Ponytail",
@@ -243,13 +243,13 @@
     "title": "Astro Awaited",
     "url": "https://github.com/matheusbronca/astro-awaited",
     "description": "Astro components for loading placeholders and skeleton screens around awaited content.",
-    "tags": ["astro", "component"]
+    "tags": ["astro", "components"]
   },
   {
     "title": "URL Design: Routing, Query Parameters, and Fragments",
     "url": "https://www.jstools.space/blog/url-design-routing-query-parameters-fragments/",
     "description": "A practical article about designing clear routes, query parameters, and URL fragments.",
-    "tags": ["article", "routing"]
+    "tags": ["article"]
   },
   {
     "title": "@picoo-studio/astro-google-tagmanager",
@@ -261,13 +261,13 @@
     "title": "Windy",
     "url": "https://usewindy.com/",
     "description": "A browser tool that converts inspected website styles into Tailwind CSS classes.",
-    "tags": ["tailwind", "tools"]
+    "tags": ["tools"]
   },
   {
     "title": "Tailwind CSS Colors",
     "url": "https://tailwindcss.com/docs/colors",
     "description": "The official reference for Tailwind CSS color palettes and utilities.",
-    "tags": ["tailwind", "color"]
+    "tags": ["color"]
   },
   {
     "title": "Kigen Color",
@@ -279,25 +279,25 @@
     "title": "Tailwind CSS Gradient Generator",
     "url": "https://www.creative-tim.com/twcomponents/gradient-generator",
     "description": "A visual generator for producing Tailwind CSS gradient classes.",
-    "tags": ["tailwind", "tools"]
+    "tags": ["tools"]
   },
   {
     "title": "HyperUI",
     "url": "https://www.hyperui.dev/",
     "description": "A collection of free Tailwind CSS components for application and marketing interfaces.",
-    "tags": ["tailwind", "component"]
+    "tags": ["components"]
   },
   {
     "title": "Wicked Blocks",
     "url": "https://www.wickedblocks.dev/",
     "description": "A collection of ready-to-use Tailwind CSS interface blocks.",
-    "tags": ["tailwind", "component"]
+    "tags": ["components"]
   },
   {
     "title": "Awesome Standalones",
     "url": "https://github.com/davatron5000/awesome-standalones#element-extensions",
     "description": "A curated list of framework-agnostic standalone web components.",
-    "tags": ["component", "web-components"]
+    "tags": ["components"]
   },
   {
     "title": "Colors & Fonts",
@@ -321,13 +321,13 @@
     "title": "InclusiveColors",
     "url": "https://www.inclusivecolors.com/",
     "description": "An accessible palette creator with contrast-aware color scales.",
-    "tags": ["color", "accessibility"]
+    "tags": ["color"]
   },
   {
     "title": "Modern Font Stacks",
     "url": "https://modernfontstacks.com/",
     "description": "A reference of system font stacks organized by typographic style.",
-    "tags": ["font", "reference"]
+    "tags": ["css", "reference"]
   },
   {
     "title": "Radix Icons",
@@ -387,37 +387,37 @@
     "title": "SVG Doodles",
     "url": "https://svgdoodles.com/",
     "description": "A collection of copy-and-paste SVG illustrations and decorative assets.",
-    "tags": ["svg", "assets"]
+    "tags": ["design"]
   },
   {
     "title": "HelloCSV",
     "url": "https://hellocsv.github.io/HelloCSV",
     "description": "Embeddable CSV import components for application upload workflows.",
-    "tags": ["js", "component"]
+    "tags": ["js", "components"]
   },
   {
     "title": "Framer Shapes",
     "url": "https://shapes.framer.website/",
     "description": "A collection of copy-and-paste graphic shapes for interface compositions.",
-    "tags": ["design", "assets"]
+    "tags": ["design"]
   },
   {
     "title": "Tagger",
     "url": "https://github.com/jcubic/tagger",
     "description": "A dependency-free tagging input component for vanilla JavaScript.",
-    "tags": ["js", "component"]
+    "tags": ["js", "components"]
   },
   {
     "title": "Web Glossary",
     "url": "https://webglossary.info/",
     "description": "A plain-language glossary for explaining web terminology to newcomers.",
-    "tags": ["reference", "web"]
+    "tags": ["reference"]
   },
   {
     "title": "Minimum Viable Secure Product",
     "url": "https://mvsp.dev/mvsp.en/",
     "description": "A minimal security checklist for B2B software and service suppliers.",
-    "tags": ["security", "checklist"]
+    "tags": ["reference"]
   },
   {
     "title": "HTML First",
@@ -453,13 +453,13 @@
     "title": "CSS Selectors",
     "url": "https://fffuel.co/css-selectors",
     "description": "An interactive introduction to the selectors available in modern CSS.",
-    "tags": ["css", "tutorial"]
+    "tags": ["css", "reference"]
   },
   {
     "title": "Web Development Glossary",
     "url": "https://github.com/frontenddogma/web-development-glossary",
     "description": "A glossary of terms used across frontend and general web development.",
-    "tags": ["reference", "web"]
+    "tags": ["reference"]
   },
   {
     "title": "Upgrade Your HTML",
@@ -471,7 +471,7 @@
     "title": "Rote Learning HTML & CSS",
     "url": "https://github.com/frontenddogma/rote-learning-html-css",
     "description": "Exercises for building fluency with foundational HTML and CSS syntax.",
-    "tags": ["html", "tutorial"]
+    "tags": ["html", "reference"]
   },
   {
     "title": "Astro Capo",
@@ -495,7 +495,7 @@
     "title": "astro-nprogress",
     "url": "https://github.com/byronogis/astro-nprogress",
     "description": "A page-load progress indicator compatible with Astro view transitions.",
-    "tags": ["astro", "component"]
+    "tags": ["astro", "components"]
   },
   {
     "title": "Beasties",
