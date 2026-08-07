@@ -141,28 +141,8 @@
           "icon": "book-open",
           "items": [
             {
-              "slug": "fieldguide/first-and-last-name",
-              "label": "First & Last Names",
-              "attrs": { "data-astro-prefetch": true }
-            },
-            {
-              "slug": "fieldguide/fuzzy-search",
-              "label": "Fuzzy Search",
-              "attrs": { "data-astro-prefetch": true }
-            },
-            {
-              "slug": "fieldguide/responsible-d1-use",
-              "label": "Responsible D1 Use",
-              "attrs": { "data-astro-prefetch": true }
-            },
-            {
-              "slug": "fieldguide/node-mysql",
-              "label": "Node.js + MySQL Preset",
-              "attrs": { "data-astro-prefetch": true }
-            },
-            {
-              "slug": "fieldguide/progressive-web-app",
-              "label": "Progressive Web App",
+              "slug": "fieldguide/astro-actions",
+              "label": "Astro Actions",
               "attrs": { "data-astro-prefetch": true }
             },
             {
@@ -171,23 +151,38 @@
               "attrs": { "data-astro-prefetch": true }
             },
             {
-              "slug": "fieldguide/astro-actions",
-              "label": "Astro Actions",
+              "slug": "fieldguide/d1-best-practices",
+              "label": "D1 Best Practices",
+              "attrs": { "data-astro-prefetch": true }
+            },
+            {
+              "slug": "fieldguide/node-mysql",
+              "label": "Node.js + MySQL",
+              "attrs": { "data-astro-prefetch": true }
+            },
+            {
+              "slug": "fieldguide/extending-user-names",
+              "label": "Extending User Names",
+              "attrs": { "data-astro-prefetch": true }
+            },
+            {
+              "slug": "fieldguide/layout-patterns",
+              "label": "Layout Patterns",
+              "attrs": { "data-astro-prefetch": true }
+            },
+            {
+              "slug": "fieldguide/fuzzy-search",
+              "label": "Fuzzy Search",
+              "attrs": { "data-astro-prefetch": true }
+            },
+            {
+              "slug": "fieldguide/pwa",
+              "label": "PWA Quickstart",
               "attrs": { "data-astro-prefetch": true }
             },
             {
               "slug": "fieldguide/ngrok",
               "label": "Ngrok",
-              "attrs": { "data-astro-prefetch": true }
-            },
-            {
-              "slug": "fieldguide/frontend-snippets",
-              "label": "CSS Layout Snippets",
-              "attrs": { "data-astro-prefetch": true }
-            },
-            {
-              "slug": "fieldguide/htaccess",
-              "label": "Apache .htaccess",
               "attrs": { "data-astro-prefetch": true }
             }
           ]

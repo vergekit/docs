@@ -1,8 +1,8 @@
-# First & Last Names
+# Extending User Names
 
 Better Auth uses `name` as its standard display-name field. Keep this field for compatibility with auth APIs, email templates, and plugins.
 
-Add `firstName` and `lastName` as application fields. Build `name` from them during registration.
+Many apps, however, will need to separate first and last names for business logic reasons. This guide helps add `firstName` and `lastName` as application fields and uses them to build `name` content during registration.
 
 ## 1. Add the database fields
 

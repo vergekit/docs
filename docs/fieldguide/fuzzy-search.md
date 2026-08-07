@@ -1,6 +1,6 @@
 # Fuzzy Search
 
-Use this recipe for a small data set. D1 returns a bounded candidate list, and Fuse.js ranks matches inside the Worker.
+Use this guide for adding fuzzy search to a small data set. D1 returns a bounded candidate list, and Fuse.js ranks matches inside the Worker.
 
 This approach accepts spelling errors without a new search service. It does not fit a large table or a high-traffic search endpoint.
 

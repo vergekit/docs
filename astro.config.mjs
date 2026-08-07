@@ -7,9 +7,6 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   prefetch: true,
-  redirects: {
-    '/docs/auth-routes': '/auth/routes/',
-  },
   markdown: {
     shikiConfig: {
       theme: 'github-light-default',

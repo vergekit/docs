@@ -1,4 +1,4 @@
-# Node.js + MySQL Preset
+# Node.js + MySQL
 
 Verge Kit uses Cloudflare Workers and D1 by default, but you can use this preset for a self-hosted Node.js server with MySQL.
 
@@ -154,6 +154,86 @@ npm run start
 Keep the application port behind a TLS reverse proxy. Send health checks to `/api/health`.
 
 The proxy must forward the original host and protocol. `BETTER_AUTH_URL` must match the public HTTPS origin.
+
+### Apache .htaccess
+
+#### Reverse Proxy Setup
+
+Enable `mod_headers`, `mod_proxy`, `mod_proxy_http`, and `mod_rewrite`, then add this `.htaccess` file to the site root:
+
+```apache
+DirectoryIndex disabled
+
+RewriteEngine On
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Forward the public origin to the Node.js application
+RequestHeader set X-Forwarded-Host "expr=%{HTTP_HOST}"
+RequestHeader set X-Forwarded-Proto "https"
+RewriteRule ^(.*)$ http://127.0.0.1:4321/$1 [P,L]
+```
+
+Change `4321` if the production server listens on a different local port. Apache must allow `.htaccess` overrides for these directives.
+
+#### Additional Rules
+
+Add any other rules that the deployment needs to the same `.htaccess` file. Put the rewrite rules below before the catch-all proxy `RewriteRule`:
+
+```apache
+# Block WordPress Probes
+# Drop common CMS probes
+RewriteRule ^(wp-admin|wp-login|wp-includes|xmlrpc\.php|wlwmanifest\.xml|\.env) - [F]
+
+# Fast 404s for specific paths
+RewriteRule ^media/system/js/core\.js$ - [R=404,L]
+RewriteRule ^media/wp-includes/wlwmanifest\.xml$ - [R=404,L]
+
+# Hide .git Directory
+RedirectMatch 404 /\.git
+
+# Security Headers
+Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+Header set X-XSS-Protection "1; mode=block"
+Header always append X-Frame-Options SAMEORIGIN
+Header set X-Content-Type-Options nosniff
+
+# Compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/json
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/javascript
+  AddOutputFilterByType DEFLATE text/plain
+  AddOutputFilterByType DEFLATE text/xml
+</IfModule>
+
+# Cache Control
+<IfModule mod_expires.c>
+  ExpiresActive on
+  ExpiresDefault "access plus 1 year"
+
+  # Don't cache HTML
+  ExpiresByType text/html "access plus 0 seconds"
+
+  # Don't cache JSON/API responses
+  ExpiresByType application/json "access plus 0 seconds"
+
+  # Short cache for favicon
+  <Files "favicon.ico">
+    ExpiresByType image/x-icon "access plus 1 hour"
+  </Files>
+</IfModule>
+
+# HTTP/2 Push (Optional)
+H2PushResource /css/styles.css
+H2PushResource /js/app.js
+```
 
 ## Backups
 
