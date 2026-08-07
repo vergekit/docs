@@ -1,7 +1,5 @@
 # Configuration
 
-Keep each value in the location that owns it. Keep all secrets outside committed files.
-
 ## Configuration Locations
 
 | Location | Use | Examples |
@@ -20,7 +18,7 @@ Files in `src/config` contain values that application code imports:
 - `src/config/auth-email.ts` contains email sender defaults and render functions.
 - `src/config/schema.ts` contains the D1 table definitions.
 
-Do not put environment secrets in these files.
+Do not put sensitive secrets in these files.
 
 Set the application name and default authenticated path in `src/config/app.ts`:
 
@@ -57,7 +55,6 @@ MAILGUN_API_KEY=your-local-mailgun-key
 MAILGUN_DOMAIN=mg.example.com
 ```
 
-Do not commit `.dev.vars`.
 
 ## Deployed Secrets
 
@@ -91,15 +88,11 @@ If the application uses Astro Sessions, add and type the `SESSION` binding. Othe
 
 ## Starter Files
 
-The starter includes these files for common application tasks:
-
 - `src/pages/api/health.ts` returns the standard JSON success shape.
 - `src/pages/api/debug/email.ts` contains a disabled email delivery example.
 - `src/pages/404.astro` and `src/pages/500.astro` supply error pages.
 - `src/components/Favicon.astro` supplies favicon metadata.
 - `src/actions/index.ts` is the empty registry for Astro Actions.
-
-If the application does not need these starter files, replace or remove them.
 
 ## Favicons and Branding
 
@@ -107,28 +100,15 @@ Replace `public/favicon.svg` with the artwork for your application.
 
 The production build uses this SVG to create `favicon.ico` and `apple-touch-icon.png`. `src/components/Favicon.astro` adds all three icon links to each page.
 
-The starter also uses `public/favicon.svg` as visible artwork. The home page, authentication pages, and authenticated layout contain these image references.
+The boilerplate also uses `public/favicon.svg` as visible artwork. The home page, authentication pages, and authenticated layout contain these image references by default.
 
-If these pages need different artwork, replace their image references.
+Icon variants and background colors can be changed in `astro.config.mjs`.
 
-If you need other icon variants or background colors, change `astro.config.mjs`.
-
-Run the production build after the change:
-
-```bash
-npm run build
-```
-
-Browsers cache favicons. The old icon can remain after a build.
-
-If the old icon remains, clear the site data. Alternatively, use a private browser window.
 
 ## Related Configuration
 
-- See [Authentication](/auth/) for the included auth flow.
-- See [Route Protection](/auth/routes) for protected routes and permissions.
-- See [Security](/security) for request and session safeguards.
-- See [Email](/email) for email providers and templates.
-- See [D1 Setup](/database) for schemas and migrations.
-- Add shared Astro components under `src/components/ui`.
-- Import the initialized database client from `@/db`.
+- See [Authentication](/auth/) for the included auth flow
+- See [Route Protection](/auth/routes) for protected routes and permissions
+- See [Security](/security) for request and session safeguards
+- See [Email](/email) for email providers and templates
+- See [D1 Setup](/database) for schemas and migrations

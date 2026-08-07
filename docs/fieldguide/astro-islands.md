@@ -6,7 +6,7 @@ When one part needs independent behavior, use an island only for that part. Keep
 
 ## Add an interactive island
 
-Verge Kit already uses React for email templates. Add the Astro React integration before you use React in a page:
+Add the [Astro React integration](https://docs.astro.build/en/guides/integrations-guide/react/) before you use React in a page:
 
 ```bash
 npx astro add react

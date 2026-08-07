@@ -47,20 +47,9 @@ Run the Bejamas CLI from the project root:
 npx bejamas add dialog
 ```
 
-The CLI reads `components.json`. Then it writes the component files and installs their dependencies.
+The CLI reads `components.json`, then writes the component files and installs their dependencies.
 
-Preview the changes before installation:
-
-```bash
-npx bejamas add dialog --dry-run
-```
-
-After installation:
-
-1. Review the new files and dependencies.
-2. Import the component from `@/components/ui/<name>`.
-3. Change the local source for your application.
-4. Run `npm run verify`.
+After installation, import the component from `@/components/ui/<name>`.
 
 Read the [Bejamas CLI documentation](https://ui.bejamas.com/docs/cli) for all commands and options.
 
@@ -82,48 +71,7 @@ Use semantic theme classes for shared colors:
 
 Use [Themes & Styling](/themes) for a visual change that must affect many components.
 
-## Update a component
-
-First, make sure that your current changes are committed. Then preview the current registry version:
-
-```bash
-npx bejamas add button --dry-run
-npx bejamas add button --diff
-```
-
-Review the differences before you replace a local file. The `--view` option can also show a registry file.
-
-Use `--overwrite` only after you review the changes:
-
-```bash
-npx bejamas add button --overwrite
-```
-
-CAUTION: Review the registry differences before you use `--overwrite`. This option can replace your component changes.
-
-A full Bejamas preset also replaces installed UI components. Read [Apply a complete preset](/themes#apply-a-complete-preset) before you run it.
 
 ## Class name utility
 
-Bejamas installs `src/lib/utils.ts`. Its `cn()` function combines conditional classes and resolves conflicting Tailwind classes.
-
-```ts
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-```
-
-You can add shared utility functions to this file.
-
-## Complete the change
-
-Run all project checks:
-
-```bash
-npm run verify
-```
-
-Then make sure that keyboard, focus, error, disabled, light, and dark states remain clear.
+Bejamas always installs `src/lib/utils.ts`. Its `cn()` function combines conditional classes and resolves conflicting Tailwind classes.

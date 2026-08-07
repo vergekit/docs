@@ -23,7 +23,6 @@ import { db } from '@/db';
 const rows = await db.select().from(user);
 ```
 
-Do not create another D1 client in a page, route, Action, or component.
 
 ## Schema and Migrations
 
@@ -44,7 +43,7 @@ For each schema change:
 4. Apply the migration to local D1.
 5. Commit the schema and migration files.
 
-Generate the migration:
+Generate a new migration:
 
 ```bash
 npm run db:generate
@@ -62,7 +61,7 @@ Apply migrations to remote D1:
 npm run db:migrate:remote
 ```
 
-`db:generate` creates SQL files. It does not apply them.
+NOTE: `db:generate` creates SQL files. It does not apply them.
 
 Use these scripts instead of `drizzle-kit push` or `drizzle-kit migrate`. Read the [D1 migrations guide](https://developers.cloudflare.com/d1/reference/migrations/) for more details.
 

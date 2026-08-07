@@ -4,8 +4,6 @@ Verge Kit deploys to Cloudflare Workers with D1 by default. The [Node.js + MySQL
 
 ## 1. Run Project Checks
 
-Run the same command locally and in CI:
-
 ```bash
 npm run verify
 ```
