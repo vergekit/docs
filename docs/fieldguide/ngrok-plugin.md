@@ -1,4 +1,4 @@
-# Ngrok
+# Ngrok Plugin
 
 The default ngrok workflow (running with parallel CLI command) doesn't always work with Vite. This guide helps to expose your local dev server with [vite-plugin-ngrok](https://github.com/aphex/vite-plugin-ngrok).
 

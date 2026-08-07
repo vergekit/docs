@@ -1,6 +1,6 @@
 # Layout Patterns
 
-Common page layouts built with Tailwind utility classes.
+Examples of building common page layouts with Tailwind utility classes.
 
 ## Vertical Center
 
@@ -26,7 +26,7 @@ Sticky header and footer with flexible main content:
 
 ## Holy Grail Layout
 
-Classic layout with sticky header, footer, and sidebars:
+Sticky header, footer, and sidebars:
 
 ```html
 <body

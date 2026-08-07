@@ -181,8 +181,8 @@
               "attrs": { "data-astro-prefetch": true }
             },
             {
-              "slug": "fieldguide/ngrok",
-              "label": "Ngrok",
+              "slug": "fieldguide/ngrok-plugin",
+              "label": "Ngrok Plugin",
               "attrs": { "data-astro-prefetch": true }
             }
           ]

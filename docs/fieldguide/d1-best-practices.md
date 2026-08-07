@@ -1,4 +1,4 @@
-# Responsible D1 Use
+# D1 Best Practices
 
 D1 cost follows rows read, rows written, and stored data. Normal traffic is usually less dangerous than an unbounded operation.
 

@@ -2,7 +2,7 @@
 
 A minimum progressive web app needs install metadata and a service worker. This guide adds installation and a safe offline page.
 
-It does not make D1 data available offline. It also does not cache authenticated responses.
+Note that it does not make D1 data available offline or cache authenticated responses.
 
 ## 1. Add the icons
 
