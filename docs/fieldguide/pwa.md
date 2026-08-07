@@ -1,6 +1,6 @@
 # PWA Quickstart
 
-A minimum progressive web app needs install metadata and a service worker. This guide adds installation and a safe offline page.
+A minimum progressive web app needs installation metadata and a service worker. This guide adds installation and a safe offline page.
 
 Note that it does not make D1 data available offline or cache authenticated responses.
 

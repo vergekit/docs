@@ -26,6 +26,7 @@ export default defineConfig({
       components: {
         Head: './src/components/DocsHead.astro',
         ContentHeader: './src/components/ContentHeader.astro',
+        SidebarFooter: './src/components/SidebarFooter.astro',
       },
       site: {
         title: 'Verge Kit',

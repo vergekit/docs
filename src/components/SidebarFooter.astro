@@ -1,0 +1,19 @@
+<!-- This renders after the complete sidebar menu, allowing restoration before first paint. -->
+<script is:inline>
+  (() => {
+    const storageKey = "rsd:sidebar-scroll-top";
+    const sidebarScroller = document.querySelector("#sidebar > nav > section");
+    if (!(sidebarScroller instanceof HTMLElement)) return;
+
+    try {
+      const savedScrollTop = Number(sessionStorage.getItem(storageKey));
+      if (Number.isFinite(savedScrollTop)) sidebarScroller.scrollTop = savedScrollTop;
+    } catch (_) {}
+
+    window.addEventListener("pagehide", () => {
+      try {
+        sessionStorage.setItem(storageKey, String(sidebarScroller.scrollTop));
+      } catch (_) {}
+    });
+  })();
+</script>

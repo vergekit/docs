@@ -25,36 +25,3 @@ import "../styles/docs.css";
     { capture: true },
   );
 </script>
-
-<!-- Preserve the docs sidebar position while navigating within the current tab. -->
-<script is:inline>
-  (() => {
-    const storageKey = "rsd:sidebar-scroll-top";
-
-    function initSidebarScrollRestoration() {
-      const sidebarScroller = document.querySelector("#sidebar > nav > section");
-      if (!(sidebarScroller instanceof HTMLElement)) return;
-
-      try {
-        const savedScrollTop = Number(sessionStorage.getItem(storageKey));
-        if (Number.isFinite(savedScrollTop)) sidebarScroller.scrollTop = savedScrollTop;
-      } catch (_) {}
-
-      window.addEventListener(
-        "pagehide",
-        () => {
-          try {
-            sessionStorage.setItem(storageKey, String(sidebarScroller.scrollTop));
-          } catch (_) {}
-        },
-        { once: true },
-      );
-    }
-
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", initSidebarScrollRestoration, { once: true });
-    } else {
-      initSidebarScrollRestoration();
-    }
-  })();
-</script>
