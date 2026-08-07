@@ -171,6 +171,11 @@
               "attrs": { "data-astro-prefetch": true }
             },
             {
+              "slug": "fieldguide/astro-actions",
+              "label": "Astro Actions",
+              "attrs": { "data-astro-prefetch": true }
+            },
+            {
               "slug": "fieldguide/ngrok",
               "label": "Ngrok",
               "attrs": { "data-astro-prefetch": true }

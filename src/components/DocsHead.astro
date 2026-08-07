@@ -11,3 +11,17 @@ import "../styles/docs.css";
     } catch (_) {}
   })();
 </script>
+
+<!-- Start every keyboard-invoked command search with a fresh query. -->
+<script is:inline>
+  document.addEventListener(
+    "keydown",
+    (event) => {
+      if (!(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== "k") return;
+
+      const searchInput = document.querySelector("#command-search header input");
+      if (searchInput instanceof HTMLInputElement) searchInput.value = "";
+    },
+    { capture: true },
+  );
+</script>
