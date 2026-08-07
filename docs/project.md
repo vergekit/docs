@@ -1,5 +1,12 @@
 # Project
 
+## Rationale
+
+Astro is often treated as a content framework, but we believe it is also a strong foundation for web applications. In addition to providing a solid SSR back end, Astro flawlessly supports the use of ANY front end framework. Verge Kit pairs Astro with Cloudflare, Drizzle, bejamas/ui, and other tools that form a coherent, approachable stack.
+
+Verge Kit exists to make development with this stack more predictable. It provides clear conventions, repeatable patterns, and prebuilt integrations for complex features like authentication. This shared structure helps developers and coding agents produce understandable code without reinventing critical parts of the application.
+
+
 ## Repositories
 
 | Repository | Purpose |
