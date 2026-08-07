@@ -24,7 +24,7 @@ npm create vergekit@latest
     <a
       href="https://astro.build"
       target="_blank"
-      rel="noopener noreferrer"
+      rel="noopener"
       class="relative ml-[0.2em] inline-flex items-center gap-[0.2em] align-baseline leading-none font-semibold whitespace-nowrap no-underline hover:opacity-100 hover:after:absolute hover:after:inset-x-0 hover:after:-bottom-1 hover:after:border-b-2 hover:after:border-current hover:after:content-['']"
     ><img
         src="/tool-logos/astro-light-gradient.svg"
@@ -37,7 +37,7 @@ npm create vergekit@latest
     <a
       href="https://workers.dev"
       target="_blank"
-      rel="noopener noreferrer"
+      rel="noopener"
       class="relative ml-[0.2em] inline-flex items-center gap-[0.2em] align-baseline leading-none font-semibold whitespace-nowrap no-underline hover:opacity-100 hover:after:absolute hover:after:inset-x-0 hover:after:-bottom-1 hover:after:border-b-2 hover:after:border-current hover:after:content-['']"
     ><img
         src="/tool-logos/cloudflare.svg"
@@ -52,7 +52,7 @@ npm create vergekit@latest
     <a
       href="https://orm.drizzle.team"
       target="_blank"
-      rel="noopener noreferrer"
+      rel="noopener"
       class="relative ml-[0.2em] inline-flex items-center gap-[0.2em] align-baseline leading-none font-semibold whitespace-nowrap no-underline hover:opacity-100 hover:after:absolute hover:after:inset-x-0 hover:after:-bottom-1 hover:after:border-b-2 hover:after:border-current hover:after:content-['']"
     ><img
         src="/tool-logos/drizzle.svg"
@@ -63,7 +63,7 @@ npm create vergekit@latest
     <a
       href="https://www.better-auth.com"
       target="_blank"
-      rel="noopener noreferrer"
+      rel="noopener"
       class="relative ml-[0.2em] inline-flex items-center gap-[0.2em] align-baseline leading-none font-semibold whitespace-nowrap no-underline hover:opacity-100 hover:after:absolute hover:after:inset-x-0 hover:after:-bottom-1 hover:after:border-b-2 hover:after:border-current hover:after:content-['']"
     ><img
         src="/tool-logos/better-auth.svg"
@@ -74,7 +74,7 @@ npm create vergekit@latest
     <a
       href="https://tailwindcss.com"
       target="_blank"
-      rel="noopener noreferrer"
+      rel="noopener"
       class="relative ml-[0.2em] inline-flex items-center gap-[0.2em] align-baseline leading-none font-semibold whitespace-nowrap no-underline hover:opacity-100 hover:after:absolute hover:after:inset-x-0 hover:after:-bottom-1 hover:after:border-b-2 hover:after:border-current hover:after:content-['']"
     ><img
         src="/tool-logos/tailwind-css.svg"
@@ -85,7 +85,7 @@ npm create vergekit@latest
     <a
       href="https://ui.bejamas.com"
       target="_blank"
-      rel="noopener noreferrer"
+      rel="noopener"
       class="relative ml-[0.2em] inline-flex items-center gap-[0.2em] align-baseline leading-none font-semibold whitespace-nowrap no-underline hover:opacity-100 hover:after:absolute hover:after:inset-x-0 hover:after:-bottom-1 hover:after:border-b-2 hover:after:border-current hover:after:content-['']"
     ><img
         src="/tool-logos/bejamas-ui.svg"
@@ -115,7 +115,7 @@ npm create vergekit@latest
   <a
     href="https://github.com/vergekit/vergekit"
     target="_blank"
-    rel="noopener noreferrer"
+    rel="noopener"
     class="btn"
     data-variant="outline"
   >

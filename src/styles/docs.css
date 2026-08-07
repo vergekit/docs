@@ -39,6 +39,22 @@ body[data-theme-mode="light-only"] button[aria-label="Toggle dark mode"] {
   max-width: --spacing(48);
 }
 
+/* Keep the shared footer at the bottom of short pages as well as long ones. */
+#content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+#content > div {
+  flex: 1;
+}
+
+body:has(.docs-not-found) #content > [data-site-footer],
+body:has([data-docs-landing]) #content > [data-site-footer] {
+  display: none;
+}
+
 /* The introduction is a branded landing page inside the docs shell. */
 body:has([data-docs-landing]) article > div > header,
 body:has([data-docs-landing]) article > div > footer,
@@ -68,8 +84,6 @@ body:has(.docs-not-found) .prose {
 
 body:has(.docs-not-found) #content,
 body:has([data-docs-landing]) #content {
-  display: flex;
-  flex-direction: column;
   height: 100dvh;
 }
 

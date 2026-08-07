@@ -36,10 +36,10 @@ For a direct send, include `from` in the message. `sendEmail` does not read `EMA
 
 | Provider | Required configuration |
 | --- | --- |
-| `console` | None. Writes the message to the server log. |
-| `cloudflare` | An `EMAIL` binding in `wrangler.jsonc`. |
-| `resend` | `RESEND_API_KEY`. |
-| `mailgun` | `MAILGUN_API_KEY` and `MAILGUN_DOMAIN`. |
+| `console` | None (writes message to server log) |
+| `cloudflare` | An `EMAIL` binding in `wrangler.jsonc` |
+| `resend` | `RESEND_API_KEY` |
+| `mailgun` | `MAILGUN_API_KEY` and `MAILGUN_DOMAIN` |
 
 Put non-secret values in `wrangler.jsonc`:
 

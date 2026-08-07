@@ -8,13 +8,13 @@ The integration follows the main parts of the [Better Auth Astro guide](https://
 
 | File | Responsibility |
 | --- | --- |
-| `src/config/auth.ts` | Route policy, roles, permissions, and auth error text. |
-| `src/config/auth-email.ts` | Verification and reset email renderers. |
-| `src/config/schema.ts` | Auth tables and plugin fields. |
-| `src/pages/api/auth/[...all].ts` | Better Auth HTTP handler and sign-out redirects. |
-| `src/middleware.ts` | Lazy session loading and route access. |
-| `src/env.d.ts` | Types for runtime values and `Astro.locals`. |
-| `src/components/auth/AuthShell.astro` | Shared layout and browser behavior for auth forms. |
+| `src/config/auth.ts` | Route policy, roles, permissions, and auth error text |
+| `src/config/auth-email.ts` | Verification and reset email renderers |
+| `src/config/schema.ts` | Auth tables and plugin fields |
+| `src/pages/api/auth/[...all].ts` | Better Auth HTTP handler and sign-out redirects |
+| `src/middleware.ts` | Lazy session loading and route access |
+| `src/env.d.ts` | Types for runtime values and `Astro.locals` |
+| `src/components/auth/AuthShell.astro` | Shared layout and browser behavior for auth forms |
 
 The application owns the database, schema, email templates, and policy. The core package creates the Better Auth server configuration.
 

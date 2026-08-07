@@ -35,13 +35,13 @@ Run `npm run init:admin` to create a verified administrator. This step is option
 
 | Path | Purpose |
 | --- | --- |
-| `/register` | Create an account. |
-| `/login` | Start a session. |
-| `/auth/check-email` | Tell the user to read the verification email. |
-| `/auth/verify-email` | Send a new verification email. |
-| `/auth/forgot-password` | Request a password-reset email. |
-| `/auth/reset-password` | Set a new password from a reset link. |
-| `/dashboard` | Show the starter page for signed-in users. |
+| `/register` | Create an account |
+| `/login` | Start a session |
+| `/auth/check-email` | Tell the user to read the verification email |
+| `/auth/verify-email` | Send a new verification email |
+| `/auth/forgot-password` | Request a password-reset email |
+| `/auth/reset-password` | Set a new password from a reset link |
+| `/dashboard` | Show the starter page for signed-in users |
 
 The catch-all route at `/api/auth/*` supplies the Better Auth endpoints. Keep this route public.
 

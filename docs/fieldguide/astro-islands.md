@@ -44,11 +44,11 @@ Choose the smallest suitable client directive:
 
 | Directive | Use it when |
 | --- | --- |
-| `client:load` | The control must work immediately. |
-| `client:idle` | The control can wait until the browser is idle. |
-| `client:visible` | The control starts below the first viewport. |
-| `client:media` | The control is interactive only for a media query. |
-| `client:only` | The component cannot render on the server. |
+| `client:load` | The control must work immediately |
+| `client:idle` | The control can wait until the browser is idle |
+| `client:visible` | The control starts below the first viewport |
+| `client:media` | The control is interactive only for a media query |
+| `client:only` | The component cannot render on the server |
 
 Read the Astro guide for [client islands](https://docs.astro.build/en/concepts/islands/#client-islands).
 

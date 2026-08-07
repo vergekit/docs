@@ -10,12 +10,12 @@ The theme uses these files and sections:
 
 | Location | Purpose |
 | --- | --- |
-| `components.json` | Stores the Bejamas style, icon library, CSS path, and import aliases. |
-| `src/styles/global.css` | Stores the theme variables and base styles. |
-| `@theme inline` | Maps CSS variables to Tailwind classes, such as `bg-primary`. |
-| `:root` | Stores the light theme values. |
-| `.dark` | Stores the dark theme values. |
-| `src/components/ui` | Uses the semantic theme classes. |
+| `components.json` | Stores the Bejamas style, icon library, CSS path, and import aliases |
+| `src/styles/global.css` | Stores the theme variables and base styles |
+| `@theme inline` | Maps CSS variables to Tailwind classes, such as `bg-primary` |
+| `:root` | Stores the light theme values |
+| `.dark` | Stores the dark theme values |
+| `src/components/ui` | Uses the semantic theme classes |
 
 Keep the existing CSS imports, `@custom-variant dark`, `@theme inline`, and `@layer base` sections.
 

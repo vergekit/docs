@@ -16,11 +16,11 @@ The function disables the submit button during the request. After success, it ac
 
 | Attribute | Purpose |
 | --- | --- |
-| `data-auth-form` | Adds the shared submit behavior. |
-| `data-auth-error` | Gives the ID of the element that shows errors. |
-| `data-auth-success-url` | Sets a local redirect after success. |
-| `callbackURL` | Gives Better Auth the redirect after sign-in or verification. |
-| `redirectTo` | Gives the password-reset or sign-out destination. |
+| `data-auth-form` | Adds the shared submit behavior |
+| `data-auth-error` | Gives the ID of the element that shows errors |
+| `data-auth-success-url` | Sets a local redirect after success |
+| `callbackURL` | Gives Better Auth the redirect after sign-in or verification |
+| `redirectTo` | Gives the password-reset or sign-out destination |
 
 If you change an included auth form, keep these attributes.
 

@@ -6,10 +6,10 @@ Verge Kit configures roles through the [Better Auth admin plugin](https://better
 
 | Role | Application permissions | Better Auth admin permissions |
 | --- | --- | --- |
-| `admin` | `access`, `moderate`, `administer` | User and session administration. |
-| `moderator` | `access`, `moderate` | None. |
-| `user` | `access` | None. |
-| `banned` | None. | None. |
+| `admin` | `access`, `moderate`, `administer` | User and session administration |
+| `moderator` | `access`, `moderate` | None |
+| `user` | `access` | None |
+| `banned` | None | None |
 
 The `user` role is the default role for new accounts. A stored role value can contain multiple comma-separated roles.
 

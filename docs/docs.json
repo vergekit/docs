@@ -119,7 +119,7 @@
       "items": [
         {
           "slug": "workflow",
-          "label": "Development Workflow",
+          "label": "Dev Workflow",
           "icon": "terminal",
           "attrs": { "data-astro-prefetch": true }
         },

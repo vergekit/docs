@@ -108,9 +108,9 @@ Use these response statuses:
 
 | Status | Use |
 | --- | --- |
-| `401` | The request has no valid session. |
-| `403` | The user is authenticated but does not have the required application permission. |
-| `404` | The record does not exist, or the user cannot access the record. |
+| `401` | The request has no valid session |
+| `403` | The user is authenticated but does not have the required application permission |
+| `404` | The record does not exist, or the user cannot access the record |
 
 Use one policy for each resource. Do not disclose private record existence through different error messages.
 

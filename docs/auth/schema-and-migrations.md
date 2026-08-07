@@ -8,10 +8,10 @@ Read the [Better Auth Drizzle adapter guide](https://better-auth.com/docs/adapte
 
 | Table | Purpose |
 | --- | --- |
-| `user` | Profile, role, and ban fields. |
-| `session` | Session token, expiration, request data, and impersonation field. |
-| `account` | Password credentials and external provider data. |
-| `verification` | Email verification and password-reset tokens. |
+| `user` | Profile, role, and ban fields |
+| `session` | Session token, expiration, request data, and impersonation field |
+| `account` | Password credentials and external provider data |
+| `verification` | Email verification and password-reset tokens |
 
 The initial migration includes these tables. Apply it before you use an auth flow.
 

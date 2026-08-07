@@ -1,6 +1,38 @@
+---
+import SiteFooter from "./SiteFooter.astro";
+---
+
+<!-- Really Simple Docs has no content-footer slot, so this inert template is mounted in #content. -->
+<template id="docs-site-footer-template">
+  <SiteFooter class="mx-4 md:mx-6 xl:mx-12" />
+</template>
+
 <!-- This renders after the complete sidebar menu, allowing restoration before first paint. -->
 <script is:inline>
   (() => {
+    const mountSiteFooter = () => {
+      const template = document.querySelector("#docs-site-footer-template");
+      const content = document.querySelector("#content");
+
+      if (!(template instanceof HTMLTemplateElement) || !(content instanceof HTMLElement)) {
+        return false;
+      }
+
+      if (!content.querySelector(":scope > [data-site-footer]")) {
+        content.appendChild(template.content.cloneNode(true));
+      }
+
+      return true;
+    };
+
+    if (!mountSiteFooter()) {
+      const observer = new MutationObserver(() => {
+        if (mountSiteFooter()) observer.disconnect();
+      });
+
+      observer.observe(document.documentElement, { childList: true, subtree: true });
+    }
+
     const storageKey = "rsd:sidebar-scroll-top";
     const sidebarScroller = document.querySelector("#sidebar > nav > section");
     if (!(sidebarScroller instanceof HTMLElement)) return;
