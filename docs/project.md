@@ -40,4 +40,4 @@ In order to keep the stack focused and implementation decisisions consistent, th
 
 ## License
 
-Verge Kit is available under the [MIT License](https://opensource.org/license/mit/).
+Verge Kit is available under the [MIT License](https://github.com/vergekit/vergekit/blob/main/LICENSE).
