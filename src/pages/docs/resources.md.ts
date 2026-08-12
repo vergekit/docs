@@ -3,7 +3,7 @@ import { resources } from "../../utils/resources";
 export const prerender = true;
 
 const description =
-  "A curated collection of libraries, tools, and references for building with Verge Kit.";
+  "Some of our preferred libraries, tools, and references for building with Verge Kit.";
 
 const escapeTableCell = (value: string) =>
   value.replaceAll("|", "\\|").replaceAll(/\s+/g, " ").trim();

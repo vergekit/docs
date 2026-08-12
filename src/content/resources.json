@@ -502,5 +502,35 @@
     "url": "https://github.com/PlayForm/Inline",
     "description": "Build plugin that inlines critical CSS and defers the remaining styles",
     "tags": ["css", "performance"]
+  },
+  {
+    "title": "emailmd",
+    "url": "https://www.emailmd.dev/",
+    "description": "Markdown-based toolkit for writing, linting, previewing, and rendering responsive emails",
+    "tags": ["tools", "html"]
+  },
+  {
+    "title": "SVG Loaders",
+    "url": "https://magecdn.com/tools/svg-loaders",
+    "description": "Collection of more than 100 MIT-licensed SVG loading icons and spinners",
+    "tags": ["icons", "design"]
+  },
+  {
+    "title": "Web App Checklist",
+    "url": "https://www.checklist.design/web-app",
+    "description": "Collection of design checklists for common web app pages, components, and user flows",
+    "tags": ["design", "reference"]
+  },
+  {
+    "title": "trove/cn",
+    "url": "https://www.trovecn.dev/",
+    "description": "Curated registry of premium interface patterns rebuilt as installable React components",
+    "tags": ["components", "design"]
+  },
+  {
+    "title": "Beautiful UI",
+    "url": "https://beautiful-ui-five.vercel.app/",
+    "description": "Copy-ready React interface primitives for AI-native applications",
+    "tags": ["components", "design", "AI"]
   }
 ]

@@ -24,8 +24,6 @@ const tags = [...tagsByKey.entries()]
 
 const normalizedTags = (resource: Resource) =>
   resource.tags.map((tag) => tag.trim().toLocaleLowerCase()).filter(Boolean);
-
-const hostname = (url: string) => new URL(url).hostname.replace(/^www\./, "");
 ---
 
 <section class="flex flex-col gap-8" data-resource-collection>
@@ -83,7 +81,7 @@ const hostname = (url: string) => new URL(url).hostname.replace(/^www\./, "");
             data-resource-count-item
             data-resource-tags={JSON.stringify(normalizedTags(resource))}
           >
-            <div class="flex flex-col gap-1">
+            <div>
               <h3 class="text-lg font-semibold text-balance">
                 <a
                   href={resource.url}
@@ -94,7 +92,6 @@ const hostname = (url: string) => new URL(url).hostname.replace(/^www\./, "");
                   {resource.title}
                 </a>
               </h3>
-              <p class="text-base text-muted-foreground">{hostname(resource.url)}</p>
             </div>
             <p class="text-pretty text-base">{resource.description}</p>
             {resource.tags.length > 0 && (
@@ -133,7 +130,7 @@ const hostname = (url: string) => new URL(url).hostname.replace(/^www\./, "");
                 data-resource-tags={JSON.stringify(normalizedTags(resource))}
               >
                 <td class="py-5 pr-6 align-top">
-                  <div class="flex min-w-0 flex-col gap-1">
+                  <div class="min-w-0">
                     <p class="text-sm font-semibold">
                       <a
                         href={resource.url}
@@ -144,7 +141,6 @@ const hostname = (url: string) => new URL(url).hostname.replace(/^www\./, "");
                         {resource.title}
                       </a>
                     </p>
-                    <p class="truncate text-sm text-muted-foreground">{hostname(resource.url)}</p>
                   </div>
                 </td>
                 <td class="px-6 py-5 align-top">

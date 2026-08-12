@@ -2,11 +2,9 @@
 
 Verge Kit uses the [Bejamas theme system](https://ui.bejamas.com/docs/theming). The theme controls shared colors, fonts, radius, and other visual choices.
 
-[Bejamas components](https://ui.bejamas.com/components) and Tailwind utilities read the same semantic CSS variables. Read [UI Components](/components) for installation and changes.
+[Bejamas components](https://ui.bejamas.com/components) and [Tailwind](https://tailwindcss.com/) utilities read the same semantic CSS variables. See [UI Components](/components) for installation and changes.
 
-## Understand the theme files
-
-The theme uses these files and sections:
+## Theme Files
 
 | Location | Purpose |
 | --- | --- |
@@ -17,20 +15,33 @@ The theme uses these files and sections:
 | `.dark` | Stores the dark theme values |
 | `src/components/ui` | Uses the semantic theme classes |
 
-Keep the existing CSS imports, `@custom-variant dark`, `@theme inline`, and `@layer base` sections.
 
-## Choose a theme editor
+## Theme Editors
 
-These tools create shadcn-style theme variables:
-
-- [Bejamas Create](https://ui.bejamas.com/create) creates a complete [Bejamas preset](https://ui.bejamas.com/docs/cli#apply). It controls styles, colors, fonts, icons, radius, and menu appearance.
-- [Shadcn Themer](https://shadcnthemer.com/) creates and shares color themes for shadcn/ui.
-- [tweakcn](https://tweakcn.com/editor/theme) creates themes that you can import into [Bejamas Create](https://ui.bejamas.com/create).
-- [clonecn](https://github.com/hunvreus/clonecn) creates shadcn themes from screenshots, URLs, or style descriptions.
+<table aria-label="Theme editors">
+  <tbody>
+    <tr>
+      <td><a class="whitespace-nowrap" href="https://ui.bejamas.com/create">Bejamas Create</a></td>
+      <td>Creates complete <a href="https://ui.bejamas.com/docs/cli#apply">Bejamas presets</a> with components and theme settings</td>
+    </tr>
+    <tr>
+      <td><a class="whitespace-nowrap" href="https://shadcnthemer.com/">Shadcn Themer</a></td>
+      <td>Creates and shares color themes for shadcn/ui</td>
+    </tr>
+    <tr>
+      <td><a class="whitespace-nowrap" href="https://tweakcn.com/editor/theme">tweakcn</a></td>
+      <td>Creates themes that you can import into <a href="https://ui.bejamas.com/create">Bejamas Create</a></td>
+    </tr>
+    <tr>
+      <td><a class="whitespace-nowrap" href="https://github.com/hunvreus/clonecn">clonecn</a></td>
+      <td>Creates shadcn themes from screenshots, URLs, or style descriptions</td>
+    </tr>
+  </tbody>
+</table>
 
 Most shadcn theme generators work with the [Bejamas color layer](https://ui.bejamas.com/docs/theming). The exported CSS must use standard variables such as `--background` and `--primary`.
 
-These generators do not always include Bejamas component styles, icons, fonts, or menu choices. Use Bejamas Create for a complete preset.
+These generators do not always include Bejamas component styles, icons, fonts, or menu choices. Use [Bejamas Create](https://ui.bejamas.com/create) for a complete preset.
 
 ## Create or edit a Bejamas preset
 
