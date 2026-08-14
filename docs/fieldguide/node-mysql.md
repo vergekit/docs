@@ -1,6 +1,6 @@
 # Node.js + MySQL
 
-Verge Kit uses Cloudflare Workers and D1 by default, but you can use this preset for a self-hosted Node.js server with MySQL.
+Verge Kit uses Cloudflare Workers and D1 by default, but you can use this preset for a self-hosted Node.js server with MySQL. Perfectly suited for deploy to hosts like [Digital Ocean](https://www.digitalocean.com/), [Laravel Cloud](https://laravel.com/cloud), [Hetzner](https://www.hetzner.com/), etc.
 
 The preset creates a standalone Astro server. It replaces the Cloudflare runtime, D1 schema, migrations, and related tests.
 
@@ -156,6 +156,8 @@ Keep the application port behind a TLS reverse proxy. Send health checks to `/ap
 The proxy must forward the original host and protocol. `BETTER_AUTH_URL` must match the public HTTPS origin.
 
 ### Apache .htaccess
+
+If running a node process on a VPS with Apache (ex: whm/cpanel, plesk, etc), remember to set up a reverse proxy with .htaccess
 
 #### Reverse Proxy Setup
 
