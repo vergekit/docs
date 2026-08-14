@@ -1,10 +1,80 @@
-# Themes & Styling
+# Design System
 
-Verge Kit uses the [Bejamas theme system](https://ui.bejamas.com/docs/theming). The theme controls shared colors, fonts, radius, and other visual choices.
+Verge Kit uses [bejamas/ui](https://ui.bejamas.com), an Astro-native design system for components and themes. Installed components become local source in `src/components/ui`.
 
-[Bejamas components](https://ui.bejamas.com/components) and [Tailwind](https://tailwindcss.com/) utilities read the same semantic CSS variables. See [UI Components](/components) for installation and changes.
+The components do not add a browser framework. Interactive components use `@data-slot` packages for behavior and accessibility.
 
-## Theme Files
+Bejamas/ui components and [Tailwind](https://tailwindcss.com/) utilities read the same semantic CSS variables. The theme controls shared colors, fonts, radius, and other visual choices.
+
+## Components
+
+### Find a component
+
+Browse the [Bejamas/ui component catalog](https://ui.bejamas.com/components) for previews, examples, and component APIs.
+
+New Verge Kit projects include these components:
+
+- [Button](https://ui.bejamas.com/components/button)
+- [Field](https://ui.bejamas.com/components/field)
+- [Input](https://ui.bejamas.com/components/input)
+- [Label](https://ui.bejamas.com/components/label)
+- [Separator](https://ui.bejamas.com/components/separator)
+
+### Understand the component files
+
+Each component family has one folder. The folder contains its Astro files and an `index.ts` export file.
+
+For example, the button files are in `src/components/ui/button`. Import the component from that folder:
+
+```astro
+---
+import { Button } from "@/components/ui/button";
+---
+
+<Button>Save</Button>
+```
+
+`components.json` tells the CLI where these files belong. It also stores the component style, icon library, CSS path, and import aliases.
+
+### Install a component
+
+Run the Bejamas CLI from the project root:
+
+```bash
+npx bejamas add dialog
+```
+
+The CLI reads `components.json`, then writes the component files and installs their dependencies.
+
+After installation, import the component from `@/components/ui/<name>`.
+
+Read the [Bejamas CLI documentation](https://ui.bejamas.com/docs/cli) for all commands and options.
+
+### Change a component
+
+The installed files belong to your application. You can change their markup, variants, classes, and props.
+
+Keep common UI primitives in `src/components/ui`. Put application-specific components outside that folder.
+
+For example, keep `Button` in `src/components/ui/button`. Put a `DeleteAccountButton` in `src/components/account`.
+
+Use semantic theme classes for shared colors:
+
+```astro
+<div class="bg-card text-card-foreground border-border">
+  ...
+</div>
+```
+
+### Class name utility
+
+Bejamas always installs `src/lib/utils.ts`. Its `cn()` function combines conditional classes and resolves conflicting Tailwind classes.
+
+## Themes and styling
+
+Read the [Bejamas/ui theming guide](https://ui.bejamas.com/docs/theming) for the complete theme reference.
+
+### Theme files
 
 | Location | Purpose |
 | --- | --- |
@@ -15,8 +85,7 @@ Verge Kit uses the [Bejamas theme system](https://ui.bejamas.com/docs/theming). 
 | `.dark` | Stores the dark theme values |
 | `src/components/ui` | Uses the semantic theme classes |
 
-
-## Theme Editors
+### Theme editors
 
 <table aria-label="Theme editors">
   <tbody>
@@ -43,7 +112,7 @@ Most shadcn theme generators work with the [Bejamas color layer](https://ui.beja
 
 These generators do not always include Bejamas component styles, icons, fonts, or menu choices. Use [Bejamas Create](https://ui.bejamas.com/create) for a complete preset.
 
-## Create or edit a Bejamas preset
+### Create or edit a Bejamas preset
 
 Open [Bejamas Create](https://ui.bejamas.com/create). Select the style, colors, fonts, icons, radius, and menu appearance.
 
@@ -62,7 +131,7 @@ npx bejamas preset url <preset>
 npx bejamas preset open <preset>
 ```
 
-## Apply a complete preset
+### Apply a complete preset
 
 First, commit your current changes. Then apply the preset code from Bejamas Create:
 
@@ -74,7 +143,7 @@ CAUTION: Commit your changes before you apply a complete preset. The preset repl
 
 Use a complete preset for a broad design-system change. Review all changed component files before you keep the result.
 
-## Apply part of a preset
+### Apply part of a preset
 
 A partial preset keeps the installed component files.
 
@@ -96,7 +165,7 @@ Apply both parts without a component reinstall:
 npx bejamas apply <preset> --only theme,font
 ```
 
-## Import a shadcn theme
+### Import a shadcn theme
 
 Copy the exported CSS from the theme generator. Then use one of these methods:
 
@@ -105,9 +174,9 @@ Copy the exported CSS from the theme generator. Then use one of these methods:
 
 Replace values inside `:root` and `.dark`. Keep the existing variable names and `@theme inline` mappings.
 
-Some generators include variables that Verge Kit does not use. You can keep them, or remove them after you review the component needs.
+Some generators include variables that Verge Kit does not use. You can keep them or remove them after you review the component needs.
 
-## Know the main tokens
+### Know the main tokens
 
 Use semantic tokens for shared interface colors:
 
@@ -126,11 +195,9 @@ Use semantic tokens for shared interface colors:
 
 Each foreground token must remain readable on its matching background token.
 
-The project uses OKLCH values by default. You can use another valid CSS color format if the complete theme uses it consistently.
+The project uses OKLCH values by default. If the complete theme uses another valid CSS color format, use that format consistently.
 
-Read the [Bejamas theming guide](https://ui.bejamas.com/docs/theming) for more information.
-
-## Add an application token
+### Add an application token
 
 Add a semantic token when the same meaning appears in many places. Define light and dark values:
 
@@ -165,7 +232,7 @@ You can now use the token with Tailwind classes:
 
 Do not add a shared token for one isolated color. Use a local Tailwind color utility for that case.
 
-## Complete the theme
+### Complete the theme
 
 Run all project checks:
 

@@ -15,6 +15,8 @@ See the [Wrangler D1 binding reference](https://developers.cloudflare.com/worker
 
 ## Usage
 
+Keep database queries in server modules.
+
 Import the configured database client from `@/db`:
 
 ```ts
@@ -37,7 +39,7 @@ These files define and track the D1 schema:
 
 For each schema change:
 
-1. Update `src/config/schema.ts`.
+1. Update the tables, fields, foreign keys, and indexes in `src/config/schema.ts`.
 2. Generate a migration.
 3. Review the new SQL in `migrations/`.
 4. Apply the migration to local D1.

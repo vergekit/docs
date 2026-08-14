@@ -53,6 +53,10 @@ Read the Better Auth [session guide](https://better-auth.com/docs/concepts/sessi
 
 Authentication identifies a user. Authorization controls the data and actions that the user can access.
 
+Keep authentication decisions, database writes, and email delivery in server code.
+
+Parse all request input in server code before you use it.
+
 A protected route permits all signed-in users. Use an admin route or `userHasAppPermission()` for sensitive data.
 
 These rules do not control access to individual records. Read [Data Authorization and Ownership](/auth/data-authorization) for record-level rules.
@@ -72,11 +76,3 @@ Keep `BETTER_AUTH_SECRET` stable for each environment. Store it in `.dev.vars` l
 Do not put secrets in `wrangler.jsonc` or source files. See the [Configuration Guide](/configuration) for the storage locations.
 
 Use a delivered email provider in production. Make sure that `EMAIL_FROM` uses a verified sender or domain.
-
-## Features Not Included
-
-The starter does not configure a durable application rate limiter. Add an edge or durable rate limit before a public launch.
-
-The starter does not include OAuth, multi-factor authentication, passkeys, or a complete admin interface.
-
-Read the [Better Auth security reference](https://better-auth.com/docs/reference/security) before you add a new authentication method.

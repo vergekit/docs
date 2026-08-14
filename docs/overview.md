@@ -68,3 +68,25 @@ A boilerplate with consistent project structure and clear conventions helps LLM-
 ├── drizzle.config.ts     # Drizzle Kit configuration
 └── wrangler.jsonc        # Worker bindings and non-secret runtime values
 ```
+
+
+## Command Scripts
+
+Run `npm run verify` before you merge or deploy a change.
+
+```bash
+npm run dev                 # local Astro dev server
+npm run build               # production build
+npm run preview             # local preview of the production build
+npm run check               # Astro and TypeScript checks
+npm run lint                # oxlint
+npm run test                # Vitest
+npm run test:watch          # Vitest watch mode
+npm run verify              # runs 'check', 'lint', 'test', and 'build'
+npm run email               # React Email template preview
+npm run db:generate         # generate Drizzle migrations
+npm run db:studio           # open Drizzle Studio for D1 HTTP
+npm run db:migrate:local    # apply D1 migrations locally
+npm run db:migrate:remote   # apply D1 migrations remotely
+npm run init:admin          # create a verified D1 user with the admin role
+```

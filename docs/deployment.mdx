@@ -1,0 +1,120 @@
+# Deployment Setup
+
+Verge Kit deploys to Cloudflare Workers with D1 by default. The [Node.js + MySQL preset](/fieldguide/node-mysql) can be deployed on a classic VPS or any polatform that supports Node processes.
+
+<Steps>
+  <Step title="Run Project Checks">
+
+    ```bash
+    npm run verify
+    ```
+
+    This command runs type checks, linting, tests, and the production build.
+  </Step>
+
+  <Step title="Add Worker Variables">
+
+    Put non-secret Worker values in `wrangler.jsonc`:
+
+    ```jsonc
+    {
+      "vars": {
+        "EMAIL_PROVIDER": "console",
+        "BETTER_AUTH_URL": "https://example.com",
+        "EMAIL_FROM": "VK <noreply@example.com>",
+        "MAILGUN_DOMAIN": "mg.example.com",
+      },
+    }
+    ```
+
+    Each named Wrangler environment needs its own `vars` block.
+
+    See the [Configuration Guide](/configuration) for the correct location of each value.
+  </Step>
+
+  <Step title="Add Deployed Secrets">
+
+    Better Auth requires one stable secret:
+
+    ```bash
+    npx wrangler secret put BETTER_AUTH_SECRET
+    ```
+
+    Add the secret for the selected email provider:
+
+    ```bash
+    npx wrangler secret put RESEND_API_KEY
+    npx wrangler secret put MAILGUN_API_KEY
+    ```
+
+    Wrangler asks for each value. Do not put secret values in commands, shell history, or `wrangler.jsonc`.
+
+    For a named environment, include its name:
+
+    ```bash
+    npx wrangler secret put BETTER_AUTH_SECRET --env production
+    ```
+
+    List the configured secret names:
+
+    ```bash
+    npx wrangler secret list
+    npx wrangler secret list --env production
+    ```
+  </Step>
+
+  <Step title="Prepare D1">
+
+    If the production database does not exist, create it:
+
+    ```bash
+    npx wrangler d1 create vk
+    ```
+
+    Add the returned `database_id` to the `DB` binding in `wrangler.jsonc`.
+
+    Apply the remote migrations:
+
+    ```bash
+    npm run db:migrate:remote
+    ```
+
+    For the first deployment, you can create a verified user with the `admin` role:
+
+    ```bash
+    npm run init:admin -- --remote
+    ```
+  </Step>
+
+  <Step title="Review Email Configuration">
+
+    Make sure that `EMAIL_PROVIDER` matches the deployed environment.
+
+    For Cloudflare Email, add the `EMAIL` binding and use a verified sending domain.
+
+    For Resend or Mailgun, add the required API key secret. Use a verified sender or domain in `EMAIL_FROM`.
+  </Step>
+
+  <Step title="Deploy">
+
+    Deploy through the project CI workflow, or run:
+
+    ```bash
+    npx wrangler deploy
+    ```
+
+    For a named environment, run:
+
+    ```bash
+    npx wrangler deploy --env production
+    ```
+
+    After deployment, do these checks:
+
+    - Open the application.
+    - Sign up and sign in.
+    - Send verification and password-reset email.
+    - Open each changed protected route.
+    - Make sure that administrator access works.
+  </Step>
+</Steps>

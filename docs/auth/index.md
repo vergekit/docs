@@ -45,17 +45,6 @@ Run `npm run init:admin` to create a verified administrator. This step is option
 
 The catch-all route at `/api/auth/*` supplies the Better Auth endpoints. Keep this route public.
 
-## Features Not Included
+## Better-auth Plugins
 
-The starter does not include social sign-in, passkeys, magic links, multi-factor authentication, or an admin user interface.
-
-Use [Better Auth plugins](https://better-auth.com/docs/plugins) to add authentication features. See [Plugins](/auth/plugins) before you change the configuration.
-
-## Next Pages
-
-- [Architecture](/auth/architecture) explains the request flow and file ownership.
-- [Route Protection](/auth/routes) explains authentication and permission rules for routes.
-- [Data Authorization and Ownership](/auth/data-authorization) explains access rules for individual records.
-- [Auth Forms](/auth/forms) explains the form attributes in the included pages.
-- [Roles and Admin](/auth/roles-and-admin) explains the default access policy.
-- [Schema and Migrations](/auth/schema-and-migrations) explains database changes for authentication.
+See [Better Auth plugins](https://better-auth.com/docs/plugins) to add authentication features like social sign-in, passkeys, magic links, multi-factor, etc. See [Plugins](/auth/plugins) before changing the configuration.

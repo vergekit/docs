@@ -35,14 +35,8 @@
           "attrs": { "data-astro-prefetch": true }
         },
         {
-          "slug": "components",
-          "label": "UI Components",
-          "icon": "blocks",
-          "attrs": { "data-astro-prefetch": true }
-        },
-        {
-          "slug": "themes",
-          "label": "Themes & Styling",
+          "slug": "design-system",
+          "label": "Design System",
           "icon": "palette",
           "attrs": { "data-astro-prefetch": true }
         },
@@ -109,18 +103,6 @@
           "slug": "security",
           "label": "Security",
           "icon": "lock-keyhole",
-          "attrs": { "data-astro-prefetch": true }
-        }
-      ]
-    },
-    {
-      "type": "group",
-      "label": "Build & Deploy",
-      "items": [
-        {
-          "slug": "workflow",
-          "label": "Dev Workflow",
-          "icon": "terminal",
           "attrs": { "data-astro-prefetch": true }
         },
         {
