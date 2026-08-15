@@ -108,7 +108,7 @@ Icon variants and background colors can be changed in `astro.config.mjs`.
 ## Related Configuration
 
 - See [Authentication](/auth/) for the included auth flow
-- See [Route Protection](/auth/routes) for protected routes and permissions
+- See [Access Control](/auth/#access-control) for protected routes, permissions, and record ownership
 - See [Security](/security) for request and session safeguards
 - See [Email](/email) for email providers and templates
 - See [D1 Setup](/database) for schemas and migrations

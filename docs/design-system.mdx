@@ -1,0 +1,74 @@
+# Design System
+
+Verge Kit uses [bejamas/ui](https://ui.bejamas.com), an Astro-native design system for components and themes. Installed components become local source in `src/components/ui`.
+
+The components do not add a browser framework. Interactive components use `@data-slot` packages for behavior and accessibility.
+
+[Bejamas/ui components](https://ui.bejamas.com/components) and [Tailwind](https://tailwindcss.com/) utilities read the same semantic CSS variables. The theme controls shared colors, fonts, radius, and other visual choices.
+
+## Components
+
+See the [bejamas/ui component catalog](https://ui.bejamas.com/components) for previews, examples, and component APIs.
+
+These components are included by default: [Button](https://ui.bejamas.com/components/button), [Field](https://ui.bejamas.com/components/field), [Input](https://ui.bejamas.com/components/input), [Label](https://ui.bejamas.com/components/label), [Separator](https://ui.bejamas.com/components/separator)
+
+
+### Installation
+
+Run the [bejamas CLI](https://ui.bejamas.com/docs/cli) from the project root:
+
+```bash
+npx bejamas add dialog
+```
+
+After installation, import the component from `@/components/ui/<name>`.
+
+The CLI reads `components.json` to determine where component location, style, icon library, CSS path, and import aliases.
+
+See the [bejamas CLI documentation](https://ui.bejamas.com/docs/cli) for all commands and options.
+
+
+### Class name utility
+
+Bejamas/ui ***always*** installs `src/lib/utils.ts`. Its `cn()` function combines conditional classes and resolves conflicting Tailwind classes.
+
+## Themes and styling
+
+Theme values live in `src/styles/global.css`. Bejamas components and Tailwind utilities use these shared CSS variables.
+
+See these resources for theme creation and detailed instructions:
+
+<CardGrid>
+  <Card title="Bejamas Create" description="Create complete presets with colors, fonts, icons, and component styles." href="https://ui.bejamas.com/create" />
+  <Card title="Bejamas/ui theming guide" description="Read the theme variables and CSS structure." href="https://ui.bejamas.com/docs/theming" />
+</CardGrid>
+
+Most shadcn theme generators (such as [Shadcn Themer](https://shadcnthemer.com/), [tweakcn](https://tweakcn.com/editor/theme), and [clonecn](https://github.com/hunvreus/clonecn)) work with the Bejamas color variables. Use [Bejamas Create](https://ui.bejamas.com/create) when you need a complete preset instead of colors only.
+
+### Create a theme
+
+The fastest method is to create a preset with [Bejamas Create](https://ui.bejamas.com/create). Commit your changes, then apply only its theme values:
+
+```bash
+npx bejamas apply <preset> --only theme
+```
+
+You can also copy a generator's CSS values into `src/styles/global.css`. Define light values in `:root` and dark values in `.dark`:
+
+```css
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.15 0 0);
+  --primary: oklch(0.55 0.2 260);
+  --primary-foreground: oklch(0.98 0 0);
+}
+
+.dark {
+  --background: oklch(0.15 0 0);
+  --foreground: oklch(0.98 0 0);
+  --primary: oklch(0.7 0.17 260);
+  --primary-foreground: oklch(0.15 0 0);
+}
+```
+
+Keep the existing variable names and `@theme inline` mappings. See the [bejamas/ui theming guide](https://ui.bejamas.com/docs/theming) for the complete variable reference.

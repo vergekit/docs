@@ -47,51 +47,10 @@
           "attrs": { "data-astro-prefetch": true }
         },
         {
-          "type": "submenu",
+          "slug": "auth/index",
           "label": "Authentication",
           "icon": "shield-check",
-          "items": [
-            {
-              "slug": "auth/index",
-              "label": "Overview",
-              "attrs": { "data-astro-prefetch": true }
-            },
-            {
-              "slug": "auth/architecture",
-              "label": "Architecture",
-              "attrs": { "data-astro-prefetch": true }
-            },
-            {
-              "slug": "auth/routes",
-              "label": "Route Protection",
-              "attrs": { "data-astro-prefetch": true }
-            },
-            {
-              "slug": "auth/data-authorization",
-              "label": "Data Authorization & Ownership",
-              "attrs": { "data-astro-prefetch": true }
-            },
-            {
-              "slug": "auth/forms",
-              "label": "Forms",
-              "attrs": { "data-astro-prefetch": true }
-            },
-            {
-              "slug": "auth/roles-and-admin",
-              "label": "Roles & Administration",
-              "attrs": { "data-astro-prefetch": true }
-            },
-            {
-              "slug": "auth/schema-and-migrations",
-              "label": "Schema & Migrations",
-              "attrs": { "data-astro-prefetch": true }
-            },
-            {
-              "slug": "auth/plugins",
-              "label": "Better Auth Plugins",
-              "attrs": { "data-astro-prefetch": true }
-            }
-          ]
+          "attrs": { "data-astro-prefetch": true }
         },
         {
           "slug": "email",
