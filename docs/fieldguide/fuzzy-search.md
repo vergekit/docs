@@ -1,6 +1,6 @@
 # Fuzzy Search
 
-Use this guide for adding fuzzy search to a small data set. D1 returns a bounded candidate list, and Fuse.js ranks matches inside the Worker.
+Use this pattern for fuzzy search over a small data set. D1 returns a bounded candidate list, and Fuse.js ranks matches inside the Worker.
 
 This approach accepts spelling errors without a new search service. It does not fit a large table or a high-traffic search endpoint.
 
@@ -85,8 +85,4 @@ When the table no longer fits this limit, use [D1 FTS5](https://developers.cloud
 
 When you need large indexes, language analysis, facets, or complex ranking, use a dedicated search service.
 
-Run all project checks:
-
-```bash
-npm run verify
-```
+Read the Fuse.js guide for all [search options](https://www.fusejs.io/api/options.html).

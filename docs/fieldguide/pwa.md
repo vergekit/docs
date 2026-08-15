@@ -1,8 +1,8 @@
 # PWA Quickstart
 
-A minimum progressive web app needs installation metadata and a service worker. This guide adds installation and a safe offline page.
+A minimum progressive web app needs installation metadata and a service worker. This guide adds install support and a safe offline page.
 
-Note that it does not make D1 data available offline or cache authenticated responses.
+It does not make D1 data available offline or cache authenticated responses.
 
 ## 1. Add the icons
 
@@ -135,16 +135,12 @@ Add this script before the closing `</body>` tag:
 </script>
 ```
 
-## 6. Complete the application
+## 6. Test the application
 
-Run the production build:
-
-```bash
-npm run verify
-```
-
-Deploy the application to an HTTPS origin. Then install it from a supported browser and load it without a network connection.
+Deploy the application to an HTTPS origin. Install it from a supported browser, then load it without a network connection.
 
 [PWABuilder](https://www.pwabuilder.com/) can inspect the deployed application and prepare store packages. Store submission adds separate policy and review work.
 
 Read the web.dev guide for [PWA store packaging](https://web.dev/articles/pwas-in-app-stores) before you submit a package.
+
+For more detail, read the web.dev guides for [web app manifests](https://web.dev/learn/pwa/web-app-manifest) and [service workers](https://web.dev/learn/pwa/service-workers).

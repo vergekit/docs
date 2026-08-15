@@ -64,4 +64,4 @@ Astro exposes every action as a public endpoint. For a private action, authorize
 ## Related guides
 
 - [Astro Actions guide](https://docs.astro.build/en/guides/actions/) - Official guide for the complete Astro Actions workflow
-- [bejamas/ui forms with Astro Actions](https://ui.bejamas.com/docs/forms-astro-actions) - Building validated forms for Astro Actions with  bejamas/ui field primitives
+- [bejamas/ui forms with Astro Actions](https://ui.bejamas.com/docs/forms-astro-actions) - Building validated forms for Astro Actions with bejamas/ui field primitives

@@ -2,7 +2,7 @@
 
 Better Auth uses `name` as its standard display-name field. Keep this field for compatibility with auth APIs, email templates, and plugins.
 
-Many apps, however, will need to separate first and last names for business logic reasons. This guide helps add `firstName` and `lastName` as application fields and uses them to build `name` content during registration.
+Some applications need separate first and last names. This guide adds `firstName` and `lastName` while keeping `name` as the display name.
 
 ## 1. Add the database fields
 
@@ -18,7 +18,7 @@ export const user = sqliteTable('user', {
 });
 ```
 
-The nullable fields keep an existing database migration safe. Require both values for new registrations in the next step.
+Nullable fields let this migration run when users already exist. Better Auth will require both values for new registrations.
 
 Generate and apply the migration:
 
@@ -180,12 +180,6 @@ Find the remaining uses:
 rg -n 'user\.name|userTable\.name|name:' src cli tests
 ```
 
-## 5. Complete the change
+## 5. Migrate existing users
 
 Add first and last names to existing users through an administrator form or a reviewed migration. Do not split old names automatically.
-
-Then run all project checks:
-
-```bash
-npm run verify
-```

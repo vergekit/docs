@@ -1,6 +1,6 @@
 # Ngrok Plugin
 
-The default ngrok workflow (running with parallel CLI command) doesn't always work with Vite. This guide helps to expose your local dev server with [vite-plugin-ngrok](https://github.com/aphex/vite-plugin-ngrok).
+If a separate ngrok process does not work reliably with Vite, use [vite-plugin-ngrok](https://github.com/aphex/vite-plugin-ngrok).
 
 ## Installation
 
@@ -45,7 +45,7 @@ Astro evaluates `astro.config.mjs` before it loads environment files. Wrangler
 also loads `.dev.vars` for the Worker runtime after this configuration step.
 The `parseEnv` call reads the same file when Astro evaluates the configuration.
 
-## Use Cases
+## Use cases
 
 - Testing OAuth callbacks locally
 - Sharing work-in-progress with clients

@@ -1,76 +1,64 @@
 # D1 Best Practices
 
-D1 cost follows rows read, rows written, and stored data. Normal traffic is usually less dangerous than an unbounded operation.
+D1 usage is based on rows read, rows written, and stored data. Bound each operation before traffic grows.
 
-The common hazards are table scans, abusive write routes, excessive logs, and jobs without a fixed limit.
+## Bound every query
 
-## Keep each query bounded
-
-Apply these rules to every D1 path:
+Apply these rules to each D1 query:
 
 1. Select only the columns that the response needs.
-2. Add a fixed result limit.
+2. Limit the number of returned rows.
 3. Use cursor pagination for lists that can grow.
-4. Add indexes for common filters, joins, and sort columns.
-5. When one request must run related statements together, batch them.
-6. Stop imports and jobs after a fixed item count.
+4. Index columns used often in filters, joins, and sorting.
+5. Batch related statements to reduce network round trips.
+6. Process imports and background jobs in fixed-size chunks.
 
-An index reduces scanned rows for a matching query. When indexed values change, the index adds a smaller write and storage cost.
+A result limit bounds the response size. An index can reduce the scanned rows for a matching query.
 
-Use `EXPLAIN QUERY PLAN` before you deploy an important query:
+Use `EXPLAIN QUERY PLAN` for important queries:
 
 ```bash
 npx wrangler d1 execute vk --remote \
   --command='EXPLAIN QUERY PLAN SELECT id, email FROM user WHERE email = ?1'
 ```
 
-Read the D1 guides for [indexes](https://developers.cloudflare.com/d1/best-practices/use-indexes/) and [query cost](https://developers.cloudflare.com/d1/platform/pricing/).
+Look for `SEARCH ... USING INDEX` in the output. A `SCAN` can indicate a full table scan.
 
-## Protect write routes
+Indexes add storage and write work, so add them for real query patterns. Read the D1 guides for [indexes](https://developers.cloudflare.com/d1/best-practices/use-indexes/) and [query cost](https://developers.cloudflare.com/d1/platform/pricing/).
 
-Authenticate each private write. Apply authorization before the database query.
+## Protect public operations
 
-For anonymous writes, apply these controls:
+Authenticate private writes and authorize the user before a query changes data.
+
+For public routes:
 
 - Add [Turnstile](https://developers.cloudflare.com/turnstile/) to registration, contact, and claim forms.
-- Add [rate limits](https://developers.cloudflare.com/workers/runtime-apis/bindings/rate-limit/) to authentication, search, imports, and upload-signing routes.
-- Limit upload bytes, image counts, profile counts, and batch sizes.
-- When a request exceeds an application limit, reject it before D1.
+- Add [rate limits](https://developers.cloudflare.com/workers/runtime-apis/bindings/rate-limit/) to authentication, search, import, and upload routes.
+- Limit upload bytes, item counts, and batch sizes.
+- Reject requests that exceed a limit before they reach D1.
 
-When a user or tenant ID is available, use it as the rate-limit key. Do not use an IP address as the only identity.
+Use a user or tenant ID as the rate-limit key. An IP address alone is not a reliable identity.
 
-## Watch usage and cost
+## Measure usage
 
-Review each database under **D1 > Metrics** in the Cloudflare dashboard. Watch rows read, rows written, query count, and query efficiency.
+In the Cloudflare dashboard, open **D1 > Metrics** for each database. Review rows read, rows written, query count, and query efficiency.
 
-Create several [budget alerts](https://developers.cloudflare.com/billing/manage/budget-alerts/), such as $10, $25, and $50. These alerts give information only. They do not stop usage.
+Each D1 result also includes usage data in its `meta` object. Use this data to find expensive query paths.
 
-Set product usage notifications where Cloudflare provides them. Also set a conservative Worker `cpu_ms` limit in `wrangler.jsonc`:
+Create [budget alerts](https://developers.cloudflare.com/billing/manage/budget-alerts/) at several amounts. Alerts report spend but do not stop usage.
 
-```jsonc
-{
-  "limits": {
-    "cpu_ms": 50
-  }
-}
-```
+Log failures and rejected limits. Sample successful requests instead of logging every database operation.
 
-Choose the value from measured requests. A low value can stop valid server-side rendering or authentication requests.
+## Prepare for incidents
 
-Log failures and unusual limits. Sample successful requests instead of recording every successful database operation.
+For a public content application, add a runtime flag that disables writes. Return `503` from write routes while the flag is active.
 
-## Add a read-only fallback
+Cloudflare Cache can continue to serve public, non-personal content. Do not cache authenticated HTML or private API responses.
 
-For a public content application, add a runtime flag that blocks writes during an incident. Return `503` from write routes while the flag is active.
+## Add read replicas after measurement
 
-Keep public, non-personal content in Cloudflare Cache. This cache can serve content while writes stay disabled.
+Verge Kit passes `runtimeEnv.DB` directly to Drizzle, so it does not use D1 read replicas.
 
-Do not cache authenticated HTML or private API responses.
+Read replication requires the [D1 Sessions API](https://developers.cloudflare.com/d1/best-practices/read-replication/). Writes still use the primary database, and sessions control read consistency.
 
-## Add read replicas only after measurement
-
-Verge Kit currently passes `runtimeEnv.DB` directly to Drizzle. This path does not use D1 read replicas.
-
-D1 read replication requires the [Sessions API](https://developers.cloudflare.com/d1/best-practices/read-replication/). Writes still use the primary database, and read consistency needs deliberate session constraints or bookmarks.
-
-First improve cache behavior, indexes, and query bounds. Then measure real regional latency before you add replica sessions.
+First improve caching, indexes, and query bounds. If measurements show high regional read latency, add replica sessions.

@@ -1,12 +1,13 @@
 # Astro Islands
 
-Astro sends HTML by default. An island adds JavaScript or delayed server work to one part of the page.
+Astro renders components to HTML and sends no client JavaScript by default. Use an island only for the part that needs independent behavior.
 
-When one part needs independent behavior, use an island only for that part. Keep the rest of the page as Astro and HTML.
+- A client island adds browser interactivity.
+- A server island defers slow or personalized server content.
 
-## Add an interactive island
+## Add a client island
 
-Add the [Astro React integration](https://docs.astro.build/en/guides/integrations-guide/react/) before you use React in a page:
+Install the [Astro React integration](https://docs.astro.build/en/guides/integrations-guide/react/):
 
 ```bash
 npx astro add react
@@ -28,7 +29,7 @@ export default function Counter() {
 }
 ```
 
-Use the component in an Astro page:
+Add the component to an Astro page with a client directive:
 
 ```astro
 ---
@@ -38,34 +39,23 @@ import Counter from '@/components/Counter';
 <Counter client:visible />
 ```
 
-When the button approaches the viewport, the page sends the island JavaScript.
+`client:visible` loads the island JavaScript when the component enters the viewport.
 
-Choose the smallest suitable client directive:
+Choose the least eager directive that gives the required experience:
 
 | Directive | Use it when |
 | --- | --- |
 | `client:load` | The control must work immediately |
 | `client:idle` | The control can wait until the browser is idle |
-| `client:visible` | The control starts below the first viewport |
+| `client:visible` | The control starts outside the first viewport |
 | `client:media` | The control is interactive only for a media query |
 | `client:only` | The component cannot render on the server |
 
-Read the Astro guide for [client islands](https://docs.astro.build/en/concepts/islands/#client-islands).
+For small DOM behavior, use a normal `<script>` in an Astro component. A UI framework is not necessary for one local event listener.
 
-## Use plain Astro for smaller behavior
+Read the Astro guide for [client islands](https://docs.astro.build/en/concepts/islands/#client-islands) and all [client directives](https://docs.astro.build/en/reference/directives-reference/#client-directives).
 
-Do not add React for these cases:
-
-- A form that posts to an Astro Action or API route
-- A disclosure or dialog that a bejamas component already supports
-- One event listener on one page
-- Content that does not change after the server sends it
-
-Use a normal `<script>` in the Astro component for small, local DOM behavior.
-
-## Defer slow server content
-
-A server island delays one Astro component. It does not add a UI framework.
+## Add a server island
 
 Create `src/components/AccountSummary.astro`:
 
@@ -90,16 +80,10 @@ import AccountSummary from '@/components/AccountSummary.astro';
 </AccountSummary>
 ```
 
-The main page arrives first. Astro then requests the server island from a separate generated route.
+Astro sends the main page first. It then requests the server island from a generated route.
 
-Use a server island for slow or personalized content that must not delay public page content. Each island adds another Worker request.
+If slow or personalized content must not delay the page, use a server island. Each island adds a Worker request.
 
-Do not split every panel into a server island. Extra requests and repeated D1 queries can make the page slower and more expensive.
+Do not split every panel into a server island. Extra requests and repeated database queries can make the page slower and more expensive.
 
 Read the Astro guide for [server islands](https://docs.astro.build/en/guides/server-islands/).
-
-Run all project checks after you add an island:
-
-```bash
-npm run verify
-```
