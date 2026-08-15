@@ -10,7 +10,12 @@ The components do not add a browser framework. Interactive components use `@data
 
 See the [bejamas/ui component catalog](https://ui.bejamas.com/components) for previews, examples, and component APIs.
 
-These components are included by default: [Button](https://ui.bejamas.com/components/button), [Field](https://ui.bejamas.com/components/field), [Input](https://ui.bejamas.com/components/input), [Label](https://ui.bejamas.com/components/label), [Separator](https://ui.bejamas.com/components/separator)
+These components are included by default:
+- [Button](https://ui.bejamas.com/components/button)
+- [Field](https://ui.bejamas.com/components/field)
+- [Input](https://ui.bejamas.com/components/input)
+- [Label](https://ui.bejamas.com/components/label)
+- [Separator](https://ui.bejamas.com/components/separator)
 
 
 ### Installation
@@ -43,17 +48,17 @@ See these resources for theme creation and detailed instructions:
   <Card title="Bejamas/ui theming guide" description="Read the theme variables and CSS structure." href="https://ui.bejamas.com/docs/theming" />
 </CardGrid>
 
-Most shadcn theme generators (such as [Shadcn Themer](https://shadcnthemer.com/), [tweakcn](https://tweakcn.com/editor/theme), and [clonecn](https://github.com/hunvreus/clonecn)) work with the Bejamas color variables. Use [Bejamas Create](https://ui.bejamas.com/create) when you need a complete preset instead of colors only.
+Most shadcn theme generators (such as [Shadcn Themer](https://shadcnthemer.com/), [tweakcn](https://tweakcn.com/editor/theme), and [clonecn](https://github.com/hunvreus/clonecn)) work with the Bejamas color variables only.
 
 ### Create a theme
 
-The fastest method is to create a preset with [Bejamas Create](https://ui.bejamas.com/create). Commit your changes, then apply only its theme values:
+The fastest method is to create a preset with [Bejamas Create](https://ui.bejamas.com/create). Commit changes, then apply only its theme values:
 
 ```bash
 npx bejamas apply <preset> --only theme
 ```
 
-You can also copy a generator's CSS values into `src/styles/global.css`. Define light values in `:root` and dark values in `.dark`:
+A generator's CSS values may also be copied directly into `src/styles/global.css`. Define light values in `:root` and dark values in `.dark`:
 
 ```css
 :root {

@@ -1,10 +1,10 @@
 # Email
 
-Verge Kit sends email through `@vergekit/core/email`. Application templates are in `src/email`.
+Verge Kit sends transactional email through `@vergekit/core/email`. React Email templates live in `src/email`.
 
 Available providers are `console`, Cloudflare Email, Resend, and Mailgun. Use `console` for local development without delivery.
 
-## Send Transactional Email
+## Send transactional email
 
 Use `sendEmail` in Worker or Astro server code:
 
@@ -12,34 +12,37 @@ Use `sendEmail` in Worker or Astro server code:
 import { env } from 'cloudflare:workers';
 import { sendEmail } from '@vergekit/core/email';
 
-const result = await sendEmail(env, {
-  to: { email: 'customer@example.com', name: 'Customer Name' },
-  from: { email: 'noreply@example.com', name: 'VK' },
-  subject: 'Your VK receipt',
-  html: '<p>Thanks for your order.</p>',
-  text: 'Thanks for your order.',
-  replyTo: 'support@example.com',
-});
+try {
+  const result = await sendEmail(env, {
+    to: { email: 'customer@example.com', name: 'Customer Name' },
+    from: { email: 'noreply@example.com', name: 'VK' },
+    subject: 'Your VK receipt',
+    html: '<p>Thanks for your order.</p>',
+    text: 'Thanks for your order.',
+    replyTo: 'support@example.com',
+  });
 
-console.info('sent email', result.provider, result.id);
+  console.info('sent email', result.provider, result.id);
+} catch (error) {
+  console.error('Email send failed', error);
+}
 ```
 
-`to` accepts one address, one named address, or an array of either form. `from` and `replyTo` accept the same forms.
+- `to` accepts one address, one named address, or an array of addresses.
+- Include both `html` and `text` content.
+- Include `from` for direct sends. `sendEmail` does not read `EMAIL_FROM` automatically.
+- Catch provider errors at the route or job boundary. Do not return provider response bodies to users.
 
-Always include `html` and `text`. The text value gives each message a plain-text version.
-
-For a direct send, include `from` in the message. `sendEmail` does not read `EMAIL_FROM` automatically.
-
-## Configure a Provider
+## Configure a provider
 
 `EMAIL_PROVIDER` selects the provider. If this value is missing, Verge Kit uses `console`.
 
 | Provider | Required configuration |
 | --- | --- |
 | `console` | None (writes message to server log) |
-| `cloudflare` | An `EMAIL` binding in `wrangler.jsonc` |
+| `cloudflare` | An `EMAIL` binding and an onboarded sending domain |
 | `resend` | `RESEND_API_KEY` |
-| `mailgun` | `MAILGUN_API_KEY` and `MAILGUN_DOMAIN` |
+| `mailgun` | `MAILGUN_API_KEY` plus `MAILGUN_DOMAIN` in `wrangler.jsonc` |
 
 Put non-secret values in `wrangler.jsonc`:
 
@@ -49,12 +52,21 @@ Put non-secret values in `wrangler.jsonc`:
     "EMAIL_PROVIDER": "resend",
     "EMAIL_FROM": "VK <noreply@example.com>",
     "EMAIL_REPLY_TO": "support@example.com",
-    "MAILGUN_DOMAIN": "mg.example.com",
   },
 }
 ```
 
-Put local secrets in `.dev.vars`:
+For Cloudflare Email, add the binding to `wrangler.jsonc`:
+
+```jsonc
+{
+  "send_email": [{ "name": "EMAIL" }]
+}
+```
+
+See the [Cloudflare Email setup guide](https://developers.cloudflare.com/email-service/get-started/send-emails/) for domain onboarding.
+
+Store local provider secrets in `.dev.vars`:
 
 ```bash
 RESEND_API_KEY=your-local-resend-key
@@ -70,72 +82,21 @@ npx wrangler secret put MAILGUN_API_KEY
 
 Add only the secret for the selected provider.
 
-## Send Authentication Email
+## React Email templates
 
-Use `createAuthEmailSenderFromEnv` for verification and password-reset email:
-
-```ts
-import { env } from 'cloudflare:workers';
-import { createAuthEmailSenderFromEnv } from '@vergekit/core/email';
-import { authEmailOptions } from '@/config/auth-email';
-
-const authEmail = createAuthEmailSenderFromEnv(env, authEmailOptions);
-
-await authEmail.sendVerificationEmail({
-  to: 'customer@example.com',
-  name: 'Customer Name',
-  url: 'https://example.com/auth/verify?token=...',
-});
-```
-
-Configure sender defaults and render functions in `src/config/auth-email.ts`. The email templates are in these files:
+Templates use [React Email](https://react.email/) components and render to HTML and plain text. The starter includes these authentication templates:
 
 - `src/email/auth/verify-email.tsx`
 - `src/email/auth/reset-password.tsx`
 
-Preview the templates:
+Configure their sender defaults and render functions in `src/config/auth-email.ts`. Better Auth uses this configuration for verification and password-reset email.
+
+Add custom `.tsx` templates under `src/email`. Render each template to HTML and plain text before you pass it to `sendEmail`.
+
+Preview all templates locally:
 
 ```bash
 npm run email
 ```
 
-The route `src/pages/api/debug/email.ts` does not send email by default. Enable its example implementation to do a manual delivery test.
-
-## Handle Errors
-
-A missing configuration value or provider error causes `sendEmail` to reject. Catch the error at the route or job boundary.
-
-```ts
-try {
-  await sendEmail(env, message);
-} catch (error) {
-  console.error('Email send failed', error);
-}
-```
-
-Do not return provider response bodies to users. If you need diagnostic data, store the optional result `id`.
-
-## Test Email Code
-
-Use the `console` provider for a test that does not need delivery:
-
-```ts
-const info = vi.fn();
-
-const result = await sendEmail(
-  { EMAIL_PROVIDER: 'console' },
-  {
-    to: 'customer@example.com',
-    from: 'noreply@example.test',
-    subject: 'Test email',
-    html: '<p>Hello</p>',
-    text: 'Hello',
-  },
-  { console: { info } },
-);
-
-expect(result).toEqual({ provider: 'console', id: 'console' });
-expect(info).toHaveBeenCalledWith('[email:console]', expect.any(Object));
-```
-
-For Resend or Mailgun tests, pass `options.fetcher` to replace HTTP requests.
+See the [React Email documentation](https://react.email/docs/introduction) for components and custom templates.

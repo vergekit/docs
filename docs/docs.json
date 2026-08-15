@@ -26,7 +26,7 @@
     },
     {
       "type": "group",
-      "label": "Application Essentials",
+      "label": "Development",
       "items": [
         {
           "slug": "configuration",
@@ -47,7 +47,7 @@
           "attrs": { "data-astro-prefetch": true }
         },
         {
-          "slug": "auth/index",
+          "slug": "auth",
           "label": "Authentication",
           "icon": "shield-check",
           "attrs": { "data-astro-prefetch": true }

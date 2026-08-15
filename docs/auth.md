@@ -35,7 +35,7 @@ Routes are public by default. Authentication does not grant access to every rout
 
 Keep route rules, roles, and permissions in `src/config/auth.ts`. Keep record-level rules next to each server-side database query.
 
-### Protect Routes
+### Protecting Routes
 
 Add exact paths and path prefixes to the shared route rules:
 
@@ -91,7 +91,7 @@ Use `userHasAppPermission()` for a permission rule outside the shared route conf
 
 Better Auth supplies administrator functions through its [admin plugin](https://better-auth.com/docs/plugins/admin). Verge Kit does not include an administrator interface.
 
-### Protect Records
+### Protecting Records
 
 A protected route permits every signed-in user. It does not limit which records that user can read or change.
 
