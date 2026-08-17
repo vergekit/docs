@@ -1,6 +1,6 @@
 import { defineMiddleware } from "astro:middleware";
 
-const homeTitle = "Verge Kit - Start new apps with low effort & high confidence";
+const homeTitle = "Verge Kit - A solid foundation for Astro apps";
 
 const replaceTitleMetadata = (html: string) =>
   html
