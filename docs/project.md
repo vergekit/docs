@@ -19,9 +19,9 @@ Verge Kit exists to make development with this stack more predictable. It provid
 
 ## Project links
 
-- [Github - Issues](https://github.com/vergekit/vergekit/issues)
-- [Trello - Roadmap](https://trello.com/b/PKTGLTis/verge-kit)
-- [Dropbox - Shared project files](https://www.dropbox.com/scl/fo/4j440rzgyno0mgqt3lrae/AOPE27BDTBCbTsU2o5qx1WI?rlkey=l57r1ifm7m08k6telhvkc8m69&dl=0)
+- [Public Roadmap (Trello)](https://trello.com/b/PKTGLTis/verge-kit)
+- [Open Issues (Github)](https://github.com/vergekit/vergekit/issues)
+- [Shared project files (Dropbox)](https://www.dropbox.com/scl/fo/4j440rzgyno0mgqt3lrae/AOPE27BDTBCbTsU2o5qx1WI?rlkey=l57r1ifm7m08k6telhvkc8m69&dl=0)
 
 <!-- ## Personnel
 

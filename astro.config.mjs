@@ -34,7 +34,7 @@ export default defineConfig({
         subtitle: 'v0.1.4',
         description: 'Verge Kit is a full-stack Astro starter for Cloudflare Workers with the essentials pre-wired.',
         url: 'https://vergekit.com',
-        socialImage: '/og-verge-kit.png',
+        socialImage: '/og-verge-kit-neutral.png',
         logo: {
           url: '/vk-crane-a-white.svg',
         },
