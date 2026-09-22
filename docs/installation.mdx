@@ -1,9 +1,5 @@
 # Installation
 
-## Requirements
-
-- Node.js >= 22.12 & npm
-- [Cloudflare](https://www.cloudflare.com/) account for remote D1 and Cloudflare deployment
 
 ## Recommended Installation
 
@@ -16,6 +12,18 @@ npm create vergekit@latest
 Verge Kit uses Cloudflare Workers with D1 by default, but the installer also offers a [Node.js + MySQL preset](/fieldguide/node-mysql) as a self-hosted alternative.
 
 The installer asks for a project location and completes the guided setup, creating local secrets, installing dependencies, applying migrations, and optionally creating the initial administrator account.
+
+### Diminishing Dependency Deprecations
+
+You may see npm warnings during the installation process, as dependency packages are constantly being updated. After installation, it's always a good idea to run a dependency scan and repair:
+
+```bash
+npm audit fix
+```
+
+### Deploy Early and Often
+It's always a good idea to set up your production deployment at installation time. Getting all the deployment issues worked out when you initialize the application can obviate a significant amount of stress in the future. Check out the [Deployment guide](/deployment) for more information.
+
 
 ## Manual Installation
 

@@ -2,6 +2,18 @@
 
 Verge Kit includes defaults for requests, sessions, redirects, roles, and secrets. Your application still needs its own access rules.
 
+## Supply chain security
+
+We've done our best to build a base application as securely as possible, but nothing is truly secure. Dependency vulnerabilities are inevitable, especially in the JS ecosystem...that’s just the nature of the beast.
+
+The most important security recommendations:
+
+- Set up dependabot alerts
+- Run `npm audit fix` often
+- Don’t do anything stupid
+
+
+
 ## Requests and CORS
 
 Astro origin checks are active in `astro.config.mjs`:

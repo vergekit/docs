@@ -12,10 +12,21 @@ Pages, components, Actions, middleware, and authentication policy stay the same.
 | Migrations | Wrangler | Drizzle Kit |
 | Production | `wrangler deploy` | Persistent `npm run start` process |
 
+
 ## Requirements
 
 - MySQL 8
 - A process manager such as PM2 and a TLS reverse proxy for production
+
+
+## JY VPS CONFIG
+- [DW KH deploy](https://darkwavejs.com/docs/workflow/deployment/)
+  - ecosystem.config.cjs
+  - pm2 init
+  - deploy.sh, monitor.sh
+- [deploy-astro-vps-ssh.sh](https://github.com/jyoungblood/0x00/blob/master/deploy/deploy-astro-vps-ssh.sh)
+- astro.config.mjs - add allowedDomains to "security": `allowedDomains: [{ hostname: "productionsite.com", protocol: "https" }],`
+
 
 ## Configuring MySQL
 
@@ -39,11 +50,8 @@ And add the credentials for your local database to `.env`
 
 The Node.js preset also reads Better Auth and email values from `.env`. The included `.env.example` lists every supported value.
 
-Do not commit `.env`. In production, provide these values through the host, process manager, or secret store.
 
 ## Managing the database
-
-The Node.js preset has one MySQL migration target. Its command does not use the D1 `:local` or `:remote` suffixes.
 
 ```bash
 npm run db:migrate
@@ -95,6 +103,9 @@ Enable `mod_headers`, `mod_proxy`, `mod_proxy_http`, and `mod_rewrite`. Add this
 DirectoryIndex disabled
 
 RewriteEngine On
+
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 RequestHeader set X-Forwarded-Host "expr=%{HTTP_HOST}"
 RequestHeader set X-Forwarded-Proto "https"
