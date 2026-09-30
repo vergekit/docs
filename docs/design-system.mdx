@@ -33,10 +33,6 @@ The CLI reads `components.json` to determine where component location, style, ic
 See the [bejamas CLI documentation](https://ui.bejamas.com/docs/cli) for all commands and options.
 
 
-### Class name utility
-
-Bejamas/ui ***always*** installs `src/lib/utils.ts`. Its `cn()` function combines conditional classes and resolves conflicting Tailwind classes.
-
 ## Themes and styling
 
 Theme values live in `src/styles/global.css`. Bejamas components and Tailwind utilities use these shared CSS variables.
@@ -77,3 +73,8 @@ A generator's CSS values may also be copied directly into `src/styles/global.css
 ```
 
 Keep the existing variable names and `@theme inline` mappings. See the [bejamas/ui theming guide](https://ui.bejamas.com/docs/theming) for the complete variable reference.
+
+## Known Issues
+
+- Bejamas/ui ***always*** installs `src/lib/utils.ts`. Its `cn()` function combines conditional classes and resolves conflicting Tailwind classes.
+- The [Select](https://ui.bejamas.com/components/select) component reserves scrollbar space by default, which can shift the layout on short pages. In `src/components/ui/select/Select.astro`, add `createSelect(el, { lockScroll: false })` to avoid layout shift.
